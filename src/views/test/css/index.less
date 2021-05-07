@@ -1,0 +1,23 @@
+@import "./other";
+@defaultWidth : 100px;
+.content{
+  height: 600px;
+  width: 1000px;
+  background-color: @lightGrey;
+  .button{
+    transition: .2s;
+    height: @defaultHeight;
+    width: @defaultWidth;
+    background-color: @primary-color;
+    &:hover{
+      height: 60px;
+      width: 200px;
+      background-color: @primary-color;
+    }
+    &:active{
+      height: 30px * 3;
+      width: @defaultWidth + 200px;
+      background-color: @primary-color;
+    }
+  }
+}
