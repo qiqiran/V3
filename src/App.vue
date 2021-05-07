@@ -1,5 +1,5 @@
 <template>
-  <Layout style="height: 100%;">
+  <Layout style="height: 101%;">
     <RouterView>
       <template #default="{ Component, route }">
         <keep-alive :include="getCaches">
