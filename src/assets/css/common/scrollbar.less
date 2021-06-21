@@ -1,0 +1,31 @@
+/* 谷歌浏览器滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, .3);
+  background-clip: padding-box;
+  /* border-radius: 10px; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(144, 147, 153, .5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(144, 147, 153, .6);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* 火狐浏览器滚动条 */
+* {
+  scrollbar-color: rgba(144, 147, 153, .3) rgba(144, 147, 153, .0);
+  /* 滑块颜色  滚动条背景颜色 */
+  scrollbar-width: thin;
+  /* 滚动条宽度有三种：thin、auto、none */
+}
