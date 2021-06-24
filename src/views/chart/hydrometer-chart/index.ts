@@ -1,6 +1,6 @@
-import { LeiDaBo, CeLiuYi, LanDao, ChartData } from "./types";
+import type { LeiDaBo, CeLiuYi, LanDao, ChartData } from "./types";
+import type { ECharts } from "echarts";
 
-import { ECharts } from "echarts";
 import { init, graphic } from 'echarts';
 
 import { jiQiRen, tanZhao, huaLun, qianYu, steelBridge } from "./src/images";

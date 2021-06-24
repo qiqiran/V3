@@ -13,9 +13,20 @@ export const menus: MenuType[] = [
     path: '/x77',
     icon: 'setting',
   }, {
-    name: '断面测流图',
-    path: '/hydrometer-chart',
-    icon: 'data'
+    name: '图表',
+    path: '/charts',
+    icon: 'data',
+    children: [
+      {
+        name: '断面测流图',
+        path: '/hydrometer-chart',
+        icon: 'data'
+      }, {
+        name: '梯级剖面图',
+        path: '/cascade-graphs',
+        icon: 'data'
+      }
+    ]
   }, {
     name: '组件',
     path: '/components',
