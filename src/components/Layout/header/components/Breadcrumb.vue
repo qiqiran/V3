@@ -2,9 +2,14 @@
   <div :class="[prefixCls, `${prefixCls}--${theme}`]">
     <a-breadcrumb :routes="getMenus">
       <template #itemRender="{ route, routes, paths }">
-        <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
-        <span v-if="!hasRedirect(routes, route)">{{ (route.title || route.name) }}</span>
-        <a v-else @click="handleClick(route, paths, $event)">{{ (route.title || route.name) }}</a>
+        <span v-if="!hasRedirect(routes, route)">
+          <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
+          <span>{{ (route.title || route.name) }}</span>
+        </span>
+        <span v-else @click="handleClick(route, paths, $event)">
+          <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
+          <span class="active">{{ (route.title || route.name) }}</span>
+        </span>
       </template>
     </a-breadcrumb>
   </div>
@@ -51,6 +56,8 @@ export default defineComponent({
     });
 
     function handleClick(menu: Menu, paths: string[], e: Event) {
+      console.log("handled");
+
       let { path, name, children } = menu;
       if (children?.length) return;
       if (isUrl(path)) {
@@ -90,11 +97,17 @@ export default defineComponent({
     }
   }
 
+  .ant-dropdown-menu-item-active {
+    &:hover {
+      color: @primary-color!important;
+    }
+  }
+
   &--light {
     .ant-breadcrumb-link {
       color: fade(@black, 80);
 
-      a {
+      .active {
         color: fade(@black, 90);
 
         &:hover {
@@ -112,7 +125,7 @@ export default defineComponent({
     .ant-breadcrumb-link {
       color: fade(@white, 80);
 
-      a {
+      .active {
         color: fade(@white, 90);
 
         &:hover {
