@@ -2,8 +2,19 @@ import type { ECharts } from "echarts";
 
 import { init, graphic } from 'echarts';
 
-import { isNullOrUnDef } from "@/utils/is"
+import { isArray, isNullOrUnDef } from "@/utils/is"
 
+export enum stateEnum {
+  construct = '在建电站',
+  design = '规划待建电站',
+  finished = '已建电站'
+}
+
+export enum stateColorEnum {
+  construct = '#ff00ff',
+  design = '#00a529',
+  finished = '#000'
+}
 
 export class CascadeGraphs {
   private chart: any;
@@ -36,7 +47,6 @@ export class CascadeGraphs {
         return res
       }, [] as number[][])
     );
-    console.log(intersectionPointList);
 
     series.push(
       {
@@ -68,7 +78,29 @@ export class CascadeGraphs {
         type: 'inside',
       }],
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        formatter: (params) => {
+          let res = '';
+          if (isArray(params)) {
+            params.forEach((row) => {
+              const { seriesName, seriesType, marker, data: { station } } = row;
+              if (seriesType === 'bar' && seriesName === 'dam-body') {
+
+                const { name, mileage, elevation, waterLevel, state } = station;
+                res = `
+                <h3>${marker}${name}<span style="font-size:12px">(${stateEnum[state]})</span>
+                </h3>
+                &emsp;里程：${mileage}(m)
+                <br/>
+                &emsp;高程：${elevation}(m)
+                <br/>
+                &emsp;水位：${waterLevel}(m)
+                `;
+              }
+            })
+          }
+          return res;
+        },
       },
       grid: {
         top: 50,
@@ -212,25 +244,21 @@ export class CascadeGraphs {
  * @param miny 最小高程
  * @returns 
  */
-function getSectionProfile(stations: { name: string, elevation: number, mileage: number }[], maxx: number, miny: number) {
+function getSectionProfile(stations: { name: string, elevation: number, mileage: number, waterLevel: number, state: string }[], maxx: number, miny: number) {
   const res: any[] = [];
 
   // 水位剖面
   const riverData: any[] = [];
   const len = stations.length;
   for (let i = 0; i < len; i++) {
-    const { elevation, mileage } = stations[i];
+    const { mileage, waterLevel } = stations[i];
     const lastStation = stations[i - 1];
-    lastStation ? riverData.push([lastStation.mileage, elevation]) : riverData.push([maxx, elevation])
-    riverData.push([mileage, elevation])
+    lastStation ? riverData.push([lastStation.mileage, waterLevel]) : riverData.push([maxx, waterLevel])
+    riverData.push([mileage, waterLevel])
   }
   res.push({
     name: `section-profile`,
     type: 'line',
-    // label: {
-    //   position: 'top',
-    //   show: true
-    // },
     symbolSize: 0,
     smooth: true,
     itemStyle: {
@@ -255,19 +283,19 @@ function getSectionProfile(stations: { name: string, elevation: number, mileage:
 
   // 坝体剖面
   const damData = stations.reduce((res, row) => {
-    const { elevation, mileage } = row;
-    res.push([mileage, elevation + 30]);
+    const { name, elevation, mileage, state } = row;
+    res.push({
+      name,
+      value: [mileage, elevation],
+      itemStyle: { color: stateColorEnum[state] },
+      station: row
+    });
     return res;
   }, [] as any[])
 
   res.push({
     name: `dam-body`,
     type: 'bar',
-    // label: {
-    //   show: true,
-    //   position: 'top',
-    //   rotate: 90,
-    // },
     barWidth: 5,
     itemStyle: {
       color: '#666'
