@@ -31,49 +31,32 @@ export class CascadeGraphs {
 
 
   draw(chartData) {
-    const { x, y, minx, miny, maxx, maxy, stations }: { x: number[], y: number[], minx: number, miny: number, maxx: number, maxy: number, stations: any[] } = chartData;
-
-    const series: any[] = [...getRiverbedCrossSection(x, y, miny, maxy)];
-
-    series.push(...getSectionProfile(stations, maxx, miny))
+    const { x, y, minx, miny, maxx, maxy, sections, stations }: { x: number[], y: number[], minx: number, miny: number, maxx: number, maxy: number, sections: any[], stations: any[] } = chartData;
 
     const intersectionPointList = getIntersectionPoint(
       stations.reduce((res, row) => {
         res.push([row.mileage, row.elevation, row.name]);
         return res;
-      }, [] as number[][]),
-      x.reduce((res, row, index) => {
-        res.push([row, y[index]])
+      }, [] as any[][]),
+      sections.reduce((res, row) => {
+        res.push([row.mileage, row.elevation])
         return res
-      }, [] as number[][])
+      }, [] as any[][])
     );
 
-    series.push(
-      {
-        name: `intersection-point`,
-        type: 'line',
-        show: false,
-        label: {
-          show: true,
-          position: 'insideTop',
-          fontSize: 16,
-          color: '#fff',
-          formatter: (param) => {
-            return param?.data[2]?.split('')?.join()?.replaceAll(',', '\n')
-          }
-        },
-        symbolSize: 0,
-        itemStyle: {
-          color: 'rgba(0,0,0,0)'
-        },
-        z: 21,
-        data: intersectionPointList
-      }
-    )
+    const sectionsCopy = [...sections, ...intersectionPointList.reduce((res, row) => {
+      res.push({ mileage: row[0], elevation: row[1] });
+      return res;
+    }, [] as any[])].sort((a, b) => b.mileage - a.mileage);
+
+    const series: any[] = [...getRiverbedCrossSection(sectionsCopy, miny, maxy, x, y)];
+
+    series.push(...getSectionProfile(stations, sections, intersectionPointList, maxx, miny))
 
     this.chart.setOption({
       dataZoom: [{
         type: 'slider',
+        brushSelect: false
       }, {
         type: 'inside',
       }],
@@ -244,7 +227,7 @@ export class CascadeGraphs {
  * @param miny 最小高程
  * @returns 
  */
-function getSectionProfile(stations: { name: string, elevation: number, mileage: number, waterLevel: number, state: string }[], maxx: number, miny: number) {
+function getSectionProfile(stations: { name: string, elevation: number, mileage: number, waterLevel: number, state: string }[], sections: any[], intersectionPointList: any[], maxx: number, miny: number) {
   const res: any[] = [];
 
   // 水位剖面
@@ -304,26 +287,52 @@ function getSectionProfile(stations: { name: string, elevation: number, mileage:
     z: 9,
     data: damData
   })
+
+  // 标注
+  res.push(
+    {
+      name: `intersection-point`,
+      type: 'line',
+      label: {
+        show: true,
+        position: 'insideTop',
+        fontSize: 16,
+        color: '#fff',
+        formatter: (param) => {
+          return param?.data[2]?.split('')?.join()?.replaceAll(',', '\n')
+        }
+      },
+      symbolSize: 0,
+      itemStyle: {
+        color: 'rgba(0,0,0,0)'
+      },
+      z: 21,
+      data: intersectionPointList
+    }
+  )
+
   return res;
 }
 
 /**
  * 河流横截面
- * @param x 
- * @param y 
  * @param minx 截面起点
  * @param maxx 截面重点
  * @param waterLevel 水位
  * @returns 
  */
-function getRiverbedCrossSection(x: number[], y: number[], miny: number, maxy: number) {
+function getRiverbedCrossSection(sections: any[], miny: number, maxy: number, x: number[], y: number[]) {
   const riverbed: number[][] = [];
   const crossSection: number[][] = [];
   const riverbedHeight = (maxy - miny) * 0.1;
-  x.forEach((v, i) => {
-    riverbed.push([v, y[i]]);
-    crossSection.push([v, y[i] - riverbedHeight]);
+
+  sections.forEach((row, i) => {
+    const { mileage, elevation } = row;
+    riverbed.push([mileage, elevation]);
+    crossSection.push([mileage, elevation - riverbedHeight]);
   });
+  console.log(sections);
+
   return [
     {
       name: '河床',
@@ -377,37 +386,56 @@ function getIntersectionPoint(points1: number[][], points2: number[][]) {
         const after = points2[i + 1];
 
         if ((row[0] < before[0] && row[0] > after[0]) || (row[0] > before[0] && row[0] < after[0])) {
-          // res.push(segmentsIntr([row, points1[index + 1] || points1[index - 1]], [before, after]));
-          res.push([row[0], before[1] < after[1] ? before[1] : after[1], row[2]]);
+          const ponit = segmentsIntr(row, [row[0], 0], before, after)
+
+          if (ponit !== false) {
+            res.push([...ponit as Point, row[2]]);
+          } else {
+            res.push([row[0], before[1] < after[1] ? before[1] : after[1], row[2]]);
+          }
           break;
         }
       } else {
-        // res.push(segmentsIntr([row, points1[index - 1]], [points2[len - 2], points2[len - 1]]));
-        res.push([row[0], points2[i][1], row[2]]);
+        const ponit = segmentsIntr(row, [row[0], 0], points2[len - 2], points2[len - 1])
+        if (ponit !== false) {
+          res.push([...ponit as Point, row[2]]);
+        } else {
+          res.push([row[0], points2[i][1], row[2]]);
+        }
       }
     }
   })
   return res;
 }
-// 是否执行后续的计算 ？ 不是最后一个点，且有交点时
-function ifCalculatePoint(idx, lth, [a1, b1, a2, b2]: any[] = []) {
-  return idx !== (lth - 1) && ifHaveIntersectionPoint(a1, b1, a2, b2)
-}
 
-// 判断两条线段是否有交点, a1、b1 为两条线在 x1 处的值；a2、b2 为两条线在 x2 处的值；
-// 只要不是一条线段的两个点都高于另一个点就会有交点；
-function ifHaveIntersectionPoint(a1, b1, a2, b2) {
-  return (+a1 > +b1) != (+a2 > +b2)
-}
+type Point = number[]
+// 求两条线段交点，a,b 为第一条线段的始末点，c,d 为第二条线段的始末点。
+function segmentsIntr(a: Point, b: Point, c: Point, d: Point): boolean | Point {
 
-// 求两条线段交点，a,b 为第一条线段的始末点，c,d 为第二条线段的始末点。[0]，[1] 为点的横纵坐标
-function segmentsIntr([a, b], [c, d]) {
-  var denominator = (b[1] - a[1]) * (d[0] - c[0]) - (a[0] - b[0]) * (c[1] - d[1])
-  var x = ((b[0] - a[0]) * (d[0] - c[0]) * (c[1] - a[1]) +
-    (b[1] - a[1]) * (d[0] - c[0]) * a[0] -
-    (d[1] - c[1]) * (b[0] - a[0]) * c[0]) / denominator
-  var y = -((b[1] - a[1]) * (d[1] - c[1]) * (c[0] - a[0]) +
-    (b[0] - a[0]) * (d[1] - c[1]) * a[1] -
-    (d[0] - c[0]) * (b[1] - a[1]) * c[1]) / denominator
-  return [x, y]
+  // 三角形abc 面积的2倍
+  const area_abc = (a[0] - c[0]) * (b[1] - c[1]) - (a[1] - c[1]) * (b[0] - c[0]);
+
+  // 三角形abd 面积的2倍
+  const area_abd = (a[0] - d[0]) * (b[1] - d[1]) - (a[1] - d[1]) * (b[0] - d[0]);
+
+  // 面积符号相同则两点在线段同侧,不相交 (对点在线段上的情况,本例当作不相交处理);
+  if (area_abc * area_abd >= 0) {
+    return false;
+  }
+
+  // 三角形cda 面积的2倍
+  const area_cda = (c[0] - a[0]) * (d[1] - a[1]) - (c[1] - a[1]) * (d[0] - a[0]);
+  // 三角形cdb 面积的2倍
+  // 注意: 这里有一个小优化.不需要再用公式计算面积,而是通过已知的三个面积加减得出.
+  const area_cdb = area_cda + area_abc - area_abd;
+  if (area_cda * area_cdb >= 0) {
+    return false;
+  }
+
+  //计算交点坐标
+  const t = area_cda / (area_abd - area_abc);
+  const dx = t * (b[0] - a[0]),
+    dy = t * (b[1] - a[1]);
+  return [a[0] + dx, a[1] + dy];
+
 }
