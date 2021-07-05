@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="chart-dom" ref="chartDom"></div>
-    <div class="table-dom">
+    <div class="chart-dom" ref="chartDom" :style="`height: calc(100% - ${hideTable ? 0 : 221}px)`"></div>
+    <div class="table-dom" v-if="!hideTable">
       <table border="1" style="width: 100%;">
         <thead>
           <th
@@ -40,7 +40,7 @@ import { useWindowSizeFn } from "src/hooks/event/useWindowSizeFn";
 export default defineComponent({
   setup() {
     const chartDom: Ref<HTMLElement | null> = ref(null);
-    const data = require("./data.js");
+    const { data } = require("./data.ts");
 
     onBeforeMount(() => {
       data.sections.sort((a, b) => {

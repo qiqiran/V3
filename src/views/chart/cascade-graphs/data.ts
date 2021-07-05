@@ -1,8 +1,11 @@
-module.exports = {
+import type { ChartData } from "./types";
+
+export const data: ChartData = {
   minx: 0.0,
   maxx: 861.39,
   miny: 0.0,
   maxy: 3500.0,
+  hideTable: false,
   sections: [
     { name: '加让目且', mileage: 861.39, elevation: 3080 },
     { name: '若尔格', mileage: 846.09, elevation: 3040 },
