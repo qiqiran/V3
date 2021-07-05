@@ -279,6 +279,17 @@ function getSectionProfile(stations: { name: string, elevation: number, mileage:
   res.push({
     name: `dam-body`,
     type: 'bar',
+    label: {
+      show: true,
+      position: 'top',
+      fontSize: 14,
+      color: '#000',
+      formatter: (param) => {
+        console.log(param);
+
+        return `▽ ${param?.data?.station?.waterLevel}`;
+      }
+    },
     barWidth: 5,
     itemStyle: {
       color: '#666'
@@ -331,7 +342,6 @@ function getRiverbedCrossSection(sections: any[], miny: number, maxy: number, x:
     riverbed.push([mileage, elevation]);
     crossSection.push([mileage, elevation - riverbedHeight]);
   });
-  console.log(sections);
 
   return [
     {
