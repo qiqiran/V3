@@ -10,11 +10,11 @@ import { isArray } from "@/utils/is"
 
 export class CascadeGraphs {
   private chart: any;
-  private dom: HTMLElement;
+  private tableDom: any;
 
-  constructor(dom: HTMLElement, theme?: string) {
-    this.dom = dom;
+  constructor(dom: HTMLElement, tableDom?: HTMLElement, theme?: string) {
     this.chart = init(dom, theme);
+    this.tableDom = tableDom;
   }
 
   getInstance(): ECharts {
@@ -23,7 +23,7 @@ export class CascadeGraphs {
 
 
   draw(chartData: ChartData) {
-    const { minx, miny, maxx, maxy, sections, stations }: ChartData = chartData;
+    const { miny, maxx, maxy, hideTable, sections, stations }: ChartData = chartData;
 
     // 截面与坝体交汇点
     const intersectionPointList = getIntersectionPoint(
@@ -48,6 +48,22 @@ export class CascadeGraphs {
     series.push(...getSectionProfile(stations, sections, intersectionPointList, maxx, miny))
 
     this.chart.setOption(getOptions(chartData, series), true);
+
+    // 设置与table的联动
+    this.chart.off("datazoom");
+    if (!hideTable) {
+      this.chart.on("datazoom", (params) => {
+        let zoomAxis = params.batch ? params.batch[0] : params;
+        const table = this.tableDom?.children[0]
+
+        if (this.tableDom && table) {
+          table?.setAttribute('style', 'width: ' + (100 / (zoomAxis.end - zoomAxis.start) as number * 100) + '%');
+          this.tableDom?.scrollTo({ left: (100 - zoomAxis.end) * (this.tableDom.scrollWidth || 0) / 100 })
+        } else {
+          console.error("table dom error");
+        }
+      });
+    }
   }
 }
 
@@ -290,11 +306,8 @@ function getSectionProfile(stations: Station[], sections: Section[], intersectio
       position: 'top',
       fontSize: 14,
       color: '#000',
-      formatter: (param) => {
-        console.log(param);
+      formatter: (param) => `▽ ${param?.data?.station?.waterLevel}`
 
-        return `▽ ${param?.data?.station?.waterLevel}`;
-      }
     },
     barWidth: 5,
     itemStyle: {

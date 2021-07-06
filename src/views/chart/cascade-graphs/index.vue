@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="chart-dom" ref="chartDom" :style="`height: calc(100% - ${hideTable ? 0 : 221}px)`"></div>
-    <div class="table-dom" v-if="!hideTable">
+    <div class="table-dom" ref="tableDom" v-if="!hideTable">
       <table border="1" style="width: 100%;">
         <thead>
           <th
@@ -40,6 +40,7 @@ import { useWindowSizeFn } from "src/hooks/event/useWindowSizeFn";
 export default defineComponent({
   setup() {
     const chartDom: Ref<HTMLElement | null> = ref(null);
+    const tableDom: Ref<HTMLElement | null> = ref(null);
     const { data } = require("./data.ts");
 
     onBeforeMount(() => {
@@ -51,7 +52,7 @@ export default defineComponent({
 
     onMounted(() => {
       setTimeout(() => {
-        const chart = new CascadeGraphs((chartDom as Ref<HTMLElement>).value, "light");
+        const chart = new CascadeGraphs((chartDom as Ref<HTMLElement>).value, (tableDom as Ref<HTMLElement>).value, "light");
         chart.draw(data);
         useWindowSizeFn(() => {
           chart.getInstance().resize();
@@ -68,7 +69,7 @@ export default defineComponent({
       }
     }
 
-    return { chartDom, ...data };
+    return { chartDom, tableDom, ...data };
   },
 });
 </script>
@@ -91,8 +92,7 @@ export default defineComponent({
   margin-right: 5%;
   width: 90%;
   height: 221px;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow: hidden;
   th {
     height: 80px;
     writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
