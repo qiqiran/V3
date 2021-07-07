@@ -48,14 +48,17 @@ export const menus: MenuType[] = [
         name: "ClickOutside",
         path: "/click-outside"
       }, {
-        name: "loading状态",
+        name: "Loading状态",
         path: "/loading"
       }, {
-        name: "fullscreen",
+        name: "Fullscreen",
         path: "/fullscreen"
       }, {
-        name: "excel",
+        name: "Excel",
         path: "/excel"
+      }, {
+        name: "ScrollContainer",
+        path: "/scroll-container"
       }
     ]
   }, {
