@@ -27,7 +27,7 @@ import { userStore } from "#/store/modules/system/user";
 import { lockStore } from "#/store/modules/lock";
 const headerImg = require("static/images/app/logo.png");
 
-import { useForm } from "@ant-design-vue/use";
+import { Form } from "ant-design-vue";
 import { error } from "src/hooks/web/useMessage";
 
 export default defineComponent({
@@ -47,7 +47,7 @@ export default defineComponent({
       password: "",
     });
 
-    const { resetFields, validate, validateInfos } = useForm(
+    const { resetFields, validate, validateInfos } = Form.useForm(
       modelRef,
       reactive({
         password: [

@@ -1,6 +1,6 @@
 <template>
-  <a-menu-item :title="menuItem?.name">
-    <MenuItemContent :item="menuItem"/>
+  <a-menu-item :title="menuItem?.name" :key="menuItem?.path">
+    <MenuItemContent :item="menuItem" />
   </a-menu-item>
 </template>
 

@@ -11,7 +11,7 @@
     "@ant-design/icons-vue": "^5.1.9",
     "@types/crypto-js": "^4.0.1",
     "@vueuse/core": "^4.8.1",
-    "ant-design-vue": "2.1.6",
+    "ant-design-vue": "^2.2.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "crypto-js": "^4.0.0",
@@ -21,7 +21,7 @@
     "lodash-es": "^4.17.21",
     "vue": "^3.1.4",
     "vue-router": "^4.0.10",
-    "vuex": "^4.0.0",
+    "vuex": "^4.0.2",
     "vuex-module-decorators": "^1.0.1",
     "xlsx": "^0.17.0"
   },
@@ -33,8 +33,8 @@
     "@vue/compiler-sfc": "^3.1.4",
     "less": "^4.1.1",
     "less-loader": "^7.2.1",
-    "typescript": "4.2.4",
-    "webpack": "^5.42.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "typescript": "^4.3.5",
     "webpack-theme-color-replacer": "^1.3.16"
   },
   "browserslist": [

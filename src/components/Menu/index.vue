@@ -28,6 +28,7 @@ import { isUrl } from "src/utils/is";
 import BasicSubMenuItem from "./src/BasicSubMenuItem.vue";
 
 import { menus } from "src/settings/menuSetting";
+console.log(menus);
 
 export default defineComponent({
   name: "LayoutMenu",
@@ -40,7 +41,7 @@ export default defineComponent({
   setup() {
     const go = useGo();
     const current = ref<string[]>([]);
-    interface menuItem {
+    interface MenuItem {
       item: any;
       key: string;
       keyPath: string[];
@@ -54,11 +55,20 @@ export default defineComponent({
       current.value = [currentValue];
     });
 
-    const routerSwitch = ({ key, item, keyPath }: menuItem) => {
+    const routerSwitch = (menuItem: MenuItem) => {
+      console.log(menuItem);
+
+      let { key, item, keyPath } = menuItem;
+      console.log(key);
+      console.log(item);
+      console.log(keyPath);
       if (isUrl(key)) {
+        console.log(123);
+
         key.indexOf("/") !== 0 && (key = `/${key}`);
         go({ path: `/redirect/iframe${key}`, query: { title: item.title } });
       } else {
+        console.log(456);
         go({ path: key, query: { title: item.title } });
       }
     };

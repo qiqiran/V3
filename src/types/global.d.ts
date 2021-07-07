@@ -23,6 +23,6 @@ declare interface ChangeEvent extends Event {
 
 declare type EmitType = (event: string, ...args: any[]) => void;
 
-declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null;
+declare type ComponentRef<T = HTMLElement> = ComponentElRef<T> | null;
 
-declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>;
+declare type ElRef<T = HTMLElement> = Nullable<T>;
