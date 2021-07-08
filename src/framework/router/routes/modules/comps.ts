@@ -63,4 +63,11 @@ export default [{
     title: 'excel'
   },
   component: () => import("src/views/comps/excel/index.vue")
+}, {
+  path: '/count-to',
+  name: 'CountTo',
+  meta: {
+    title: 'CountTo'
+  },
+  component: () => import("src/views/comps/count-to/index.vue")
 }];

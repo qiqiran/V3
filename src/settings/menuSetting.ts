@@ -59,6 +59,9 @@ export const menus: MenuType[] = [
       }, {
         name: "ScrollContainer",
         path: "/scroll-container"
+      }, {
+        name: "数字动画",
+        path: "/count-to"
       }
     ]
   }, {
