@@ -93,6 +93,7 @@ export default defineComponent({
   width: 90%;
   height: 221px;
   overflow: hidden;
+  border: 1px solid #000;
   th {
     height: 80px;
     writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/

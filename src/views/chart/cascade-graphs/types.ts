@@ -9,6 +9,7 @@ export interface ChartData {
   maxy: number
   // 是否隐藏底部表格
   hideTable?: boolean
+  style?: any
   sections: Section[]
   stations: Station[]
 }

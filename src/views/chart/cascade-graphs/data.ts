@@ -6,6 +6,11 @@ export const data: ChartData = {
   miny: 0.0,
   maxy: 3500.0,
   hideTable: false,
+  style: {
+    nameLable: {
+      color: "black"
+    }
+  },
   sections: [
     { name: '加让目且', mileage: 861.39, elevation: 3080 },
     { name: '若尔格', mileage: 846.09, elevation: 3040 },

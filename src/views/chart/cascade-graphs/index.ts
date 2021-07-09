@@ -45,7 +45,7 @@ export class CascadeGraphs {
 
     const series: any[] = [...getRiverbedCrossSection(sectionsCopy, miny, maxy)];
 
-    series.push(...getSectionProfile(stations, sections, intersectionPointList, maxx, miny))
+    series.push(...getSectionProfile(chartData, intersectionPointList))
 
     this.chart.setOption(getOptions(chartData, series), true);
 
@@ -76,12 +76,15 @@ export class CascadeGraphs {
 function getOptions(chartData: ChartData, series: any[]) {
   const { minx, miny, maxx, maxy }: ChartData = chartData;
   return {
-    dataZoom: [{
-      type: 'slider',
-      brushSelect: false
-    }, {
-      type: 'inside',
-    }],
+    dataZoom: [
+      // {
+      //   type: 'slider',
+      //   brushSelect: false
+      // },
+      {
+        type: 'inside',
+      }
+    ],
     tooltip: {
       trigger: 'axis',
       formatter: (params) => {
@@ -111,16 +114,23 @@ function getOptions(chartData: ChartData, series: any[]) {
       top: 50,
       left: '5%',
       right: '5%',
-      bottom: 70,
+      bottom: 1,
     },
     xAxis: [{
       type: 'value',
       splitLine: {
         show: false
       },
+      axisLabel: {
+        inside: true
+      },
+      axisTick: {
+        inside: true
+      },
       inverse: true,
       min: minx,
       max: maxx,
+      z: 30
     }, {
       type: 'value',
       show: false,
@@ -140,8 +150,12 @@ function getOptions(chartData: ChartData, series: any[]) {
         lineStyle: {
           width: 5,
           cap: 'butt',
-          type: 'dashed'
+          type: 'dashed',
+          dashOffset: 10
         }
+      },
+      axisLabel: {
+        showMinLabel: false
       },
       z: 20,
       min: miny,
@@ -159,8 +173,12 @@ function getOptions(chartData: ChartData, series: any[]) {
         lineStyle: {
           width: 5,
           cap: 'butt',
-          type: 'dashed'
+          type: 'dashed',
+          dashOffset: 10
         }
+      },
+      axisLabel: {
+        showMinLabel: false
       },
       z: 20,
       min: miny,
@@ -249,7 +267,7 @@ function getOptions(chartData: ChartData, series: any[]) {
  * @param miny 最小高程
  * @returns 
  */
-function getSectionProfile(stations: Station[], sections: Section[], intersectionPointList: any[], maxx: number, miny: number) {
+function getSectionProfile({ stations, maxx, style }: ChartData, intersectionPointList) {
   const res: any[] = [];
 
   // 水位剖面
@@ -327,7 +345,7 @@ function getSectionProfile(stations: Station[], sections: Section[], intersectio
         show: true,
         position: 'insideTop',
         fontSize: 16,
-        color: '#fff',
+        color: style.nameLable.color || '#fff',
         formatter: (param) => {
           return param?.data[2]?.split('')?.join()?.replaceAll(',', '\n')
         }
