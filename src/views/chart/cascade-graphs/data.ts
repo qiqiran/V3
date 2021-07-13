@@ -1,6 +1,7 @@
 import type { ChartData } from "./types";
 
 export const data: ChartData = {
+  tp: 'WT',
   minx: 0.0,
   maxx: 861.39,
   miny: 0.0,
@@ -8,7 +9,8 @@ export const data: ChartData = {
   hideTable: false,
   style: {
     nameLable: {
-      color: "black"
+      color: "black",
+      fontSize: 16,
     }
   },
   sections: [
@@ -67,33 +69,41 @@ export const data: ChartData = {
     { name: '安谷坝址', mileage: 15.373, elevation: 378.55 },
     { name: '乐山', mileage: 0, elevation: 354.96 }
   ],
-  stations: [
-    { name: "下尔呷", mileage: 800, elevation: 3120, waterLevel: 3100, state: "construct" },
-    { name: "巴拉", mileage: 775, elevation: 2920, waterLevel: 2900, state: "design" },
-    { name: "达维", mileage: 745, elevation: 2730, waterLevel: 2700, state: "finished" },
-    { name: "卜寺沟", mileage: 715, elevation: 2606, waterLevel: 2600, state: "construct" },
-    { name: "双江口", mileage: 650, elevation: 2500, waterLevel: 2500, state: "design" },
-    { name: "金川", mileage: 625, elevation: 2253, waterLevel: 2200, state: "finished" },
-    { name: "安宁", mileage: 590, elevation: 2133, waterLevel: 2120, state: "construct" },
-    { name: "巴底", mileage: 555, elevation: 2075, waterLevel: 2070, state: "design" },
-    { name: "丹巴", mileage: 535, elevation: 2056, waterLevel: 2050, state: "finished" },
-    { name: "猴子岩", mileage: 465, elevation: 1852, waterLevel: 1800, state: "construct" },
-    { name: "长河坝", mileage: 435, elevation: 1690, waterLevel: 1600, state: "design" },
-    { name: "黄金坪", mileage: 410, elevation: 1475, waterLevel: 1405, state: "finished" },
-    { name: "泸定", mileage: 385, elevation: 1374, waterLevel: 1304, state: "construct" },
-    { name: "硬粮包", mileage: 345, elevation: 1250, waterLevel: 1200, state: "design" },
-    { name: "大岗山", mileage: 320, elevation: 1130, waterLevel: 1100, state: "finished" },
-    { name: "龙头石", mileage: 295, elevation: 955, waterLevel: 905, state: "construct" },
-    { name: "老鹰岩", mileage: 288, elevation: 900, waterLevel: 900, state: "design" },
-    { name: "瀑布沟", mileage: 205, elevation: 850, waterLevel: 800, state: "finished" },
-    { name: "深溪沟", mileage: 190, elevation: 655, waterLevel: 605, state: "construct" },
-    { name: "枕头坝一级", mileage: 178, elevation: 624, waterLevel: 604, state: "design" },
-    { name: "枕头坝二级", mileage: 160, elevation: 590, waterLevel: 550, state: "finished" },
-    { name: "沙坪一级", mileage: 153, elevation: 578, waterLevel: 558, state: "construct" },
-    { name: "沙坪二级", mileage: 150, elevation: 554, waterLevel: 504, state: "design" },
-    { name: "龚嘴", mileage: 100, elevation: 528, waterLevel: 508, state: "finished" },
-    { name: "铜街子", mileage: 72, elevation: 474, waterLevel: 454, state: "construct" },
-    { name: "沙湾", mileage: 30, elevation: 432, waterLevel: 402, state: "design" },
-    { name: "安谷", mileage: 15, elevation: 398, waterLevel: 358, state: "finished" },
+  dams: [
+    {
+      name: "下尔呷", code: '', mileage: 800, elevation: 3120, waterLevel: 3100, state: "construct", stations: [{
+        stcd: '',
+        stnm: '',
+      }, {
+        stcd: '',
+        stnm: '',
+      }]
+    },
+    { name: "巴拉", code: '', mileage: 775, elevation: 2920, waterLevel: 2900, state: "design" },
+    { name: "达维", code: '', mileage: 745, elevation: 2730, waterLevel: 2700, state: "finished" },
+    { name: "卜寺沟", code: '', mileage: 715, elevation: 2606, waterLevel: 2600, state: "construct" },
+    { name: "双江口", code: '', mileage: 650, elevation: 2500, waterLevel: 2500, state: "design" },
+    { name: "金川", code: '', mileage: 625, elevation: 2253, waterLevel: 2200, state: "finished" },
+    { name: "安宁", code: '', mileage: 590, elevation: 2133, waterLevel: 2120, state: "construct" },
+    { name: "巴底", code: '', mileage: 555, elevation: 2075, waterLevel: 2070, state: "design" },
+    { name: "丹巴", code: '', mileage: 535, elevation: 2056, waterLevel: 2050, state: "finished" },
+    { name: "猴子岩", code: '', mileage: 465, elevation: 1852, waterLevel: 1800, state: "construct" },
+    { name: "长河坝", code: '', mileage: 435, elevation: 1690, waterLevel: 1600, state: "design" },
+    { name: "黄金坪", code: '', mileage: 410, elevation: 1475, waterLevel: 1405, state: "finished" },
+    { name: "泸定", code: '', mileage: 385, elevation: 1374, waterLevel: 1304, state: "construct" },
+    { name: "硬粮包", code: '', mileage: 345, elevation: 1250, waterLevel: 1200, state: "design" },
+    { name: "大岗山", code: '', mileage: 320, elevation: 1130, waterLevel: 1100, state: "finished" },
+    { name: "龙头石", code: '', mileage: 295, elevation: 955, waterLevel: 905, state: "construct" },
+    { name: "老鹰岩", code: '', mileage: 288, elevation: 900, waterLevel: 900, state: "design" },
+    { name: "瀑布沟", code: '', mileage: 205, elevation: 850, waterLevel: 800, state: "finished" },
+    { name: "深溪沟", code: '', mileage: 190, elevation: 655, waterLevel: 605, state: "construct" },
+    { name: "枕头坝一级", code: '', mileage: 178, elevation: 624, waterLevel: 604, state: "design" },
+    { name: "枕头坝二级", code: '', mileage: 160, elevation: 590, waterLevel: 550, state: "finished" },
+    { name: "沙坪一级", code: '', mileage: 153, elevation: 578, waterLevel: 558, state: "construct" },
+    { name: "沙坪二级", code: '', mileage: 150, elevation: 554, waterLevel: 504, state: "design" },
+    { name: "龚嘴", code: '', mileage: 100, elevation: 528, waterLevel: 508, state: "finished" },
+    { name: "铜街子", code: '', mileage: 72, elevation: 474, waterLevel: 454, state: "construct" },
+    { name: "沙湾", code: '', mileage: 30, elevation: 432, waterLevel: 402, state: "design" },
+    { name: "安谷", code: '', mileage: 15, elevation: 398, waterLevel: 358, state: "finished" },
   ],
 }

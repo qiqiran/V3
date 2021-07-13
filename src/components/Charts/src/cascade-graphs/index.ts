@@ -1,6 +1,6 @@
-import type { SetupContext } from "vue"
+
 import type { ECharts } from "echarts";
-import type { ChartData, Section, Dam } from "./types";
+import type { ChartData, Section, Dam, CtorOptions, EmitFn } from "./types";
 
 import { stateEnum, stateColorEnum } from "./enum";
 
@@ -9,16 +9,10 @@ import { init, graphic } from 'echarts';
 import { segmentsIntr } from "@/utils/geometry"
 import { isArray } from "@/utils/is"
 
-interface CtorOptions {
-  emit: SetupContext["emit"]
-  tableDom?: HTMLElement
-  theme?: string
-}
-
 export class CascadeGraphs {
   private chart: any;
   private tableDom: any;
-  private emit: SetupContext["emit"];
+  private emit: any;
 
   constructor(dom: HTMLElement, {
     tableDom,
@@ -77,7 +71,8 @@ export class CascadeGraphs {
       });
     }
     this.chart.on("dblclick", (params) => {
-      console.log(params);
+      if (params.data.dam) this.emit("dblclick", params.data.dam)
+
     })
   }
 }
@@ -92,10 +87,6 @@ function getOptions(chartData: ChartData, series: any[]) {
   const { minx, miny, maxx, maxy }: ChartData = chartData;
   return {
     dataZoom: [
-      // {
-      //   type: 'slider',
-      //   brushSelect: false
-      // },
       {
         type: 'inside',
       }
@@ -303,6 +294,7 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
       color: 'rgba(0,0,0,0)'
     },
     areaStyle: {
+      color: '#3299fd',
       normal: {
         color: new graphic.LinearGradient(0, 0, 0, 1, [{
           offset: 0,

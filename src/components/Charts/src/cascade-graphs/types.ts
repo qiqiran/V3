@@ -1,3 +1,14 @@
+import type { SetupContext } from "vue"
+
+export type EmitFn = SetupContext["emit"];
+
+export interface CtorOptions {
+  emit: any
+  tableDom?: HTMLElement
+  theme?: string
+}
+
+
 export interface ChartData {
   tp: "RR" | "WT"
   // 最小里程
