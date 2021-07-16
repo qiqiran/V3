@@ -70,4 +70,11 @@ export default [{
     title: 'CountTo'
   },
   component: () => import("src/views/comps/count-to/index.vue")
+}, {
+  path: '/count-to',
+  name: 'CountTo',
+  meta: {
+    title: 'CountTo'
+  },
+  component: () => import("src/views/comps/count-to/index.vue")
 }];

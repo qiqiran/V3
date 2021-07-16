@@ -26,3 +26,5 @@ declare type EmitType = (event: string, ...args: any[]) => void;
 declare type ComponentRef<T = HTMLElement> = ComponentElRef<T> | null;
 
 declare type ElRef<T = HTMLElement> = Nullable<T>;
+
+declare type TargetContext = '_self' | '_blank';

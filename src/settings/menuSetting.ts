@@ -25,6 +25,10 @@ export const menus: MenuType[] = [
         name: '梯级剖面图',
         path: '/cascade-graphs',
         icon: 'data'
+      }, {
+        name: '大坝剖面图',
+        path: '/dam-graph',
+        icon: 'data'
       }
     ]
   }, {

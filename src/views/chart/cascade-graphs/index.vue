@@ -19,6 +19,7 @@ export default defineComponent({
 
     function dblclickFn(data) {
       console.log("data", data);
+      const { stations } = data;
     }
     return { cascadeGraphsRef, dblclickFn };
   },

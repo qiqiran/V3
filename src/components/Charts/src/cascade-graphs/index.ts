@@ -1,13 +1,15 @@
 
 import type { ECharts } from "echarts";
-import type { ChartData, Section, Dam, CtorOptions, EmitFn } from "./types";
+import type { ChartData, Section, Dam, CtorOptions, Station } from "./types";
 
 import { stateEnum, stateColorEnum } from "./enum";
 
 import { init, graphic } from 'echarts';
-
+import { cloneDeep } from 'lodash-es';
 import { segmentsIntr } from "@/utils/geometry"
-import { isArray } from "@/utils/is"
+import { isArray } from "@/utils/is";
+
+const sectionProfileUniqueId = 8 + Math.random();
 
 export class CascadeGraphs {
   private chart: any;
@@ -29,7 +31,7 @@ export class CascadeGraphs {
   }
 
   draw(chartData: ChartData) {
-    const { miny, maxx, maxy, hideTable, sections, dams }: ChartData = chartData;
+    const { miny, maxy, minx, maxx, hideTable, sections, dams }: ChartData = chartData;
 
     // 截面与坝体交汇点
     const intersectionPointList = getIntersectionPoint(
@@ -70,10 +72,22 @@ export class CascadeGraphs {
         }
       });
     }
-    this.chart.on("dblclick", (params) => {
-      if (params.data.dam) this.emit("dblclick", params.data.dam)
-
+    // 坝体点击
+    this.chart.on("dblclick", { seriesName: "dam-body" }, (params) => {
+      this.emit("dblclick", params.data.dam.stations)
     })
+
+    // 水位面点击
+    this.chart.getZr().on('dblclick', (params) => {
+      const { target, offsetX, offsetY } = params;
+
+      // 所点击面是水位面
+      if (target && target.type === "ec-polygon" && target.z === sectionProfileUniqueId) {
+        const clickPoint: [number, number] = this.chart.convertFromPixel({ seriesName: "section-profile" }, [offsetX, offsetY])
+        console.log("pointInGrid", clickPoint);
+        console.log(getDamsByMileage(dams, clickPoint[0], minx, maxx));
+      }
+    });
   }
 }
 
@@ -307,7 +321,7 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
       opacity: 1
     },
     animationDelay: 1000,
-    z: 8,
+    z: sectionProfileUniqueId,
     data: riverData
   })
 
@@ -378,7 +392,7 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
 function getRiverbedCrossSection(sections: Section[], miny: number, maxy: number) {
   const riverbed: number[][] = [];
   const crossSection: number[][] = [];
-  const riverbedHeight = (maxy - miny) * 0.1;
+  const riverbedHeight = (maxy - miny) * 0.02;
 
   sections.forEach((row, i) => {
     const { mileage, elevation } = row;
@@ -398,9 +412,9 @@ function getRiverbedCrossSection(sections: Section[], miny: number, maxy: number
         color: '#000'
       },
       areaStyle: {
-        color: "#437cf1",
+        color: "#cfc541",
         emphasis: {
-          color: "#437cf1",//移入后的颜色
+          color: "#cfc541",//移入后的颜色
         },
         opacity: 1
       },
@@ -463,5 +477,29 @@ function getIntersectionPoint(points1: number[][], points2: number[][]) {
       }
     }
   })
+  return res;
+}
+
+/**
+ * 根据当前里程获取与之相邻两个大坝所配置的测站
+ */
+function getDamsByMileage(dams: Dam[], mileage: number, minx: number, maxx: number) {
+  dams = cloneDeep(dams);
+  dams.unshift({ mileage: maxx, name: "起始点", code: "", elevation: 0, waterLevel: 0, state: "finished" });
+  dams.push({ mileage: minx, name: "结束点", code: "", elevation: 0, waterLevel: 0, state: "finished" });
+
+  const len = dams.length;
+  const res: Station[] = [];
+  for (let i = 0; i < len; i++) {
+    const before = dams[i];
+    const after = dams[i + 1];
+
+    if (i < len - 1) {
+      if ((mileage < before.mileage && mileage > after.mileage) || (mileage > before.mileage && mileage < after.mileage)) {
+        if (before.stations) res.push(...before.stations)
+        if (after.stations) res.push(...after.stations)
+      }
+    }
+  }
   return res;
 }

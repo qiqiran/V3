@@ -15,5 +15,12 @@ export default <AppRouteRecordRaw[]>[
       title: "梯级图"
     },
     component: () => import('src/views/chart/cascade-graphs/index.vue')
+  }, {
+    path: '/dam-graph',
+    name: 'DamGraph',
+    meta: {
+      title: "梯级图"
+    },
+    component: () => import('src/views/chart/dam-graph/index.vue')
   }
 ];
