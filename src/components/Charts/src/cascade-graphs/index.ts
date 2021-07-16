@@ -496,7 +496,6 @@ function getDamsByMileage(dams: Dam[], mileage: number, minx: number, maxx: numb
 
     if (i < len - 1) {
       if ((mileage < before.mileage && mileage > after.mileage) || (mileage > before.mileage && mileage < after.mileage)) {
-        if (before.stations) res.push(...before.stations)
         if (after.stations) res.push(...after.stations)
       }
     }
