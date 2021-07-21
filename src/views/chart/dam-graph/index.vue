@@ -9,7 +9,6 @@ import { defineComponent, nextTick, ref, unref, onMounted } from "vue";
 import { DamGraph } from "./indes";
 
 export default defineComponent({
-  name: "",
   setup() {
     const chartDom = ref<ElRef>(null);
     onMounted(() => {
