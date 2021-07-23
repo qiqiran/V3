@@ -19,13 +19,12 @@ import { itemProps } from "../prors";
 
 import { isArray } from "src/utils/is";
 
-import Icon from "src/components/Icon/index";
 import BasicMenuItem from "./BasicMenuItem.vue";
 import MenuItemContent from "./MenuItemContent.vue";
 
 export default defineComponent({
   name: "BasicSubMenuItem",
-  components: { Icon, BasicMenuItem, MenuItemContent },
+  components: { BasicMenuItem, MenuItemContent },
   props: itemProps,
   setup(props) {
     function menuHasChildren(menuItem: MenuType): boolean {

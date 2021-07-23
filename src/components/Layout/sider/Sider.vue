@@ -94,7 +94,7 @@ export default defineComponent({
   }
 
   .ant-menu-dark {
-    background: @sider-dark-bg-color;
+    background: @sider-dark-bg-color !important;
 
     .ant-menu-inline.ant-menu-sub {
       background-color: @sider-dark-darken-bg-color;
@@ -107,11 +107,11 @@ export default defineComponent({
   }
 }
 
-.@{prefix-cls}.ant-layout-sider .ant-layout-sider-trigger {
+.@{prefix-cls} .ant-layout-sider .ant-layout-sider-trigger {
   background-color: transparent;
 }
 
-.@{prefix-cls}.ant-layout-sider-light{
+.@{prefix-cls} .ant-layout-sider-light{
   border-right: @lightGreyBorder;
 }
 </style>
