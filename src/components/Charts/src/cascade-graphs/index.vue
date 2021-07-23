@@ -37,7 +37,7 @@
 import type { Ref } from "vue";
 import type { ChartData } from "./types";
 
-import { defineComponent, ref, reactive, nextTick, onBeforeMount, onMounted } from "vue";
+import { defineComponent, ref, reactive, onMounted } from "vue";
 
 import { CascadeGraphs } from "./index";
 

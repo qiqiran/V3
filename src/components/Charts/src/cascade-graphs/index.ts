@@ -450,7 +450,7 @@ function getRiverbedCrossSection(sections: Section[], miny: number, maxy: number
  */
 function getIntersectionPoint(points1: number[][], points2: number[][]) {
   const res: number[][] = []
-  points1.forEach((row, index) => {
+  points1.forEach((row) => {
     const len = points2.length;
     for (let i = 0; i < len; i++) {
       if (i < len - 1) {
