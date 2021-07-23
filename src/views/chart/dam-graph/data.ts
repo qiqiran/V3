@@ -1,18 +1,11 @@
-export const data = {
-  tp: "RR",
+import { ChartData } from "./types";
+export const data: ChartData = {
   minx: 0.0,
   maxx: 110,
   miny: 0.0,
   maxy: 1000.0,
-  hideTable: false,
   lz: 850,
   rz: 500,
-  style: {
-    nameLable: {
-      color: "black",
-      fontSize: 16,
-    },
-  },
   sections: [
     { name: "乐山", mileage: 0, elevation: 474.64 },
     { name: "安谷坝址", mileage: 15.373, elevation: 466.92 },
