@@ -52,6 +52,6 @@ export const data = {
   datas: [
     { label: "坝前5米", mileage: 40, data: [{ H: 50, T: 10 }, { H: 100, T: 9 }, { H: 200, T: 8 }, { H: 300, T: 7 }, { H: 500, T: 5 }] },
     { label: "坝前15米", mileage: 30, data: [{ H: 50, T: 10 }, { H: 100, T: 9 }, { H: 200, T: 8 }, { H: 300, T: 7 }, { H: 500, T: 5 }] },
-    { label: "坝下15米", mileage: 90, data: [{ H: 5, T: 10 }, { H: 25, T: 9 }, { H: 50, T: 8 }, { H: 70, T: 7 }, { H: 90, T: 5 }] }
+    { label: "坝下15米", mileage: 90, data: [{ H: 0, T: 10 }, { H: 25, T: 9 }, { H: 50, T: 8 }, { H: 70, T: 7 }, { H: 90, T: 5 }] }
   ]
 }

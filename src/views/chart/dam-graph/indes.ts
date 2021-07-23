@@ -423,7 +423,10 @@ function getTMark({ datas, dam, lz, rz, miny }) {
       label: {
         show: true,
         position: 'right',
-        // textBorderColor: 'rgba(0,0,0,0)',
+        color: "#fff",
+        textShadowColor: 'rgba(0,0,0,0.6)',
+        textShadowBlur: 1,
+        textBorderColor: 'rgba(0,0,0,0)',
         formatter: (params) => {
           let res = '';
           const [M, Z, H, T] = params.data;
