@@ -107,11 +107,11 @@ export default defineComponent({
   }
 }
 
-.@{prefix-cls} .ant-layout-sider .ant-layout-sider-trigger {
+.@{prefix-cls}.ant-layout-sider.ant-layout-sider-trigger {
   background-color: transparent;
 }
 
-.@{prefix-cls} .ant-layout-sider-light{
+.@{prefix-cls}.ant-layout-sider-light{
   border-right: @lightGreyBorder;
 }
 </style>
