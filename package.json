@@ -27,6 +27,7 @@
     "xlsx": "^0.17.0"
   },
   "devDependencies": {
+    "@purge-icons/generated": "^0.7.0",
     "@types/lodash-es": "^4.17.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",

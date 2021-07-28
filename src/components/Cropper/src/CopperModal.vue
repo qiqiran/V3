@@ -24,68 +24,68 @@
         <div :class="`${prefixCls}-toolbar`">
           <Upload :fileList="[]" accept="image/*" :beforeUpload="handleBeforeUpload">
             <Tooltip title="选择图片" placement="bottom">
-              <a-button size="small" preIcon="ant-design:upload-outlined" type="primary" />
+              <Button size="small" preIcon="upload" type="primary" />
             </Tooltip>
           </Upload>
           <Space>
             <Tooltip title="重置" placement="bottom">
-              <a-button
+              <Button
+                preIcon="reload"
                 type="primary"
-                preIcon="ant-design:reload-outlined"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('reset')"
               />
             </Tooltip>
             <Tooltip title="逆时针旋转" placement="bottom">
-              <a-button
+              <Button
+                preIcon="rotate-left"
                 type="primary"
-                preIcon="ant-design:rotate-left-outlined"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('rotate', -45)"
               />
             </Tooltip>
             <Tooltip title="顺时针旋转" placement="bottom">
-              <a-button
+              <Button
                 type="primary"
-                preIcon="ant-design:rotate-right-outlined"
+                preIcon="rotate-right"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('rotate', 45)"
               />
             </Tooltip>
             <Tooltip title="水平翻转" placement="bottom">
-              <a-button
+              <Button
                 type="primary"
-                preIcon="vaadin:arrows-long-h"
+                preIcon="column-width"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('scaleX')"
               />
             </Tooltip>
             <Tooltip title="垂直翻转" placement="bottom">
-              <a-button
+              <Button
                 type="primary"
-                preIcon="vaadin:arrows-long-v"
+                preIcon="column-height"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('scaleY')"
               />
             </Tooltip>
             <Tooltip title="放大" placement="bottom">
-              <a-button
+              <Button
                 type="primary"
-                preIcon="ant-design:zoom-in-outlined"
+                preIcon="zoom-in"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('zoom', 0.1)"
               />
             </Tooltip>
             <Tooltip title="缩小" placement="bottom">
-              <a-button
+              <Button
                 type="primary"
-                preIcon="ant-design:zoom-out-outlined"
+                preIcon="zoom-out"
                 size="small"
                 :disabled="!src"
                 @click="handlerToolbar('zoom', -0.1)"
@@ -117,6 +117,9 @@ import type { CropendResult, Cropper } from "./typing";
 import { defineComponent, ref } from "vue";
 import CropperImage from "./Cropper.vue";
 import { Space, Upload, Avatar, Tooltip } from "ant-design-vue";
+import { Button } from "@/components/Button";
+import Icon from "@/components/Icon";
+
 import { useDesign } from "@/hooks/web/useDesign";
 import { BasicModal, useModalInner } from "@/components/Modal";
 import { dataURLtoBlob } from "@/utils/file/base64Conver";
@@ -131,7 +134,7 @@ const props = {
 
 export default defineComponent({
   name: "CropperAvatar",
-  components: { BasicModal, Space, CropperImage, Upload, Avatar, Tooltip },
+  components: { Icon, Button, BasicModal, Space, CropperImage, Upload, Avatar, Tooltip },
   props,
   emits: ["uploadSuccess", "register"],
   setup(props, { emit }) {
@@ -207,7 +210,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-@prefix-cls: ~"@{namespace}-cropper-am";
+@prefix-cls: ~"@{namespace}cropper-am";
 
 .@{prefix-cls} {
   display: flex;

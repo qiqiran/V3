@@ -171,7 +171,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less">
-@prefix-cls: ~"@{namespace}-cropper-image";
+@prefix-cls: ~"@{namespace}cropper-image";
 
 .@{prefix-cls} {
   &--circled {

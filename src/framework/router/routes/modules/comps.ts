@@ -77,4 +77,11 @@ export default [{
     title: 'CountTo'
   },
   component: () => import("src/views/comps/count-to/index.vue")
+}, {
+  path: '/cropper',
+  name: 'Cropper',
+  meta: {
+    title: 'Cropper'
+  },
+  component: () => import("src/views/comps/cropper/index.vue")
 }];

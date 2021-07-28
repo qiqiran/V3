@@ -66,6 +66,9 @@ export const menus: MenuType[] = [
       }, {
         name: "数字动画",
         path: "/count-to"
+      }, {
+        name: "图片剪切",
+        path: "/cropper"
       }
     ]
   }, {

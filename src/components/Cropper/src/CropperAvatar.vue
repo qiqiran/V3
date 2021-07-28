@@ -2,19 +2,16 @@
   <div :class="getClass" :style="getStyle">
     <div :class="`${prefixCls}-image-wrapper`" :style="getImageWrapperStyle" @click="openModal">
       <div :class="`${prefixCls}-image-mask`" :style="getImageWrapperStyle">
-        <Icon
-          icon="ant-design:cloud-upload-outlined"
+        <CloudUploadOutlined
           :size="getIconWidth"
-          :style="getImageWrapperStyle"
-          color="#d6d6d6"
+          :style="{...getImageWrapperStyle, fontSize: getIconWidth, color: '#d6d6d6'}"
         />
       </div>
       <img :src="sourceValue" v-if="sourceValue" alt="avatar" />
     </div>
-    <a-button :class="`${prefixCls}-upload-btn`" @click="openModal" v-if="showBtn">
-      <!-- v-bind="btnProps" -->
+    <Button v-bind="btnProps" :class="`${prefixCls}-upload-btn`" @click="openModal" v-if="showBtn">
       {{ btnText ? btnText : `选择图片` }}
-    </a-button>
+    </Button>
 
     <CopperModal
       @register="register"
@@ -25,26 +22,27 @@
   </div>
 </template>
 <script lang="ts">
+import type { ButtonProps } from "@/components/Button";
 import { defineComponent, computed, CSSProperties, unref, ref, watchEffect, watch, PropType } from "vue";
 import CopperModal from "./CopperModal.vue";
 import { useDesign } from "@/hooks/web/useDesign";
 import { useModal } from "@/components/Modal";
 import { success } from "@/hooks/web/useMessage";
-// import type { ButtonProps } from '@/components/Button';
-import Icon from "@/components/Icon";
+
+import { Button } from "@/components/Button";
 
 const props = {
   width: { type: [String, Number], default: "200px" },
   value: { type: String },
   showBtn: { type: Boolean, default: true },
-  // btnProps: { type: Object as PropType<ButtonProps> },
+  btnProps: { type: Object as PropType<ButtonProps> },
   btnText: { type: String, default: "" },
   uploadApi: { type: Function as PropType<({ file: Blob, name: string }) => Promise<void>> },
 };
 
 export default defineComponent({
   name: "CropperAvatar",
-  components: { CopperModal, Icon },
+  components: { CopperModal, Button },
   props,
   emits: ["update:value", "change"],
   setup(props, { emit, expose }) {
@@ -59,7 +57,7 @@ export default defineComponent({
 
     const getStyle = computed((): CSSProperties => ({ width: unref(getWidth) }));
 
-    const getImageWrapperStyle = computed((): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth) }));
+    const getImageWrapperStyle = computed((): CSSProperties => ({ width: unref(getWidth), height: unref(getWidth), lineHeight: unref(getWidth) }));
 
     watchEffect(() => {
       sourceValue.value = props.value || "";
@@ -96,7 +94,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@prefix-cls: ~"@{namespace}-cropper-avatar";
+@prefix-cls: ~"@{namespace}cropper-avatar";
 
 .@{prefix-cls} {
   display: inline-block;

@@ -5,7 +5,7 @@ import { useDesign } from '@/hooks/web/useDesign';
 const { prefixCls } = require('@/settings/designSetting');
 
 const Icon = createFromIconfontCN({
-  scriptUrl: 'static/iconfont/iconfont.js',
+  scriptUrl: ['static/iconfont/iconfont.js', 'static/iconfont/ant-design.js'],
 });
 
 export default defineComponent({
