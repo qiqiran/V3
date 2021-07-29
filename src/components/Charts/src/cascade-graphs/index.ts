@@ -172,8 +172,7 @@ function getOptions(chartData: ChartData, series: any[]) {
         lineStyle: {
           width: 5,
           cap: 'butt',
-          type: 'dashed',
-          dashOffset: 10
+          type: [50, 50]
         }
       },
       axisLabel: {
@@ -195,8 +194,7 @@ function getOptions(chartData: ChartData, series: any[]) {
         lineStyle: {
           width: 5,
           cap: 'butt',
-          type: 'dashed',
-          dashOffset: 10
+          type: [50, 50]
         }
       },
       axisLabel: {
@@ -311,20 +309,12 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
     symbolSize: 0,
     smooth: true,
     itemStyle: {
-      color: 'rgba(0,0,0,0)'
+      color: '#000'
     },
-    areaStyle: {
-      color: '#3299fd',
-      normal: {
-        color: new graphic.LinearGradient(0, 0, 0, 1, [{
-          offset: 0,
-          color: '#3299fd'//3299fd
-        }, {
-          offset: 1,
-          color: '#3299fd'
-        }])
-      },
-      opacity: 1
+    lineStyle: {
+      type: 'dashed',
+      width: 1,
+      emphasis: { width: 1, }
     },
     animationDelay: 1000,
     z: sectionProfileUniqueId,

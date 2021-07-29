@@ -76,7 +76,7 @@ export const data: ChartData = {
       mileage: 800,
       elevation: 3120,
       designWaterLevel: 3100,
-      actualWaterLevel: 3080,
+      actualWaterLevel: 3110,
       state: "construct",
       stations: [
         {
@@ -101,7 +101,7 @@ export const data: ChartData = {
     { name: "达维", code: "", mileage: 745, elevation: 2730, designWaterLevel: 2700, actualWaterLevel: 2680, state: "finished" },
     { name: "卜寺沟", code: "", mileage: 715, elevation: 2606, designWaterLevel: 2600, actualWaterLevel: 2580, state: "construct" },
     { name: "双江口", code: "", mileage: 650, elevation: 2500, designWaterLevel: 2500, actualWaterLevel: 2480, state: "design" },
-    { name: "金川", code: "", mileage: 625, elevation: 2253, designWaterLevel: 2200, actualWaterLevel: 2180, state: "finished" },
+    { name: "金川", code: "", mileage: 625, elevation: 2253, designWaterLevel: 2250, actualWaterLevel: 2200, state: "finished" },
     { name: "安宁", code: "", mileage: 590, elevation: 2133, designWaterLevel: 2120, actualWaterLevel: 2100, state: "construct" },
     { name: "巴底", code: "", mileage: 555, elevation: 2075, designWaterLevel: 2070, actualWaterLevel: 2050, state: "design" },
     { name: "丹巴", code: "", mileage: 535, elevation: 2056, designWaterLevel: 2050, actualWaterLevel: 2030, state: "finished" },
