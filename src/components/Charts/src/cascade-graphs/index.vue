@@ -106,6 +106,7 @@ export default defineComponent({
   overflow: hidden;
   border: 1px solid #000;
   th {
+    padding: 10px 0px;
     height: 80px;
     writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
     writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
@@ -114,8 +115,10 @@ export default defineComponent({
     height: 70px;
   }
   td {
+    padding: 10px 0px;
     writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
     writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+    transform: rotate(180deg);
   }
 }
 </style>

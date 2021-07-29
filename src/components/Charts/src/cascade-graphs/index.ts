@@ -114,15 +114,17 @@ function getOptions(chartData: ChartData, series: any[]) {
             const { seriesName, seriesType, marker, data: { dam } } = row;
             if (seriesType === 'bar' && seriesName === 'dam-body') {
 
-              const { name, mileage, elevation, waterLevel, state } = dam;
+              const { name, mileage, elevation, designWaterLevel, actualWaterLevel, state } = dam;
               res = `
               <h3>${marker}${name}<span style="font-size:12px">(${stateEnum[state]})</span>
               </h3>
-              &emsp;里程：${mileage}(m)
+              &emsp;里程：${mileage}(km)
               <br/>
               &emsp;高程：${elevation}(m)
               <br/>
-              &emsp;水位：${waterLevel}(m)
+              &emsp;设计水位：${designWaterLevel}(m)
+              <br/>
+              &emsp;实际水位：${actualWaterLevel}(m)
               `;
             }
           })
@@ -291,16 +293,20 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
   const res: any[] = [];
 
   // 水位剖面
-  const riverData: any[] = [];
+  const designRiverData: any[] = [];
+  const actualRiverData: any[] = [];
   const len = dams.length;
   for (let i = 0; i < len; i++) {
-    const { mileage, waterLevel } = dams[i];
+    const { mileage, designWaterLevel, actualWaterLevel } = dams[i];
     const lastDam = dams[i - 1];
-    lastDam ? riverData.push([lastDam.mileage, waterLevel]) : riverData.push([maxx, waterLevel])
-    riverData.push([mileage, waterLevel])
+    lastDam ? designRiverData.push([lastDam.mileage, designWaterLevel]) : designRiverData.push([maxx, designWaterLevel])
+    designRiverData.push([mileage, designWaterLevel]);
+
+    lastDam ? actualRiverData.push([lastDam.mileage, actualWaterLevel]) : actualRiverData.push([maxx, actualWaterLevel])
+    actualRiverData.push([mileage, actualWaterLevel]);
   }
   res.push({
-    name: `section-profile`,
+    name: `section-profile-design`,
     type: 'line',
     symbolSize: 0,
     smooth: true,
@@ -322,7 +328,33 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
     },
     animationDelay: 1000,
     z: sectionProfileUniqueId,
-    data: riverData
+    data: designRiverData
+  })
+
+  res.push({
+    name: `section-profile-actual`,
+    type: 'line',
+    symbolSize: 0,
+    smooth: true,
+    itemStyle: {
+      color: 'rgba(0,0,0,0)'
+    },
+    areaStyle: {
+      color: '#3299fd',
+      normal: {
+        color: new graphic.LinearGradient(0, 0, 0, 1, [{
+          offset: 0,
+          color: '#3299fd'//3299fd
+        }, {
+          offset: 1,
+          color: '#3299fd'
+        }])
+      },
+      opacity: 1
+    },
+    animationDelay: 1200,
+    z: sectionProfileUniqueId,
+    data: actualRiverData
   })
 
   // 坝体剖面
@@ -345,7 +377,7 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
       position: 'top',
       fontSize: 14,
       color: '#000',
-      formatter: (param) => `▽ ${param?.data?.dam?.waterLevel}`
+      formatter: (param) => `▽ ${param?.data?.dam?.actualWaterLevel}`
     },
     barWidth: 5,
     itemStyle: {
@@ -485,8 +517,8 @@ function getIntersectionPoint(points1: number[][], points2: number[][]) {
  */
 function getDamsByMileage(dams: Dam[], mileage: number, minx: number, maxx: number) {
   dams = cloneDeep(dams);
-  dams.unshift({ mileage: maxx, name: "起始点", code: "", elevation: 0, waterLevel: 0, state: "finished" });
-  dams.push({ mileage: minx, name: "结束点", code: "", elevation: 0, waterLevel: 0, state: "finished" });
+  dams.unshift({ mileage: maxx, name: "起始点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, state: "finished" });
+  dams.push({ mileage: minx, name: "结束点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, state: "finished" });
 
   const len = dams.length;
   const res: Station[] = [];

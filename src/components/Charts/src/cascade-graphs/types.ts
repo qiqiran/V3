@@ -40,7 +40,10 @@ export interface Dam {
   code: string
   mileage: number
   elevation: number
-  waterLevel: number
+  // 设计蓄水位
+  designWaterLevel: number
+  // 实际蓄水位
+  actualWaterLevel: number
   // 设计|建设中|建设完成
   state: 'design' | 'construct' | 'finished',
   stations?: Station[]

@@ -42,22 +42,22 @@ export class DamGraph {
  */
 function getOptions({ minx, miny, maxx, maxy }: ChartData, series: any[]) {
   return {
-    tooltip: {
-      trigger: 'axis',
-      formatter: (params) => {
-        let res = '';
-        if (isArray(params) && params.length && markids.includes(params[0].seriesId)) {
-          const { marker, seriesName } = params[0]
-          res += `${marker}${seriesName}<br/>`;
+    // tooltip: {
+    //   trigger: 'axis',
+    //   formatter: (params) => {
+    //     let res = '';
+    //     if (isArray(params) && params.length && markids.includes(params[0].seriesId)) {
+    //       const { marker, seriesName } = params[0]
+    //       res += `${marker}${seriesName}<br/>`;
 
-          params.forEach((row) => {
-            const [M, Z, H, T] = row.data;
-            if (H || T) res += `&emsp;水下${H}(m)：${T}(℃)<br/>`;
-          })
-        }
-        return res;
-      }
-    },
+    //       params.forEach((row) => {
+    //         const [M, Z, H, T] = row.data;
+    //         if (H || T) res += `&emsp;水下${H}(m)：${T}(℃)<br/>`;
+    //       })
+    //     }
+    //     return res;
+    //   }
+    // },
     grid: {
       top: 50,
       left: '5%',
@@ -411,13 +411,13 @@ function getTMark({ datas, dam, lz, rz, miny }: ChartData) {
     }, [] as number[][]));
     lineData.push([mileage, miny]);
 
-
     markids.push(markid)
     res.push({
       id: markid,
       name: label,
       type: 'line',
       symbol: 'diamond',
+      symbolSize: 6,
       itemStyle: {
         color: '#999'
       },
@@ -426,17 +426,23 @@ function getTMark({ datas, dam, lz, rz, miny }: ChartData) {
       },
       label: {
         show: true,
-        position: 'right',
+        position: [10, 0],
         color: "#fff",
+        offset: [120, 20],
         textShadowColor: 'rgba(0,0,0,0.6)',
         textShadowBlur: 1,
         textBorderColor: 'rgba(0,0,0,0)',
         formatter: (params) => {
+          console.log(params);
+
           let res = '';
           const [M, Z, H, T] = params.data;
           if (H || T) res = `水下${H}m：${T}℃`;
           return res;
         }
+      },
+      labelLayout: {
+        hideOverlap: true
       },
       markPoint: {
         symbol: detector,
