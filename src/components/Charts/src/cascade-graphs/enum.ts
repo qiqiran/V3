@@ -9,3 +9,7 @@ export enum stateColorEnum {
   design = '#00a529',
   finished = '#000'
 }
+
+export enum seriesNameEnum {
+  damBody = "dam-body"
+}

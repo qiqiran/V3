@@ -8,7 +8,6 @@ export interface CtorOptions {
   theme?: string
 }
 
-
 export interface ChartData {
   tp: "RR" | "WT"
   // 最小里程
@@ -35,17 +34,15 @@ export interface Section {
   elevation: number
 }
 
-export interface Dam {
-  name: string
+export interface Dam extends Section {
   code: string
-  mileage: number
-  elevation: number
   // 设计蓄水位
   designWaterLevel: number
   // 实际蓄水位
   actualWaterLevel: number
   // 设计|建设中|建设完成
   state: 'design' | 'construct' | 'finished',
+  type: 'RR' | 'WT'
   stations?: Station[]
 }
 

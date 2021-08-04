@@ -1,15 +1,21 @@
 <template>
-  <CascadeGraphs ref="cascadeGraphsRef" @dblclick="dblclickFn" />
+  <CascadeGraphs
+    ref="cascadeGraphsRef"
+    @dblclick="dblclickFn"
+    @refresh-child-chart="refreshChildChart"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, unref } from "vue";
 import { CascadeGraphs } from "@/components/Charts";
 
+import { data } from "./data/index";
+import { data as RRData } from "./data/RR";
+
 export default defineComponent({
   components: { CascadeGraphs },
   setup() {
-    const { data } = require("./data");
     const cascadeGraphsRef = ref<typeof CascadeGraphs>(CascadeGraphs);
 
     onMounted(() => {
@@ -17,11 +23,15 @@ export default defineComponent({
       cascadeGraphs.draw(data);
     });
 
-    function dblclickFn(data) {
-      console.log("data", data);
-      const { stations } = data;
+    function dblclickFn(stations) {
+      console.log(stations);
     }
-    return { cascadeGraphsRef, dblclickFn };
+
+    function refreshChildChart(dam, fn) {
+      fn(dam, RRData);
+    }
+
+    return { cascadeGraphsRef, dblclickFn, refreshChildChart };
   },
 });
 </script>

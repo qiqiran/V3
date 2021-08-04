@@ -5,6 +5,7 @@
       ref="chartDom"
       :style="`height: calc(100% - ${dataRef.hideTable ? 0 : 221}px)`"
     ></div>
+    <div class="chart-child-dom" ref="childChartDom"></div>
     <div class="table-dom" ref="tableDom" v-if="!dataRef.hideTable">
       <table border="1" style="width: 100%;">
         <thead>
@@ -44,9 +45,10 @@ import { CascadeGraphs } from "./index";
 import { useWindowSizeFn } from "src/hooks/event/useWindowSizeFn";
 
 export default defineComponent({
-  emits: ["dblclick"],
+  emits: ["dblclick", "refresh-child-chart"],
   setup(_, { emit }) {
     const chartDom: Ref<HTMLElement | null> = ref(null);
+    const childChartDom: Ref<HTMLElement | null> = ref(null);
     const tableDom: Ref<HTMLElement | null> = ref(null);
 
     let dataRef = reactive({});
@@ -55,8 +57,8 @@ export default defineComponent({
 
     onMounted(() => {
       setTimeout(() => {
-        chart = new CascadeGraphs((chartDom as Ref<HTMLElement>).value, { tableDom: (tableDom as Ref<HTMLElement>).value, theme: "light", emit });
-        useWindowSizeFn(() => chart.getInstance().resize(), 0);
+        chart = new CascadeGraphs([(chartDom as Ref<HTMLElement>).value, (childChartDom as Ref<HTMLElement>).value], { tableDom: (tableDom as Ref<HTMLElement>).value, theme: "light", emit });
+        useWindowSizeFn(() => chart.getInstance()[0].resize(), 0);
       }, 1);
     });
 
@@ -80,7 +82,7 @@ export default defineComponent({
       }
     }
 
-    return { chartDom, tableDom, dataRef, draw };
+    return { chartDom, childChartDom, tableDom, dataRef, draw };
   },
 });
 </script>
@@ -92,11 +94,21 @@ export default defineComponent({
   height: 100%;
   background-color: @white;
   padding: 1rem;
+  position: relative;
+  min-width: 800px;
+  min-height: 700px;
 }
 
 .chart-dom {
   width: 100%;
   height: calc(100% - 221px);
+}
+.chart-child-dom {
+  position: absolute;
+  top: 50px;
+  right: 7%;
+  width: 30%;
+  height: 30%;
 }
 .table-dom {
   margin-left: 5%;

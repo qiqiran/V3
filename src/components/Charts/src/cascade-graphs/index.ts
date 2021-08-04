@@ -2,32 +2,37 @@
 import type { ECharts } from "echarts";
 import type { ChartData, Section, Dam, CtorOptions, Station } from "./types";
 
-import { stateEnum, stateColorEnum } from "./enum";
+import { stateEnum, stateColorEnum, seriesNameEnum } from "./enum";
 
 import { init, graphic } from 'echarts';
 import { cloneDeep } from 'lodash-es';
-import { segmentsIntr } from "@/utils/geometry"
+import { segmentsIntr } from "@/utils/geometry";
 import { isArray } from "@/utils/is";
+
+import { getOption as getRROption } from "./components/RR";
+import { getOption as getWTOption } from "./components/WT";
 
 const sectionProfileUniqueId = 8 + Math.random();
 
+let childChart: any;
 export class CascadeGraphs {
   private chart: any;
   private tableDom: any;
   private emit: any;
 
-  constructor(dom: HTMLElement, {
+  constructor([dom, childDom]: [HTMLElement, HTMLElement?], {
     tableDom,
     theme,
     emit
   }: CtorOptions) {
     this.chart = init(dom, theme);
+    if (childDom) childChart = init(childDom, theme)
     this.emit = emit
     this.tableDom = tableDom;
   }
 
-  getInstance(): ECharts {
-    return this.chart;
+  getInstance(): [ECharts, ECharts] {
+    return [this.chart, childChart];
   }
 
   draw(chartData: ChartData) {
@@ -41,7 +46,7 @@ export class CascadeGraphs {
       }, [] as any[][]),
       sections.reduce((res, row) => {
         res.push([row.mileage, row.elevation])
-        return res
+        return res;
       }, [] as any[][])
     );
 
@@ -53,9 +58,35 @@ export class CascadeGraphs {
 
     const series: any[] = [...getRiverbedCrossSection(sectionsCopy, miny, maxy)];
 
-    series.push(...getSectionProfile(chartData, intersectionPointList))
+    series.push(...getSectionProfile(chartData, intersectionPointList));
 
-    this.chart.setOption(getOptions(chartData, series), true);
+    this.chart.setOption(getOption(chartData, series), true);
+
+    const damBodyIndex = series.reduce((res, row, index) => {
+      row && row.name === seriesNameEnum.damBody && (res = index);
+      return res
+    }, -1);
+    // 坝体选中
+    this.chart.off("highlight");
+    this.chart.on("highlight", ({ batch }) => {
+      if (batch && isArray(batch) && damBodyIndex !== -1) {
+        const dataIndex = batch.reduce((res, row) => {
+          row.seriesIndex === damBodyIndex && (res = row.dataIndex);
+          return res
+        }, -1);
+        if (dataIndex > -1) {
+          try {
+            const dam = dams[dataIndex];
+            this.emit("refresh-child-chart", dam, drawChildChart);
+          } catch (error) {
+            console.error("坝体数据异常！");
+            console.error(error);
+          }
+        }
+      } else {
+        console.warn("数据异常");
+      }
+    });
 
     // 设置与table的联动
     this.chart.off("datazoom");
@@ -72,32 +103,47 @@ export class CascadeGraphs {
         }
       });
     }
+
     // 坝体点击
-    this.chart.on("dblclick", { seriesName: "dam-body" }, (params) => {
-      this.emit("dblclick", params.data.dam.stations)
+    this.chart.off("dblclick");
+    this.chart.on("dblclick", { seriesName: 'dam-body' }, (params) => {
+      this.emit("dblclick", params.data.dam.stations);
     })
 
     // 水位面点击
+    // getZr().off('dblclick') 会与on("dblclick")方法冲突，导致其不可用
     this.chart.getZr().on('dblclick', (params) => {
       const { target, offsetX, offsetY } = params;
 
       // 所点击面是水位面
       if (target && target.type === "ec-polygon" && target.z === sectionProfileUniqueId) {
-        const clickPoint: [number, number] = this.chart.convertFromPixel({ seriesName: "section-profile" }, [offsetX, offsetY])
-        console.log("pointInGrid", clickPoint);
-        console.log(getDamsByMileage(dams, clickPoint[0], minx, maxx));
+        const clickPoint: [number, number] = this.chart.convertFromPixel({ seriesName: "section-profile-actual" }, [offsetX, offsetY])
+        this.emit("dblclick", getDamsByMileage(dams, clickPoint[0], minx, maxx));
       }
     });
   }
 }
 
+
+function drawChildChart(dam: Dam, data: any[]) {
+  const { type } = dam;
+  switch (type) {
+    case 'RR':
+      childChart.setOption(getRROption(dam, data), true);
+      break;
+    case 'WT':
+      childChart.setOption(getWTOption(dam, data), true);
+      break;
+  }
+}
+
 /**
- * getOptions
+ * getOption
  * @param chartData 
  * @param series 
  * @returns 
  */
-function getOptions(chartData: ChartData, series: any[]) {
+function getOption(chartData: ChartData, series: any[]) {
   const { minx, miny, maxx, maxy }: ChartData = chartData;
   return {
     dataZoom: [
@@ -112,7 +158,7 @@ function getOptions(chartData: ChartData, series: any[]) {
         if (isArray(params)) {
           params.forEach((row) => {
             const { seriesName, seriesType, marker, data: { dam } } = row;
-            if (seriesType === 'bar' && seriesName === 'dam-body') {
+            if (seriesType === 'bar' && seriesName === seriesNameEnum.damBody) {
 
               const { name, mileage, elevation, designWaterLevel, actualWaterLevel, state } = dam;
               res = `
@@ -137,6 +183,7 @@ function getOptions(chartData: ChartData, series: any[]) {
       left: '5%',
       right: '5%',
       bottom: 1,
+      z: 1
     },
     xAxis: [{
       type: 'value',
@@ -360,7 +407,7 @@ function getSectionProfile({ dams, maxx, style }: ChartData, intersectionPointLi
   }, [] as any[])
 
   res.push({
-    name: `dam-body`,
+    name: seriesNameEnum.damBody,
     type: 'bar',
     label: {
       show: true,
@@ -507,8 +554,8 @@ function getIntersectionPoint(points1: number[][], points2: number[][]) {
  */
 function getDamsByMileage(dams: Dam[], mileage: number, minx: number, maxx: number) {
   dams = cloneDeep(dams);
-  dams.unshift({ mileage: maxx, name: "起始点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, state: "finished" });
-  dams.push({ mileage: minx, name: "结束点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, state: "finished" });
+  dams.unshift({ mileage: maxx, name: "起始点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, type: "RR", state: "finished" });
+  dams.push({ mileage: minx, name: "结束点", code: "", elevation: 0, designWaterLevel: 0, actualWaterLevel: 0, type: "RR", state: "finished" });
 
   const len = dams.length;
   const res: Station[] = [];
