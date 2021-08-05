@@ -174,7 +174,7 @@ function getOption(chartData: ChartData, series: any[]) {
               res = `
               <h3>${marker}${name}<span style="font-size:12px">(${stateEnum[state]})</span>
               </h3>
-              &emsp;编码：${code}(km)
+              &emsp;编码：${code}
               <br/>
               &emsp;里程：${mileage}(km)
               <br/>

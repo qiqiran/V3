@@ -71,26 +71,26 @@ export const data: ChartData = {
   ],
   dams: [
     {
-      name: "下尔呷", code: "", mileage: 800, elevation: 3120, designWaterLevel: 3100, actualWaterLevel: 3110, type: "RR", state: "construct",
+      name: "下尔呷", code: "61108", mileage: 800, elevation: 3120, designWaterLevel: 3100, actualWaterLevel: 3110, type: "RR", state: "construct",
       stations: [
         { stid: "207", stcd: "61108550", stnm: "白渔潭", },
         { stid: "208", stcd: "61122300", stnm: "码市", },
       ],
     },
     {
-      name: "巴拉", code: "", mileage: 775, elevation: 2920, designWaterLevel: 2900, actualWaterLevel: 2880, type: "RR", state: "design",
+      name: "巴拉", code: "6112", mileage: 775, elevation: 2920, designWaterLevel: 2900, actualWaterLevel: 2880, type: "RR", state: "design",
       stations: [
         { stid: "208", stcd: "61122300", stnm: "码市", }
       ]
     },
     {
-      name: "达维", code: "", mileage: 745, elevation: 2730, designWaterLevel: 2700, actualWaterLevel: 2680, type: "WT", state: "finished",
+      name: "达维", code: "611G", mileage: 745, elevation: 2730, designWaterLevel: 2700, actualWaterLevel: 2680, type: "WT", state: "finished",
       stations: [
         { stid: "200", stcd: "611G0220", stnm: "开源水库", }
       ]
     },
     {
-      name: "卜寺沟", code: "", mileage: 715, elevation: 2606, designWaterLevel: 2600, actualWaterLevel: 2580, type: "WT", state: "construct",
+      name: "卜寺沟", code: "611H", mileage: 715, elevation: 2606, designWaterLevel: 2600, actualWaterLevel: 2580, type: "WT", state: "construct",
       stations: [
         { stid: "201", stcd: "611H0002", stnm: "建设水库", }
       ]
