@@ -47,6 +47,7 @@ export interface Dam extends Section {
 }
 
 export interface Station {
+  stid: string
   stnm: string
   stcd: string
 }

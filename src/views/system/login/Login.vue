@@ -120,16 +120,16 @@ export default defineComponent({
 
     async function login() {
       loading.value = true;
-      // const res = await loginApi({ NM: loginForm.account, PW: loginForm.password }).finally(() => (loading.value = false));
-      // userStore.commitUserInfoState(res);
+      const res = await loginApi({ NM: loginForm.account, PW: loginForm.password }).finally(() => (loading.value = false));
+      userStore.commitUserInfoState(res);
 
-      userStore.commitUserInfoState({
-        Admin: 1,
-        KEY: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImFkbWluX3VzZXJuYW1lIjoieXhoIiwiZXhwIjoxNjIyODkxMDMyLCJpYXQiOjE2MjI4MDQ2MzJ9.oeDkB8ktufhRm1F-XK4zQdcxooV3n6T75AQx4RDuUiQ",
-        NM: "yxh",
-        Name: "阎晓辉",
-        TP: 100,
-      });
+      // userStore.commitUserInfoState({
+      //   Admin: 1,
+      //   KEY: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImFkbWluX3VzZXJuYW1lIjoieXhoIiwiZXhwIjoxNjIyODkxMDMyLCJpYXQiOjE2MjI4MDQ2MzJ9.oeDkB8ktufhRm1F-XK4zQdcxooV3n6T75AQx4RDuUiQ",
+      //   NM: "yxh",
+      //   Name: "阎晓辉",
+      //   TP: 100,
+      // });
       router.push(PageEnum.BASE_HOME);
     }
 

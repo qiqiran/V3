@@ -20,11 +20,11 @@ const config: IAxiosConfig = {
 
 const axios = new Axios(config);
 
-export function get<T>(url: string, params: any): Promise<T> {
+export function get<T>(url: string, params?: any): Promise<T> {
   return axios.get(url, params);
 }
 
-export function post<T>(url: string, params: any): Promise<T> {
+export function post<T>(url: string, params?: any): Promise<T> {
   return axios.post(url, params);
 }
 

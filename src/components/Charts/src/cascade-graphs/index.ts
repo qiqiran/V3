@@ -1,5 +1,6 @@
 
 import type { ECharts } from "echarts";
+import type { GetMEResultModel } from "@/api/chart/model"
 import type { ChartData, Section, Dam, CtorOptions, Station } from "./types";
 
 import { stateEnum, stateColorEnum, seriesNameEnum } from "./enum";
@@ -77,7 +78,12 @@ export class CascadeGraphs {
         if (dataIndex > -1) {
           try {
             const dam = dams[dataIndex];
-            this.emit("refresh-child-chart", dam, drawChildChart);
+            this.emit("refresh-child-chart", dam, {
+              callback: drawChildChart,
+              clear: clearChildChart,
+              openLoading: function () { },
+              closeLoading: function () { },
+            });
           } catch (error) {
             console.error("坝体数据异常！");
             console.error(error);
@@ -125,16 +131,20 @@ export class CascadeGraphs {
 }
 
 
-function drawChildChart(dam: Dam, data: any[]) {
+function drawChildChart(dam: Dam, data: GetMEResultModel | ChartData) {
   const { type } = dam;
   switch (type) {
     case 'RR':
-      childChart.setOption(getRROption(dam, data), true);
+      childChart.setOption(getRROption(data as GetMEResultModel), true);
       break;
     case 'WT':
       childChart.setOption(getWTOption(dam, data), true);
       break;
   }
+}
+
+function clearChildChart() {
+  childChart.setOption({}, true)
 }
 
 /**
@@ -160,10 +170,12 @@ function getOption(chartData: ChartData, series: any[]) {
             const { seriesName, seriesType, marker, data: { dam } } = row;
             if (seriesType === 'bar' && seriesName === seriesNameEnum.damBody) {
 
-              const { name, mileage, elevation, designWaterLevel, actualWaterLevel, state } = dam;
+              const { name, code, mileage, elevation, designWaterLevel, actualWaterLevel, state } = dam;
               res = `
               <h3>${marker}${name}<span style="font-size:12px">(${stateEnum[state]})</span>
               </h3>
+              &emsp;编码：${code}(km)
+              <br/>
               &emsp;里程：${mileage}(km)
               <br/>
               &emsp;高程：${elevation}(m)

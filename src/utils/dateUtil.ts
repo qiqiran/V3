@@ -17,4 +17,9 @@ export function formatToDate(date: moment.MomentInput = null, format = DATE_FORM
   return moment(date).format(format);
 }
 
+export function lastDay(num: number = 1, date: Date = new Date()) {
+  date.setTime(date.getTime() - 3600 * 1000 * 24 * num);
+  return date;
+}
+
 export const dateUtil = moment;

@@ -58,7 +58,12 @@ export default defineComponent({
     onMounted(() => {
       setTimeout(() => {
         chart = new CascadeGraphs([(chartDom as Ref<HTMLElement>).value, (childChartDom as Ref<HTMLElement>).value], { tableDom: (tableDom as Ref<HTMLElement>).value, theme: "light", emit });
-        useWindowSizeFn(() => chart.getInstance()[0].resize(), 0);
+
+        const [PI, CI] = chart.getInstance();
+        useWindowSizeFn(() => {
+          PI.resize();
+          CI.resize();
+        }, 0);
       }, 1);
     });
 

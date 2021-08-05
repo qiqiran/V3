@@ -1,7 +1,12 @@
-import type { Dam } from "../types";
+import type { GetMEResultModel } from "@/api/chart/model"
 import { getEchartsOfScaleDecimal } from "@/components/Charts/utils"
 
-export function getOption({ name }: Dam, { st, et, data }: any) {
+export function getOption({ name, T, V, st, et }: GetMEResultModel) {
+  const data = T.reduce((res, row, index) => {
+    res.push([row, V[index]])
+    return res
+  }, [] as [string, number][]);
+
   return {
     animation: false,
     title: {
