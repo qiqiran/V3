@@ -1,24 +1,26 @@
-import type { ECharts } from "echarts";
-import type { ChartData } from "./types";
+import { ECharts, number } from "echarts";
+import type { ChartData, MarkData } from "./types";
 
 import { init, graphic } from 'echarts';
 
 import { isArray } from "@/utils/is";
+import { getEchartsOfScaleDecimal } from "@/components/Charts/utils";
 
 import { detector } from "./images"
 
 let markids: string[] = [];
 
+let childChart: ECharts;
 export class DamGraph {
   private chart: ECharts;
-  private dom: HTMLElement;
-  constructor(dom: HTMLElement, theme?: string) {
-    this.dom = dom;
+
+  constructor([dom, childDom]: [HTMLElement, HTMLElement?], theme?: string) {
     this.chart = init(dom, theme);
+    if (childDom) childChart = init(childDom, theme);
   }
 
-  getInstance(): ECharts {
-    return this.chart;
+  getInstance(): [ECharts, ECharts] {
+    return [this.chart, childChart];
   }
 
   draw(chartData: ChartData) {
@@ -30,34 +32,69 @@ export class DamGraph {
 
     series.push(...getTMark(chartData));
 
-    this.chart.setOption(getOptions(chartData, series))
+    this.chart.setOption(getOption(chartData, series));
+
+    const { datas } = chartData;
+    console.log(datas);
+
+    const markIndexs: number[] = series.reduce((res, row, index) => {
+      if (markids.includes(row.id)) res.push(index);
+      return res
+    }, [] as number[]);
+
+    // 坝体选中
+    this.chart.off("highlight");
+    this.chart.on("highlight", ({ batch }) => {
+
+      if (batch && isArray(batch) && markIndexs.length > 0) {
+        const dataIndex = batch.reduce((res, row) => {
+          markIndexs.includes(row.seriesIndex) && (res = markIndexs.indexOf(row.seriesIndex));
+          return res
+        }, -1);
+        if (dataIndex > -1) {
+          try {
+            const markData = datas[dataIndex];
+            if (markData.data && markData.data.length > 1) {
+              this.drawChildChart(markData);
+            } else {
+              this.clearChildChart();
+            }
+          } catch (error) {
+            console.error("坝体数据异常！");
+            console.error(error);
+          }
+        }
+      } else {
+        console.warn("数据异常");
+      }
+    });
+  }
+
+  drawChildChart(markData: MarkData) {
+    const data = markData.data.reduce((res, row) => {
+      res.push([row.T, row.H]);
+      return res
+    }, [] as [number, number][])
+    childChart.setOption(getChildOption(markData.label, data), true);
+  }
+
+  clearChildChart() {
+    childChart.setOption({}, true);
   }
 }
 
 /**
- * getOptions
+ * getOption
  * @param chartData 
  * @param series 
  * @returns 
  */
-function getOptions({ minx, miny, maxx, maxy }: ChartData, series: any[]) {
+function getOption({ minx, miny, maxx, maxy }: ChartData, series: any[]) {
   return {
-    // tooltip: {
-    //   trigger: 'axis',
-    //   formatter: (params) => {
-    //     let res = '';
-    //     if (isArray(params) && params.length && markids.includes(params[0].seriesId)) {
-    //       const { marker, seriesName } = params[0]
-    //       res += `${marker}${seriesName}<br/>`;
-
-    //       params.forEach((row) => {
-    //         const [M, Z, H, T] = row.data;
-    //         if (H || T) res += `&emsp;水下${H}(m)：${T}(℃)<br/>`;
-    //       })
-    //     }
-    //     return res;
-    //   }
-    // },
+    tooltip: {
+      trigger: 'axis',
+      formatter: () => ""
+    },
     grid: {
       top: 50,
       left: '5%',
@@ -198,6 +235,84 @@ function getOptions({ minx, miny, maxx, maxy }: ChartData, series: any[]) {
       max: maxy,
     }],
     series
+  }
+}
+
+function getChildOption(name: string, data: [number, number][]) {
+  return {
+    animation: false,
+    title: {
+      text: name,
+      left: "center",
+      textStyle: {
+        color: "#606266",
+        fontSize: 16,
+        fontWeight: 500,
+      }
+    },
+    grid: {
+      left: 50,
+      top: 50,
+      right: 0,
+      bottom: 50
+    },
+    tooltip: {
+      trigger: 'axis',
+      formatter: (params) => {
+        if (!params[0]) {
+          return params.name;
+        }
+        let relVal = '';
+        params.forEach(function (item, index) {
+          relVal += "<font size='4' style='color:" + item.color + "'>●&nbsp;</font>" + item.data[1] + " m：" + (item.axisValueLabel * 1) + "℃ <br/>"
+        })
+        return relVal;
+      }
+    },
+    xAxis: [
+      {
+        type: 'value',
+        axisLabel: {
+          formatter: (val) => {
+            return val + "℃";
+          }
+        },
+        min: (value) => {
+          value = getEchartsOfScaleDecimal(value.min, value.max);
+          return Math.floor(value.min);
+        },
+        max: (value) => {
+          value = getEchartsOfScaleDecimal(value.min, value.max);
+          return Math.ceil(value.max);
+        },
+      }
+    ],
+    yAxis: [
+      {
+        name: '水深(m)',
+        nameLocation: "start",
+        type: 'value',
+        inverse: true,
+        axisLabel: {
+          formatter: (val) => {
+            return val + "m";
+          }
+        },
+      }
+    ],
+    series: [{
+      type: 'line',
+      lineStyle: {
+        normal: {
+          width: 3,
+          shadowColor: 'rgba(0,0,0,0.4)',
+          shadowBlur: 10,
+          shadowOffsetY: 10
+        }
+      },
+      showSymbol: false,
+      data
+    }]
   }
 }
 
@@ -433,8 +548,6 @@ function getTMark({ datas, dam, lz, rz, miny }: ChartData) {
         textShadowBlur: 1,
         textBorderColor: 'rgba(0,0,0,0)',
         formatter: (params) => {
-          console.log(params);
-
           let res = '';
           const [M, Z, H, T] = params.data;
           if (H || T) res = `水下${H}m：${T}℃`;

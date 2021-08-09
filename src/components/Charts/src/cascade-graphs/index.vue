@@ -103,7 +103,6 @@ export default defineComponent({
   min-width: 800px;
   min-height: 700px;
 }
-
 .chart-dom {
   width: 100%;
   height: calc(100% - 221px);

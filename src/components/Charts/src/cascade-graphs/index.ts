@@ -27,7 +27,7 @@ export class CascadeGraphs {
     emit
   }: CtorOptions) {
     this.chart = init(dom, theme);
-    if (childDom) childChart = init(childDom, theme)
+    if (childDom) childChart = init(childDom, theme);
     this.emit = emit
     this.tableDom = tableDom;
   }
@@ -131,14 +131,14 @@ export class CascadeGraphs {
 }
 
 
-function drawChildChart(dam: Dam, data: GetMEResultModel | ChartData) {
+function drawChildChart(dam: Dam, data: GetMEResultModel | any[]) {
   const { type } = dam;
   switch (type) {
     case 'RR':
       childChart.setOption(getRROption(data as GetMEResultModel), true);
       break;
     case 'WT':
-      childChart.setOption(getWTOption(dam, data), true);
+      childChart.setOption(getWTOption(dam, data as any[]), true);
       break;
   }
 }
@@ -170,12 +170,10 @@ function getOption(chartData: ChartData, series: any[]) {
             const { seriesName, seriesType, marker, data: { dam } } = row;
             if (seriesType === 'bar' && seriesName === seriesNameEnum.damBody) {
 
-              const { name, code, mileage, elevation, designWaterLevel, actualWaterLevel, state } = dam;
+              const { name, mileage, elevation, designWaterLevel, actualWaterLevel, state, stations } = dam;
               res = `
               <h3>${marker}${name}<span style="font-size:12px">(${stateEnum[state]})</span>
               </h3>
-              &emsp;编码：${code}
-              <br/>
               &emsp;里程：${mileage}(km)
               <br/>
               &emsp;高程：${elevation}(m)
@@ -184,6 +182,12 @@ function getOption(chartData: ChartData, series: any[]) {
               <br/>
               &emsp;实际水位：${actualWaterLevel}(m)
               `;
+              stations.forEach(({ stcd }) => {
+                res += `
+                  <br/>
+                  &emsp;编码：${stcd}
+                `;
+              })
             }
           })
         }

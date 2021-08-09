@@ -13,7 +13,7 @@ import { defineComponent, onMounted, ref, unref } from "vue";
 import { CascadeGraphs } from "@/components/Charts";
 
 import { data } from "./data/index";
-import { data as RRData } from "./data/RR";
+import { data as WTData } from "./data/WT";
 
 import { GetMEDataApi } from "@/api/chart";
 
@@ -56,7 +56,7 @@ export default defineComponent({
             }
             break;
           case "WT":
-            clear();
+            callback(dam, WTData);
             break;
         }
       } else {

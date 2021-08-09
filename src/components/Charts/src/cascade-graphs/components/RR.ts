@@ -1,5 +1,5 @@
-import type { GetMEResultModel } from "@/api/chart/model"
-import { getEchartsOfScaleDecimal } from "@/components/Charts/utils"
+import type { GetMEResultModel } from "@/api/chart/model";
+import { getEchartsOfScaleDecimal } from "@/components/Charts/utils";
 
 export function getOption({ name, T, V, st, et }: GetMEResultModel) {
   const data = T.reduce((res, row, index) => {
