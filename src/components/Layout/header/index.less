@@ -92,11 +92,12 @@
         background: @header-menu-bg-active-color;
       }
 
-      .ant-menu-item:hover {
-        background: transparent !important;
+      .ant-menu-item:not(.ant-menu-item-selected) {
+        &:hover{
+          background: transparent !important;
+        }
       }
     }
-
   }
 
   // menu end
