@@ -1,10 +1,7 @@
-/**
- * Created by Schon on 2018/9/13 0013.
- */
 //设置cookie
-function setCookie(key: string, value: any, len: number) {
+function setCookie(key: string, value: any, timeout?: Nullable<number>) {
   var exdate = new Date(); //获取时间
-  exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * len); //保存的天数，我这里写的是100年
+  exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * (timeout || 0)); //保存的天数
   //字符串拼接cookie
   window.document.cookie = key + "=" + value + ";path=/;expires=" + exdate.toUTCString();
 };
@@ -24,7 +21,5 @@ function getCookie(param: string) {
     return c_param;
   }
 };
-function padLeftZero(str: string) {
-  return ('00' + str).substr(str.length);
-};
+
 export { getCookie, setCookie }

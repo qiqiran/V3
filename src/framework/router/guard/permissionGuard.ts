@@ -12,6 +12,8 @@ export function createPermissionGuard(router: Router) {
   // login check
   router.beforeEach((to, from, next) => {
     const token = userStore.getToken;
+    console.log("userStore", userStore.getToken);
+
     let hasToken = isString(token) && token.length;
     if (hasToken) {
       if (to.path === '/login') {

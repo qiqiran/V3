@@ -1,9 +1,15 @@
 
 
 
-import { createStorage as create, CreateStorageParams, getStorageShortName } from "./storageCache";
+import { createStorage as create, CreateStorageParams } from "./storageCache";
 import { enableStorageEncryption } from "src/settings/encryptionSetting";
 import { DEFAULT_CACHE_TIME } from "src/settings/encryptionSetting";
+
+import pkg from '../../../package.json';
+
+function getStorageShortName() {
+  return `${'wiot'}${`__${pkg.version}`}__`.toUpperCase();
+}
 
 export type Options = Partial<CreateStorageParams>;
 

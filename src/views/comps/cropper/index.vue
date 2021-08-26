@@ -2,12 +2,12 @@
   <ScrollContainer :class="[prefixCls, `container`]">
     <a-card title="更换头像">
       <CropperAvatar
-        :uploadApi="uploadApi"
         :value="`static/images/pic/gsx.jpg`"
         btnText="更换头像"
         :btnProps="{ preIcon: 'cloud-upload' }"
         width="250"
       />
+        <!-- :uploadApi="uploadApi" -->
       <!-- @change="updateAvatar" -->
     </a-card>
 

@@ -1,3 +1,5 @@
+import { enableStorageEncryption, DEFAULT_CACHE_TIME } from 'src/settings/encryptionSetting';
+
 import type { LoginParams, LoginResultModel as UserInfo } from "src/api/system/model/loginModel"
 
 import { USER_INFO_KEY } from 'src/enums/cacheEnum';;
@@ -6,16 +8,24 @@ import { PageEnum } from 'src/enums/pageEnum';
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import store from '#/store';
 
-import { Persistent } from 'src/utils/cache/persistent';
+import { createCookieStore } from "src/utils/cache/cookieStore";
+
 import router from "#/router";
 
 import { loginApi } from "src/api/system/login"
+
+const cs = createCookieStore({
+  // No encryption in debug mode
+  hasEncrypt: enableStorageEncryption,
+  prefixKey: `${'wiot'}_`.toUpperCase(),
+  timeout: DEFAULT_CACHE_TIME
+});
 
 const NAME = 'user';
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class App extends VuexModule {
 
-  private userInfoState: UserInfo | null = Persistent.getLocal(USER_INFO_KEY);
+  private userInfoState: UserInfo | null = cs.get(USER_INFO_KEY);
 
   get getToken(): string {
     return this.userInfoState?.KEY || "";
@@ -28,7 +38,9 @@ class App extends VuexModule {
   @Mutation
   commitUserInfoState(userInfo: UserInfo | null): void {
     this.userInfoState = userInfo;
-    Persistent.setLocal(USER_INFO_KEY, this.userInfoState, true);
+    console.log(cs.set(USER_INFO_KEY, this.userInfoState));
+
+    cs.set(USER_INFO_KEY, this.userInfoState);
   }
 
   @Action
