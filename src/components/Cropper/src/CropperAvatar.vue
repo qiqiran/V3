@@ -9,9 +9,12 @@
       </div>
       <img :src="sourceValue" v-if="sourceValue" alt="avatar" />
     </div>
-    <!-- <Button v-bind="btnProps" :class="`${prefixCls}-upload-btn`" @click="openModal" v-if="showBtn">
-      {{ btnText ? btnText : `选择图片` }}
-    </Button> -->
+    <Button
+      v-bind="btnProps"
+      :class="`${prefixCls}-upload-btn`"
+      @click="openModal"
+      v-if="showBtn"
+    >{{ btnText ? btnText : `选择图片` }}</Button>
 
     <CopperModal
       @register="register"

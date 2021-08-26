@@ -7,7 +7,7 @@
         :btnProps="{ preIcon: 'cloud-upload' }"
         width="250"
       />
-        <!-- :uploadApi="uploadApi" -->
+      <!-- :uploadApi="uploadApi" -->
       <!-- @change="updateAvatar" -->
     </a-card>
 

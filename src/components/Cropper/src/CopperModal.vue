@@ -144,7 +144,7 @@ export default defineComponent({
     const cropper = ref<Cropper>();
     let scaleX = 1;
     let scaleY = 1;
-
+    
     const { prefixCls } = useDesign("cropper-am");
     const [register, { closeModal, setModalProps }] = useModalInner();
 
