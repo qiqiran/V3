@@ -1,9 +1,6 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import type {
-  ColumnProps,
-  TableRowSelection as ITableRowSelection,
-} from 'ant-design-vue/lib/table/interface';
+import type { ColumnProps, TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface';
 
 import { ComponentType } from './componentType';
 import { VueNode } from '@/utils/propTypes';
@@ -13,7 +10,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
    * 多选/单选
    * @type string checkbox | radio
    */
-  type: "checkbox" | "radio"
+  type: 'checkbox' | 'radio';
   /**
    * Callback executed when selected rows change
    * @type Function
@@ -91,9 +88,8 @@ export interface TableSetting {
   setting?: boolean;
   fullScreen?: boolean;
 }
-
-
-export interface BasicTableProps<T = any> {
+// T = any
+export interface BasicTableProps<> {
   reload?: Function;
   // 点击行选中
   clickToRowSelect?: boolean;
@@ -361,10 +357,7 @@ export interface BasicTableProps<T = any> {
   onColumnsChange?: (data: ColumnChangeParam[]) => void;
 }
 
-export type CellFormat =
-  | string
-  | ((text: string, record: Recordable, index: number) => string | number)
-  | Map<string | number, any>;
+export type CellFormat = string | ((text: string, record: Recordable, index: number) => string | number) | Map<string | number, any>;
 
 // @ts-ignore
 export interface BasicColumn extends ColumnProps {
@@ -372,9 +365,7 @@ export interface BasicColumn extends ColumnProps {
   filters?: {
     text: string;
     value: string;
-    children?:
-    | unknown[]
-    | (((props: Record<string, unknown>) => unknown[]) & (() => unknown[]) & (() => unknown[]));
+    children?: unknown[] | (((props: Record<string, unknown>) => unknown[]) & (() => unknown[]) & (() => unknown[]));
   }[];
 
   //

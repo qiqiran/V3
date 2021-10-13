@@ -1,21 +1,6 @@
-import type {
-  UseModalReturnType,
-  ModalMethods,
-  ModalProps,
-  ReturnMethods,
-  UseModalInnerReturnType,
-} from '../types';
+import type { UseModalReturnType, ModalMethods, ModalProps, ReturnMethods, UseModalInnerReturnType } from '../types';
 
-import {
-  ref,
-  onUnmounted,
-  unref,
-  getCurrentInstance,
-  reactive,
-  watchEffect,
-  nextTick,
-  toRaw,
-} from 'vue';
+import { ref, onUnmounted, unref, getCurrentInstance, reactive, watchEffect, nextTick, toRaw } from 'vue';
 import { isProdMode } from 'src/utils/env';
 import { isFunction } from 'src/utils/is';
 import { isEqual } from 'lodash-es';
@@ -89,7 +74,7 @@ export function useModal(): UseModalReturnType {
         dataTransferRef[unref(uidRef)] = toRaw(data);
       }
     },
-    
+
     closeModal: () => {
       getInstance()?.setModalProps({ visible: false });
     },

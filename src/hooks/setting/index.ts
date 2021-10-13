@@ -4,4 +4,4 @@ import { useSiderSetting } from './useSiderSetting';
 import { useMenuSetting } from './useMenuSetting';
 import { useMultiTabSetting } from './useMultiTabSetting';
 
-export { useRootSetting, useHeaderSetting, useSiderSetting, useMenuSetting, useMultiTabSetting }
+export { useRootSetting, useHeaderSetting, useSiderSetting, useMenuSetting, useMultiTabSetting };

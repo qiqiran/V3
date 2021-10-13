@@ -1,12 +1,12 @@
-import type { RequestMethod, IResult } from '../type';
-import { ErrorCodeEnum } from "../enum"
+import type { IResult } from '../type';
+import { ErrorCodeEnum } from '../enum';
 
-import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 import { IAxiosConfig } from '#/axios/interface/IAxiosConfig';
-import { isFunction } from 'src/utils/is'
+import { isFunction } from 'src/utils/is';
 
-import { error, warn, warning } from 'src/hooks/web/useMessage';
-import { isNullOrUnDef } from "src/utils/is"
+import { error, warning } from 'src/hooks/web/useMessage';
+import { isNullOrUnDef } from 'src/utils/is';
 
 class Axios {
   private axiosInstance: AxiosInstance;
@@ -45,7 +45,7 @@ class Axios {
   }
 
   /**
-   * @description: 
+   * @description:
    */
   private getTransform() {
     const { transform } = this.axiosConfig;
@@ -69,53 +69,40 @@ class Axios {
     const transform = this.getTransform();
     if (!transform) return;
 
-    const {
-      requestInterceptor,
-      requestInterceptorCatch,
-      responseInterceptor,
-      responseInterceptorCatch,
-    } = transform;
+    const { requestInterceptor, requestInterceptorCatch, responseInterceptor, responseInterceptorCatch } = transform;
 
     // 请求拦截器配置处理
-    this.axiosInstance.interceptors.request.use(
-      config => {
-        if (requestInterceptor && isFunction(requestInterceptor)) {
-          config = requestInterceptor(config);
-        }
-        return config;
+    this.axiosInstance.interceptors.request.use((config) => {
+      if (requestInterceptor && isFunction(requestInterceptor)) {
+        config = requestInterceptor(config);
       }
-    );
+      return config;
+    });
 
     // 请求拦截器错误捕获
-    requestInterceptorCatch &&
-      isFunction(requestInterceptorCatch) &&
-      this.axiosInstance.interceptors.request.use(undefined, requestInterceptorCatch);
+    requestInterceptorCatch && isFunction(requestInterceptorCatch) && this.axiosInstance.interceptors.request.use(undefined, requestInterceptorCatch);
 
     // 响应拦截器配置处理
-    this.axiosInstance.interceptors.response.use(
-      response => {
-        if (responseInterceptor && isFunction(responseInterceptor)) {
-          response = responseInterceptor(response);
-        }
-        return response;
+    this.axiosInstance.interceptors.response.use((response: AxiosResponse<IResult<any>>) => {
+      if (responseInterceptor && isFunction(responseInterceptor)) {
+        response = responseInterceptor(response);
       }
-    );
+      return response;
+    });
 
     // 响应拦截器错误捕获
-    responseInterceptorCatch &&
-      isFunction(responseInterceptorCatch) &&
-      this.axiosInstance.interceptors.response.use(undefined, responseInterceptorCatch);
+    responseInterceptorCatch && isFunction(responseInterceptorCatch) && this.axiosInstance.interceptors.response.use(undefined, responseInterceptorCatch);
   }
 
   private request<T = any, R = T>(config: AxiosRequestConfig): Promise<R> {
     return new Promise((resolve, reject) => {
       this.axiosInstance.request<any, AxiosResponse<IResult<R>>>(config).then((response: AxiosResponse<IResult>) => {
-        console.log("responseInterceptor", response);
+        console.log('responseInterceptor', response);
         const { data } = response;
         const { tp, msg, re } = data;
         switch (tp) {
           case -1:
-            warning("aaa" + ErrorCodeEnum.errorMessage);
+            warning('aaa' + ErrorCodeEnum.errorMessage);
             reject(ErrorCodeEnum.errorMessage);
             break;
           case 1:
@@ -132,8 +119,8 @@ class Axios {
             break;
         }
         resolve(response?.data?.re);
-      })
-    })
+      });
+    });
   }
 
   // axios会将params的参数拼接到url
@@ -141,7 +128,7 @@ class Axios {
     return this.request({
       url,
       params,
-      method: "GET",
+      method: 'GET',
     });
   }
 
@@ -149,7 +136,7 @@ class Axios {
     return this.request({
       url,
       data,
-      method: "POST"
+      method: 'POST',
     });
   }
 }

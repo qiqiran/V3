@@ -17,54 +17,54 @@
   </a-layout>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue';
 
-import { useDesign } from "src/hooks/web/useDesign";
-import { useAppAdapter } from "src/hooks/web/useAppAdapter";
-import { useHeaderSetting, useSiderSetting, useMenuSetting } from "src/hooks/setting";
+  import { useDesign } from 'src/hooks/web/useDesign';
+  import { useAppAdapter } from 'src/hooks/web/useAppAdapter';
+  import { useHeaderSetting, useSiderSetting, useMenuSetting } from 'src/hooks/setting';
 
-import { createAsyncComponent } from "src/utils/factory/createAsyncComponent";
+  import { createAsyncComponent } from 'src/utils/factory/createAsyncComponent';
 
-import LayoutHeader from "./header/index.vue";
-import MultipleHeader from "./header/MultipleHeader.vue";
-import LayoutSider from "./sider/index.vue";
-import LayoutContent from "./content/index.vue";
-import LayoutFooter from "./footer/index.vue";
+  import LayoutHeader from './header/index.vue';
+  import MultipleHeader from './header/MultipleHeader.vue';
+  import LayoutSider from './sider/index.vue';
+  import LayoutContent from './content/index.vue';
+  import LayoutFooter from './footer/index.vue';
 
-export default defineComponent({
-  name: "Layout",
-  components: {
-    LayoutHeader,
-    MultipleHeader,
-    LayoutSider,
-    LayoutContent,
-    LayoutFooter,
-    LayoutLockPage: createAsyncComponent(() => import("src/views/system/lock/index.vue")),
-  },
-  setup() {
-    const { prefixCls } = useDesign("layout");
-    const { getIsMobile } = useAppAdapter();
-    const { getShowFullHeaderRef } = useHeaderSetting();
-    const { getShowSiderMenu } = useSiderSetting();
-    const {} = useMenuSetting();
+  export default defineComponent({
+    name: 'Layout',
+    components: {
+      LayoutHeader,
+      MultipleHeader,
+      LayoutSider,
+      LayoutContent,
+      LayoutFooter,
+      LayoutLockPage: createAsyncComponent(() => import('src/views/system/lock/index.vue')),
+    },
+    setup() {
+      const { prefixCls } = useDesign('layout');
+      const { getIsMobile } = useAppAdapter();
+      const { getShowFullHeaderRef } = useHeaderSetting();
+      const { getShowSiderMenu } = useSiderSetting();
+      const {} = useMenuSetting();
 
-    return {
-      prefixCls,
-      getIsMobile,
+      return {
+        prefixCls,
+        getIsMobile,
 
-      getShowFullHeaderRef,
+        getShowFullHeaderRef,
 
-      getShowSiderMenu,
-    };
-  },
-});
+        getShowSiderMenu,
+      };
+    },
+  });
 </script>
 <style lang="less">
-@prefix-cls: ~"@{namespace}layout";
+  @prefix-cls: ~'@{namespace}layout';
 
-.@{prefix-cls} {
-  .ant-layout-content {
-    overflow: auto;
+  .@{prefix-cls} {
+    .ant-layout-content {
+      overflow: auto;
+    }
   }
-}
 </style>

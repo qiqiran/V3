@@ -4,16 +4,16 @@ export const IndexRoute: AppRouteRecordRaw = {
   path: '/index',
   name: 'Index',
   meta: {
-    title: "首页",
-    affix: true
+    title: '首页',
+    affix: true,
   },
-  component: () => import('src/views/index/index.vue')
+  component: () => import('src/views/index/index.vue'),
 };
 
 const redirectRoute: AppRouteRecordRaw = {
   path: '/',
-  name: "",
-  redirect: '/index'
+  name: '',
+  redirect: '/index',
 };
 
 const routrs = [IndexRoute, redirectRoute];

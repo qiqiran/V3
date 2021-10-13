@@ -18,12 +18,12 @@ class App extends VuexModule {
 
   @Mutation
   commitLockInfo(info: LockInfo | null) {
-    this.lockInfo = info
+    this.lockInfo = info;
   }
 
   @Action
   setLockInfo(info: LockInfo) {
-    const lockInfo = Object.assign({}, this.lockInfo, info)
+    const lockInfo = Object.assign({}, this.lockInfo, info);
     this.commitLockInfo(lockInfo);
     Persistent.setLocal(LOCK_INFO_KEY, lockInfo, true);
   }

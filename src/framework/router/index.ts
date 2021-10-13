@@ -8,8 +8,8 @@ import routes from './routes/';
 // app router
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: (routes as unknown) as RouteRecordRaw[],
-  strict: true
+  routes: routes as unknown as RouteRecordRaw[],
+  strict: true,
 });
 
 // config router
@@ -18,4 +18,4 @@ function setupRouter(app: App<Element>) {
   createGuard(router);
 }
 export default router;
-export { setupRouter }
+export { setupRouter };

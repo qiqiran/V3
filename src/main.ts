@@ -1,9 +1,9 @@
-import { createApp } from 'vue'
-import App from 'src/App.vue'
+import { createApp } from 'vue';
+import App from 'src/App.vue';
 import { setupAntdvCompontents, setupAntdvIcons } from '#/ui';
 import router, { setupRouter } from '#/router/index';
 import { setupStore } from '#/store';
-import { initAppConfigStore } from '#/logics/initAppConfig'
+import { initAppConfigStore } from '#/logics/initAppConfig';
 import { setupGlobDirectives } from '#/directives/index';
 
 const app = createApp(App);

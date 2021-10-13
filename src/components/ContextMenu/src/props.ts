@@ -1,6 +1,5 @@
 import type { PropType } from 'vue';
 import type { Axis, ContextMenuItem } from './types';
-import { createTypes, VueTypeValidableDef, VueTypesInterface } from 'vue-types';
 
 export const contextMenuProps = {
   width: { type: Number, default: 156 },

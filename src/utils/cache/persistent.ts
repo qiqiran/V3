@@ -1,20 +1,11 @@
 import type { ProjectConfig } from '@/types/config';
 import type { LockInfo } from '@/types/store';
-import type { LoginResultModel as UserInfo } from "src/api/system/model/loginModel"
+import type { LoginResultModel as UserInfo } from 'src/api/system/model/loginModel';
 import type { RouteLocationNormalized } from 'vue-router';
 
 import { createLocalStorage, createSessionStorage } from 'src/utils/cache';
 import { Memory } from './memory';
-import {
-  TOKEN_KEY,
-  USER_INFO_KEY,
-  ROLES_KEY,
-  LOCK_INFO_KEY,
-  PROJ_CFG_KEY,
-  APP_LOCAL_CACHE_KEY,
-  APP_SESSION_CACHE_KEY,
-  MULTIPLE_TABS_KEY,
-} from 'src/enums/cacheEnum';
+import { TOKEN_KEY, USER_INFO_KEY, ROLES_KEY, LOCK_INFO_KEY, PROJ_CFG_KEY, APP_LOCAL_CACHE_KEY, APP_SESSION_CACHE_KEY, MULTIPLE_TABS_KEY } from 'src/enums/cacheEnum';
 import { DEFAULT_CACHE_TIME } from 'src/settings/encryptionSetting';
 import { toRaw } from 'vue';
 

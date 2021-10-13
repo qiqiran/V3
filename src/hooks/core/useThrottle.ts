@@ -10,17 +10,10 @@ export type CancelFn = () => void;
 
 export type DebounceAndThrottleProcedure<T extends unknown[]> = (...args: T) => unknown;
 
-export type DebounceAndThrottleProcedureResult<T extends unknown[]> = [
-  DebounceAndThrottleProcedure<T>,
-  CancelFn
-];
+export type DebounceAndThrottleProcedureResult<T extends unknown[]> = [DebounceAndThrottleProcedure<T>, CancelFn];
 
 import { isFunction } from 'src/utils/is';
-export function throttle<T extends unknown[]>(
-  handle: DebounceAndThrottleProcedure<T>,
-  wait: number,
-  options: DebounceAndThrottleOptions = {}
-): DebounceAndThrottleProcedureResult<T> {
+export function throttle<T extends unknown[]>(handle: DebounceAndThrottleProcedure<T>, wait: number, options: DebounceAndThrottleOptions = {}): DebounceAndThrottleProcedureResult<T> {
   if (!isFunction(handle)) {
     throw new Error('handle is not Function!');
   }
@@ -74,10 +67,6 @@ export function throttle<T extends unknown[]>(
   return [fn, cancel];
 }
 
-export function useThrottle<T extends unknown[]>(
-  handle: DebounceAndThrottleProcedure<T>,
-  wait: number,
-  options: DebounceAndThrottleOptions = {}
-): DebounceAndThrottleProcedureResult<T> {
+export function useThrottle<T extends unknown[]>(handle: DebounceAndThrottleProcedure<T>, wait: number, options: DebounceAndThrottleOptions = {}): DebounceAndThrottleProcedureResult<T> {
   return throttle(handle, wait, options);
 }

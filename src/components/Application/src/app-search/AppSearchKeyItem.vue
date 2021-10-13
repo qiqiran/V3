@@ -4,12 +4,12 @@
   </span>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import Icon from "src/components/Icon";
-export default defineComponent({
-  components: { Icon },
-  props: {
-    icon: String,
-  },
-});
+  import { defineComponent } from 'vue';
+  import Icon from 'src/components/Icon';
+  export default defineComponent({
+    components: { Icon },
+    props: {
+      icon: String,
+    },
+  });
 </script>

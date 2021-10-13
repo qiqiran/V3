@@ -23,7 +23,6 @@ export const modalProps = {
   closeFunc: Function as PropType<() => Promise<boolean>>,
 };
 
-
 export const basicProps = Object.assign({}, modalProps, {
   visible: { type: Boolean },
   defaultFullscreen: { type: Boolean },

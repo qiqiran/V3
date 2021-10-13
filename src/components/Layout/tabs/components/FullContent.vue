@@ -6,49 +6,48 @@
 </template>
 
 <script lang="ts">
-import { useDesign } from "src/hooks/web/useDesign";
-import { defineComponent, computed, unref } from "vue";
+  import { useDesign } from 'src/hooks/web/useDesign';
+  import { defineComponent, computed, unref } from 'vue';
 
-import { useHeaderSetting, useSiderSetting } from "src/hooks/setting";
+  import { useHeaderSetting, useSiderSetting } from 'src/hooks/setting';
 
-import Icon from "src/components/Icon";
+  import Icon from 'src/components/Icon';
 
-export default defineComponent({
-  name: "FullContent",
-  components: { Icon },
-  setup() {
-    const { prefixCls } = useDesign("multiple-tab-full-content");
-    const { setHeaderSetting, getShowHeader } = useHeaderSetting();
-    const { setSiderSetting, getShowSider } = useSiderSetting();
+  export default defineComponent({
+    name: 'FullContent',
+    components: { Icon },
+    setup() {
+      const { prefixCls } = useDesign('multiple-tab-full-content');
+      const { setHeaderSetting, getShowHeader } = useHeaderSetting();
+      const { setSiderSetting, getShowSider } = useSiderSetting();
 
-    const getIsFullContent = computed(() => {
-      return !unref(getShowSider) && !unref(getShowHeader);
-    });
-
-    const getIcon = computed(() => {
-      return unref(getIsFullContent) ? "fullscreen-exit" : "fullscreen";
-    });
-
-    const handle = () => {
-      const state = unref(getIsFullContent);
-      setHeaderSetting({
-        show: state,
+      const getIsFullContent = computed(() => {
+        return !unref(getShowSider) && !unref(getShowHeader);
       });
-      setSiderSetting({
-        show: state,
+
+      const getIcon = computed(() => {
+        return unref(getIsFullContent) ? 'fullscreen-exit' : 'fullscreen';
       });
-    };
 
-    return {
-      prefixCls,
+      const handle = () => {
+        const state = unref(getIsFullContent);
+        setHeaderSetting({
+          show: state,
+        });
+        setSiderSetting({
+          show: state,
+        });
+      };
 
-      handle,
-      getIcon,
-      getIsFullContent,
-    };
-  },
-});
+      return {
+        prefixCls,
+
+        handle,
+        getIcon,
+        getIsFullContent,
+      };
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

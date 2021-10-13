@@ -1,10 +1,8 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 
-import { ITransform } from "#/axios/interface/ITransform";
+import { ITransform } from '#/axios/interface/ITransform';
 
-import { checkErrorCode } from "../checkStatus";
-import { error, warn, warning } from 'src/hooks/web/useMessage';
-import { isNullOrUnDef } from "src/utils/is"
+import { checkErrorCode } from '../checkStatus';
 
 export class Transform implements ITransform {
   /**
@@ -13,7 +11,7 @@ export class Transform implements ITransform {
   requestInterceptor(config: AxiosRequestConfig) {
     config.headers = Object.assign({}, config.headers, {
       // 'token':'1234'
-    })
+    });
     return config;
   }
   /**

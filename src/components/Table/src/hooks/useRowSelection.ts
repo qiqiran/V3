@@ -5,11 +5,7 @@ import { ROW_KEY } from '../const';
 import { omit } from 'lodash-es';
 import { findNodeAll } from '@/utils/helper/treeHelper';
 
-export function useRowSelection(
-  propsRef: ComputedRef<BasicTableProps>,
-  tableData: Ref<Recordable[]>,
-  emit: any,
-) {
+export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableData: Ref<Recordable[]>, emit: any) {
   const selectedRowKeysRef = ref<string[]>([]);
   const selectedRowRef = ref<Recordable[]>([]);
 
@@ -31,9 +27,12 @@ export function useRowSelection(
     };
   });
 
-  watch(() => unref(propsRef).rowSelection?.selectedRowKeys as string[], (v: string[]) => {
-    setSelectedRowKeys(v);
-  });
+  watch(
+    () => unref(propsRef).rowSelection?.selectedRowKeys as string[],
+    (v: string[]) => {
+      setSelectedRowKeys(v);
+    },
+  );
 
   watch(
     () => unref(selectedRowKeysRef),
@@ -64,13 +63,9 @@ export function useRowSelection(
 
   function setSelectedRowKeys(rowKeys: string[]) {
     selectedRowKeysRef.value = rowKeys;
-    const allSelectedRows = findNodeAll(
-      toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))),
-      (item) => rowKeys.includes(item[unref(getRowKey) as string]),
-      {
-        children: propsRef.value.childrenColumnName ?? 'children',
-      },
-    );
+    const allSelectedRows = findNodeAll(toRaw(unref(tableData)).concat(toRaw(unref(selectedRowRef))), (item) => rowKeys.includes(item[unref(getRowKey) as string]), {
+      children: propsRef.value.childrenColumnName ?? 'children',
+    });
     const trueSelectedRows: any[] = [];
     rowKeys.forEach((key: string) => {
       const found = allSelectedRows.find((item) => item[unref(getRowKey) as string] === key);

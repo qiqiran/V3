@@ -1,19 +1,13 @@
-import type { BasicTableProps, TableRowSelection, BasicColumn } from '../types/table';
+import type { BasicTableProps, BasicColumn } from '../types/table';
 import type { Ref, ComputedRef } from 'vue';
 import { computed, unref, ref, nextTick, watch } from 'vue';
 import { getViewportOffset } from '@/utils/domUtils';
-import { isBoolean } from '@/utils/is';
 import { useWindowSizeFn } from '@/hooks/event/useWindowSizeFn';
 import { useModalContext } from '@/components/Modal';
 import { onMountedOrActivated } from '@/hooks/core/onMountedOrActivated';
 import { useDebounceFn } from '@vueuse/core';
 
-export function useTableScroll(
-  propsRef: ComputedRef<BasicTableProps>,
-  tableElRef: Ref<ComponentRef>,
-  columnsRef: ComputedRef<BasicColumn[]>,
-  getDataSourceRef: ComputedRef<Recordable[]>,
-) {
+export function useTableScroll(propsRef: ComputedRef<BasicTableProps>, tableElRef: Ref<ComponentRef>, columnsRef: ComputedRef<BasicColumn[]>, getDataSourceRef: ComputedRef<Recordable[]>) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
   const modalFn = useModalContext();
@@ -72,15 +66,13 @@ export function useTableScroll(
     const hasScrollBarX = bodyEl.scrollWidth > bodyEl.clientWidth;
 
     if (hasScrollBarY) {
-      tableEl.classList.contains('hide-scrollbar-y') &&
-        tableEl.classList.remove('hide-scrollbar-y');
+      tableEl.classList.contains('hide-scrollbar-y') && tableEl.classList.remove('hide-scrollbar-y');
     } else {
       !tableEl.classList.contains('hide-scrollbar-y') && tableEl.classList.add('hide-scrollbar-y');
     }
 
     if (hasScrollBarX) {
-      tableEl.classList.contains('hide-scrollbar-x') &&
-        tableEl.classList.remove('hide-scrollbar-x');
+      tableEl.classList.contains('hide-scrollbar-x') && tableEl.classList.remove('hide-scrollbar-x');
     } else {
       !tableEl.classList.contains('hide-scrollbar-x') && tableEl.classList.add('hide-scrollbar-x');
     }
@@ -131,13 +123,7 @@ export function useTableScroll(
       headerHeight = (headEl as HTMLElement).offsetHeight;
     }
 
-    let height =
-      bottomIncludeBody -
-      (resizeHeightOffset || 0) -
-      paddingHeight -
-      paginationHeight -
-      footerHeight -
-      headerHeight;
+    let height = bottomIncludeBody - (resizeHeightOffset || 0) - paddingHeight - paginationHeight - footerHeight - headerHeight;
 
     height = (height > maxHeight! ? (maxHeight as number) : height) ?? height;
     setHeight(height);

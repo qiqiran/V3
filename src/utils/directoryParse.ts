@@ -11,13 +11,13 @@ function parseRoutes(modulesFiles: __WebpackModuleApi.RequireContext): AppRouteR
     const value = modulesFiles(modulePath);
     const routes = value.default || value;
     if (Array.isArray(routes)) {
-      routes.forEach(route => modules.push(route));
-    } else if (typeof routes === "object") {
-      modules.push(routes)
+      routes.forEach((route) => modules.push(route));
+    } else if (typeof routes === 'object') {
+      modules.push(routes);
     }
     return modules;
   }, <AppRouteRecordRaw[]>[]);
 
   return modules;
 }
-export { parseRoutes }
+export { parseRoutes };

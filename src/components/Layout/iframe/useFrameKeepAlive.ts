@@ -6,7 +6,7 @@ import { tabStore } from '#/store/modules/tab';
 
 import { uniqBy } from 'lodash-es';
 
-import { useMultiTabSetting } from "src/hooks/setting";
+import { useMultiTabSetting } from 'src/hooks/setting';
 
 import { useRouter } from 'vue-router';
 
@@ -15,7 +15,7 @@ export function useFrameKeepAlive() {
   const { currentRoute } = router;
   const { getShowMultipleTab } = useMultiTabSetting();
   const getFramePages = computed(() => {
-    const ret = getAllFramePages((toRaw(router.getRoutes()) as unknown) as AppRouteRecordRaw[]) || [];
+    const ret = getAllFramePages(toRaw(router.getRoutes()) as unknown as AppRouteRecordRaw[]) || [];
     return ret;
   });
 
@@ -36,7 +36,7 @@ export function useFrameKeepAlive() {
         res.push(route);
       }
       if (children && children.length) {
-        res.push(...getAllFramePages((children as unknown) as AppRouteRecordRaw[]));
+        res.push(...getAllFramePages(children as unknown as AppRouteRecordRaw[]));
       }
     }
     res = uniqBy(res, 'name');

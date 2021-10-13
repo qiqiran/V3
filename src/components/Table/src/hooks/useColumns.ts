@@ -34,11 +34,7 @@ function handleChildren(children: BasicColumn[] | undefined, ellipsis: boolean) 
   });
 }
 
-function handleIndexColumn(
-  propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>,
-  columns: BasicColumn[],
-) {
+function handleIndexColumn(propsRef: ComputedRef<BasicTableProps>, getPaginationRef: ComputedRef<boolean | PaginationProps>, columns: BasicColumn[]) {
   const { showIndexColumn, indexColumnProps, isTreeTable } = unref(propsRef);
 
   let pushIndexColumns = false;
@@ -61,7 +57,7 @@ function handleIndexColumn(
   columns.unshift({
     flag: INDEX_COLUMN_FLAG,
     width: 50,
-    title: "序号",
+    title: '序号',
     align: 'center',
     customRender: ({ index }) => {
       const getPagination = unref(getPaginationRef);
@@ -73,8 +69,8 @@ function handleIndexColumn(
     },
     ...(isFixedLeft
       ? {
-        fixed: 'left',
-      }
+          fixed: 'left',
+        }
       : {}),
     ...indexColumnProps,
   });
@@ -95,16 +91,13 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
   }
 }
 
-export function useColumns(
-  propsRef: ComputedRef<BasicTableProps>,
-  getPaginationRef: ComputedRef<boolean | PaginationProps>,
-) {
+export function useColumns(propsRef: ComputedRef<BasicTableProps>, getPaginationRef: ComputedRef<boolean | PaginationProps>) {
   const columnsRef = ref(unref(propsRef).columns) as unknown as Ref<BasicColumn[]>;
   let cacheColumns = unref(propsRef).columns;
 
   const getColumnsRef = computed(() => {
     const columns = cloneDeep(unref(columnsRef));
-    
+
     handleIndexColumn(propsRef, getPaginationRef, columns);
     handleActionColumn(propsRef, columns);
     if (!columns) {
@@ -115,10 +108,7 @@ export function useColumns(
     columns.forEach((item) => {
       const { customRender, slots } = item;
 
-      handleItem(
-        item,
-        Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots,
-      );
+      handleItem(item, Reflect.has(item, 'ellipsis') ? !!item.ellipsis : !!ellipsis && !customRender && !slots);
     });
     return columns;
   });
@@ -148,7 +138,7 @@ export function useColumns(
         // return hasPermission(column.auth) && isIfShow(column);// zhushiflag
       })
       .map((column) => {
-        const { slots, dataIndex, customRender, format, edit, editRow, flag } = column;
+        const { slots, dataIndex, customRender, format, edit, flag } = column;
 
         if (!slots || !slots?.title) {
           column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
@@ -229,10 +219,7 @@ export function useColumns(
       // Sort according to another array
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
-          return (
-            cacheKeys.indexOf(prev.dataIndex as string) -
-            cacheKeys.indexOf(next.dataIndex as string)
-          );
+          return cacheKeys.indexOf(prev.dataIndex as string) - cacheKeys.indexOf(next.dataIndex as string);
         });
       }
       columnsRef.value = newColumns;
@@ -284,9 +271,7 @@ function sortFixedColumn(columns: BasicColumn[]) {
     }
     defColumns.push(column);
   }
-  return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter(
-    (item) => !item.defaultHidden,
-  );
+  return [...fixedLeftColumns, ...defColumns, ...fixedRightColumns].filter((item) => !item.defaultHidden);
 }
 
 // format cell

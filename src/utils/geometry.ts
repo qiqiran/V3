@@ -4,10 +4,9 @@
  * @param b number[]
  * @param c number[]
  * @param d number[]
- * @returns 
+ * @returns
  */
 export function segmentsIntr(a: number[], b: number[], c: number[], d: number[]): boolean | number[] {
-
   // 三角形abc 面积的2倍
   const area_abc = (a[0] - c[0]) * (b[1] - c[1]) - (a[1] - c[1]) * (b[0] - c[0]);
 

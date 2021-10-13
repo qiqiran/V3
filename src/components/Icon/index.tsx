@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     icon: { type: String, required: true },
     color: { type: String },
-    size: { type: Number, default: 14 }
+    size: { type: Number, default: 14 },
   },
   setup(props) {
     const isHisPrefixCls = props.icon?.startsWith(prefixCls);

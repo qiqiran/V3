@@ -8,22 +8,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue';
 
-import { useModal } from "src/components/Modal";
+  import { useModal } from 'src/components/Modal';
 
-import { createAsyncComponent } from "src/utils/factory/createAsyncComponent";
-export default defineComponent({
-  name: "LockScreen",
-  components: {
-    LockAction: createAsyncComponent(() => import("./lock/LockModal.vue")),
-  },
-  setup() {
-    const [register, { openModal }] = useModal();
-    return { register, openModal };
-  },
-});
+  import { createAsyncComponent } from 'src/utils/factory/createAsyncComponent';
+  export default defineComponent({
+    name: 'LockScreen',
+    components: {
+      LockAction: createAsyncComponent(() => import('./lock/LockModal.vue')),
+    },
+    setup() {
+      const [register, { openModal }] = useModal();
+      return { register, openModal };
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

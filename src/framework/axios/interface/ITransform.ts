@@ -2,12 +2,11 @@
  * 数据处理类，可以根据项目自行配置
  */
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
-import type { IResult } from "../type";
+import type { IResult } from '../type';
 import { IRequestOptions } from './IRequestOptions';
 
 //  abstract class
 export interface ITransform {
-
   /**
    * @description: 请求之前处理配置
    * @description: Process configuration before request

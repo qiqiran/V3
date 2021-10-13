@@ -12,11 +12,7 @@ interface Options {
   getAutoCreateKey: ComputedRef<boolean | undefined>;
 }
 
-function getKey(
-  record: Recordable,
-  rowKey: string | ((record: Record<string, any>) => string) | undefined,
-  autoCreateKey?: boolean,
-) {
+function getKey(record: Recordable, rowKey: string | ((record: Record<string, any>) => string) | undefined, autoCreateKey?: boolean) {
   if (!rowKey || autoCreateKey) {
     return record[ROW_KEY];
   }
@@ -29,10 +25,7 @@ function getKey(
   return null;
 }
 
-export function useCustomRow(
-  propsRef: ComputedRef<BasicTableProps>,
-  { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options,
-) {
+export function useCustomRow(propsRef: ComputedRef<BasicTableProps>, { setSelectedRowKeys, getSelectRowKeys, getAutoCreateKey, clearSelectedRowKeys, emit }: Options) {
   const customRow = (record: Recordable, index: number) => {
     return {
       onClick: (e: Event) => {

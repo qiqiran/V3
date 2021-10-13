@@ -5,29 +5,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useDesign } from "src/hooks/web/useDesign";
+  import { defineComponent } from 'vue';
+  import { useDesign } from 'src/hooks/web/useDesign';
 
-import { useRootSetting } from "src/hooks/setting/useRootSetting";
+  import { useRootSetting } from 'src/hooks/setting/useRootSetting';
 
-export default defineComponent({
-  name: "LayoutFooter",
-  setup() {
-    const { prefixCls } = useDesign("layout-footer");
+  export default defineComponent({
+    name: 'LayoutFooter',
+    setup() {
+      const { prefixCls } = useDesign('layout-footer');
 
-    const { getShowFooter } = useRootSetting();
-    return { prefixCls, getShowFooter };
-  },
-});
+      const { getShowFooter } = useRootSetting();
+      return { prefixCls, getShowFooter };
+    },
+  });
 </script>
 
-<style lang='less'>
-@prefix-cls: ~"@{namespace}layout-footer";
+<style lang="less">
+  @prefix-cls: ~'@{namespace}layout-footer';
 
-.@{prefix-cls} {
-  &-content {
-    text-align: center;
-    color: rgba(@black, 0.6);
+  .@{prefix-cls} {
+    &-content {
+      text-align: center;
+      color: rgba(@black, 0.6);
+    }
   }
-}
 </style>

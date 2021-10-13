@@ -1,9 +1,6 @@
-
-
-
-import { createStorage as create, CreateStorageParams } from "./storageCache";
-import { enableStorageEncryption } from "src/settings/encryptionSetting";
-import { DEFAULT_CACHE_TIME } from "src/settings/encryptionSetting";
+import { createStorage as create, CreateStorageParams } from './storageCache';
+import { enableStorageEncryption } from 'src/settings/encryptionSetting';
+import { DEFAULT_CACHE_TIME } from 'src/settings/encryptionSetting';
 
 import pkg from '../../../package.json';
 

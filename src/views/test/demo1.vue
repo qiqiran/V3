@@ -6,13 +6,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const color = ref("#fefefe");
+  import { ref } from 'vue';
+  const color = ref('#fefefe');
 </script>
 
 <style lang="less" scoped>
-.background {
-  background-color: v-bind(color);
-  height: 100%;
-}
+  .background {
+    background-color: v-bind(color);
+    height: 100%;
+  }
 </style>

@@ -1,4 +1,4 @@
-import { userManageStore } from "#/store/modules/basics/userManage";
+import { userManageStore } from '#/store/modules/basics/userManage';
 
 export function getUsersApi() {
   return userManageStore.loadUsers();

@@ -10,7 +10,7 @@ export enum NetworkErrorEnum {
   code503 = '服务不可用，服务器暂时过载或维护!',
   code504 = '网络超时!',
   code505 = 'http版本不支持该请求!',
-  unknow = '未知错误'
+  unknow = '未知错误',
 }
 
 export enum ErrorCodeEnum {

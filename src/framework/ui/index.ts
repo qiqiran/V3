@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import Antdv from 'ant-design-vue';
 import 'src/assets/css/main.less';
-import * as Icons from "@ant-design/icons-vue";
+import * as Icons from '@ant-design/icons-vue';
 
 const icons: any = Icons;
 
@@ -14,4 +14,4 @@ function setupAntdvIcons(app: App<Element>) {
     app.component(i, icons[i]);
   }
 }
-export { setupAntdvCompontents, setupAntdvIcons }
+export { setupAntdvCompontents, setupAntdvIcons };

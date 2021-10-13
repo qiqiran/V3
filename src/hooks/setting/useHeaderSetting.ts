@@ -1,7 +1,7 @@
-import { computed, unref, ref } from 'vue';
+import { computed, unref } from 'vue';
 
 import { HeaderSetting } from '@/types/config';
-import { TriggerEnum } from 'src/enums/menuEnum'
+import { TriggerEnum } from 'src/enums/menuEnum';
 
 import { appStore } from '#/store/modules/app';
 
@@ -50,6 +50,6 @@ export function useHeaderSetting() {
     getShowFullHeaderRef,
     getShowInsetHeaderRef,
     getShowFullScreen,
-    getShowHeaderTrigger
-  }
+    getShowHeaderTrigger,
+  };
 }

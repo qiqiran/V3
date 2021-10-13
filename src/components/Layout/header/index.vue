@@ -2,11 +2,7 @@
   <a-layout-header :class="[prefixCls, `${prefixCls}--${getHeaderTheme}`]" :theme="getHeaderTheme">
     <!-- left start -->
     <div :class="`${prefixCls}-left`">
-      <AppLogo
-        v-if="getShowTopMenu && !getIsMobile"
-        :theme="getHeaderTheme"
-        :style="{width: `${getSiderWidth}px`}"
-      />
+      <AppLogo v-if="getShowTopMenu && !getIsMobile" :theme="getHeaderTheme" :style="{ width: `${getSiderWidth}px` }" />
       <LayoutTrigger v-if="getShowHeaderTrigger || getIsMobile" />
       <Breadcrumb v-if="!getShowTopMenu" :theme="getHeaderTheme" />
     </div>
@@ -14,11 +10,7 @@
 
     <!-- menu start -->
     <div :class="`${prefixCls}-menu`">
-      <LayoutMenu
-        v-if="getShowTopMenu && !getIsMobile"
-        :mode="'horizontal'"
-        :theme="getHeaderTheme"
-      />
+      <LayoutMenu v-if="getShowTopMenu && !getIsMobile" :mode="'horizontal'" :theme="getHeaderTheme" />
     </div>
     <!-- menu end -->
 
@@ -34,55 +26,55 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useDesign } from "src/hooks/web/useDesign";
-import { useAppAdapter } from "src/hooks/web/useAppAdapter";
-import { useHeaderSetting, useSiderSetting, useMenuSetting } from "src/hooks/setting";
+  import { defineComponent } from 'vue';
+  import { useDesign } from 'src/hooks/web/useDesign';
+  import { useAppAdapter } from 'src/hooks/web/useAppAdapter';
+  import { useHeaderSetting, useSiderSetting, useMenuSetting } from 'src/hooks/setting';
 
-import LayoutMenu from "src/components/Menu/index.vue";
-import LayoutTrigger from "./Trigger.vue";
-import { AppLogo, AppSearch } from "src/components/Application";
-import { ThemeSetting, Breadcrumb, Fullscreen, LockScreen } from "./components";
+  import LayoutMenu from 'src/components/Menu/index.vue';
+  import LayoutTrigger from './Trigger.vue';
+  import { AppLogo, AppSearch } from 'src/components/Application';
+  import { ThemeSetting, Breadcrumb, Fullscreen, LockScreen } from './components';
 
-export default defineComponent({
-  name: "LayoutHeader",
-  components: {
-    AppLogo,
-    Breadcrumb,
-    AppSearch,
-    Fullscreen,
-    LockScreen,
-    ThemeSetting,
-    LayoutTrigger,
-    LayoutMenu,
-  },
-  props: {
-    collapsed: Boolean,
-  },
-  setup() {
-    const { prefixCls } = useDesign("layout-header");
-    const { getIsMobile } = useAppAdapter();
-    const { getCollapsed, getShowTopMenu, toggleCollapsed } = useMenuSetting();
-    const { getHeaderTheme, getShowFullScreen, getShowHeaderTrigger } = useHeaderSetting();
-    const { getSiderWidth } = useSiderSetting();
+  export default defineComponent({
+    name: 'LayoutHeader',
+    components: {
+      AppLogo,
+      Breadcrumb,
+      AppSearch,
+      Fullscreen,
+      LockScreen,
+      ThemeSetting,
+      LayoutTrigger,
+      LayoutMenu,
+    },
+    props: {
+      collapsed: Boolean,
+    },
+    setup() {
+      const { prefixCls } = useDesign('layout-header');
+      const { getIsMobile } = useAppAdapter();
+      const { getCollapsed, getShowTopMenu, toggleCollapsed } = useMenuSetting();
+      const { getHeaderTheme, getShowFullScreen, getShowHeaderTrigger } = useHeaderSetting();
+      const { getSiderWidth } = useSiderSetting();
 
-    return {
-      prefixCls,
-      getIsMobile,
+      return {
+        prefixCls,
+        getIsMobile,
 
-      getCollapsed,
-      getShowTopMenu,
-      toggleCollapsed,
+        getCollapsed,
+        getShowTopMenu,
+        toggleCollapsed,
 
-      getHeaderTheme,
-      getShowFullScreen,
-      getShowHeaderTrigger,
+        getHeaderTheme,
+        getShowFullScreen,
+        getShowHeaderTrigger,
 
-      getSiderWidth,
-    };
-  },
-});
+        getSiderWidth,
+      };
+    },
+  });
 </script>
 <style lang="less">
-@import "./index.less";
+  @import './index.less';
 </style>

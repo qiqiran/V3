@@ -1,6 +1,6 @@
 export const hostname = location.hostname;
 
-export const hostWhiteList = ["127.0.0.1", "localhost"];
+export const hostWhiteList = ['127.0.0.1', 'localhost'];
 
 /**
  * @description: Development mode

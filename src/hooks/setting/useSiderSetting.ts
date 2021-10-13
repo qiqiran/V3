@@ -1,7 +1,7 @@
-import { computed, unref, ref } from 'vue';
+import { computed, unref } from 'vue';
 
 import { SiderSetting } from '@/types/config';
-import { TriggerEnum } from 'src/enums/menuEnum'
+import { TriggerEnum } from 'src/enums/menuEnum';
 
 import { appStore } from '#/store/modules/app';
 
@@ -17,8 +17,8 @@ const getShowSider = computed(() => unref(getSiderSetting).show);
 
 const getShowSiderMenu = computed(() => {
   const need = unref(getShowSider);
-  return need && !unref(getShowTopMenu)
-})
+  return need && !unref(getShowTopMenu);
+});
 
 const getSiderWidth = computed(() => unref(getSiderSetting).siderWidth);
 
@@ -42,6 +42,6 @@ export function useSiderSetting() {
     getShowSiderMenu,
     getSiderWidth,
     getSiderCollapsedWidth,
-    getShowSiderTrigger
-  }
+    getShowSiderTrigger,
+  };
 }

@@ -8,7 +8,7 @@ import type {
   // TableCustomRecord,
   TableRowSelection,
 } from './types/table';
-import { DEFAULT_FILTER_FN, DEFAULT_SORT_FN, FETCH_SETTING } from './const';
+import { DEFAULT_FILTER_FN } from './const';
 import { propTypes } from '@/utils/propTypes';
 
 export const basicProps = {
@@ -126,13 +126,6 @@ export const basicProps = {
     default: null,
   },
   beforeEditSubmit: {
-    type: Function as PropType<
-      (data: {
-        record: Recordable;
-        index: number;
-        key: string | number;
-        value: any;
-      }) => Promise<any>
-    >,
+    type: Function as PropType<(data: { record: Recordable; index: number; key: string | number; value: any }) => Promise<any>>,
   },
 };

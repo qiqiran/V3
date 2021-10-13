@@ -6,24 +6,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useDesign } from "src/hooks/web/useDesign";
-import { useAppAdapter } from "src/hooks/web/useAppAdapter";
-import { useMenuSetting } from "src/hooks/setting";
+  import { defineComponent } from 'vue';
+  import { useDesign } from 'src/hooks/web/useDesign';
+  import { useAppAdapter } from 'src/hooks/web/useAppAdapter';
+  import { useMenuSetting } from 'src/hooks/setting';
 
-export default defineComponent({
-  name: "LayoutHeaderTrigger",
-  setup() {
-    const { prefixCls } = useDesign("layout-header-trigger");
-    const { getIsMobile } = useAppAdapter();
-    const { getCollapsed, getShowTopMenu, toggleCollapsed } = useMenuSetting();
-    return {
-      prefixCls,
-      getIsMobile,
-      getCollapsed,
-      getShowTopMenu,
-      toggleCollapsed,
-    };
-  },
-});
+  export default defineComponent({
+    name: 'LayoutHeaderTrigger',
+    setup() {
+      const { prefixCls } = useDesign('layout-header-trigger');
+      const { getIsMobile } = useAppAdapter();
+      const { getCollapsed, getShowTopMenu, toggleCollapsed } = useMenuSetting();
+      return {
+        prefixCls,
+        getIsMobile,
+        getCollapsed,
+        getShowTopMenu,
+        toggleCollapsed,
+      };
+    },
+  });
 </script>

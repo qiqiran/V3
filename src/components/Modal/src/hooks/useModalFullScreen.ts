@@ -7,7 +7,6 @@ export interface UseFullScreenContext {
 }
 
 export function useFullScreen(context: UseFullScreenContext) {
-  
   // const formerHeightRef = ref(0);
   const fullScreenRef = ref(false);
 

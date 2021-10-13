@@ -13,5 +13,5 @@ export enum ThemeEnum {
 
 export enum LangEnum {
   CN = 'zh-cn',
-  EN = 'en'
+  EN = 'en',
 }

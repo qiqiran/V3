@@ -1,4 +1,4 @@
-import { computed, unref, ref } from 'vue';
+import { computed, unref } from 'vue';
 
 import type { MenuSetting } from '@/types/config';
 
@@ -34,6 +34,6 @@ export function useMenuSetting() {
     getCollapsed,
     getShowTopMenu,
     getMenuTheme,
-    getTrigger
-  }
+    getTrigger,
+  };
 }

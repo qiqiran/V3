@@ -14,61 +14,61 @@
   </a-menu>
 </template>
 <script lang="ts">
-import type { PropType } from "vue";
-import { defineComponent, ref } from "vue";
+  import type { PropType } from 'vue';
+  import { defineComponent, ref } from 'vue';
 
-import { ThemeEnum } from "src/enums/appEnum";
+  import { ThemeEnum } from 'src/enums/appEnum';
 
-import { useGo } from "src/hooks/web/usePage";
+  import { useGo } from 'src/hooks/web/usePage';
 
-import { listenerLastChangeTab } from "src/components/Layout/tabs/useTabChange";
+  import { listenerLastChangeTab } from 'src/components/Layout/tabs/useTabChange';
 
-import { isUrl } from "src/utils/is";
+  import { isUrl } from 'src/utils/is';
 
-import BasicSubMenuItem from "./src/BasicSubMenuItem.vue";
+  import BasicSubMenuItem from './src/BasicSubMenuItem.vue';
 
-import { menus } from "src/settings/menuSetting";
+  import { menus } from 'src/settings/menuSetting';
 
-export default defineComponent({
-  name: "LayoutMenu",
-  components: { BasicSubMenuItem },
-  props: {
-    theme: String as PropType<ThemeEnum>,
-    mode: String,
-    collapsed: Boolean,
-  },
-  setup() {
-    const go = useGo();
-    const current = ref<string[]>([]);
-    interface MenuItem {
-      item: any;
-      key: string;
-      keyPath: string[];
-    }
-
-    listenerLastChangeTab((route) => {
-      const { path } = route;
-
-      const currentValue = path.replace("/iframe/", "");
-
-      current.value = [currentValue];
-    });
-
-    const routerSwitch = (menuItem: MenuItem) => {
-      let { key, item } = menuItem;
-
-      if (isUrl(key)) {
-        key.indexOf("/") !== 0 && (key = `/${key}`);
-        go({ path: `/redirect/iframe${key}`, query: { title: item.title } });
-      } else {
-        go({ path: key, query: { title: item.title } });
+  export default defineComponent({
+    name: 'LayoutMenu',
+    components: { BasicSubMenuItem },
+    props: {
+      theme: String as PropType<ThemeEnum>,
+      mode: String,
+      collapsed: Boolean,
+    },
+    setup() {
+      const go = useGo();
+      const current = ref<string[]>([]);
+      interface MenuItem {
+        item: any;
+        key: string;
+        keyPath: string[];
       }
-    };
-    return {
-      current,
-      routerSwitch,
-      menus,
-    };
-  },
-});
+
+      listenerLastChangeTab((route) => {
+        const { path } = route;
+
+        const currentValue = path.replace('/iframe/', '');
+
+        current.value = [currentValue];
+      });
+
+      const routerSwitch = (menuItem: MenuItem) => {
+        let { key, item } = menuItem;
+
+        if (isUrl(key)) {
+          key.indexOf('/') !== 0 && (key = `/${key}`);
+          go({ path: `/redirect/iframe${key}`, query: { title: item.title } });
+        } else {
+          go({ path: key, query: { title: item.title } });
+        }
+      };
+      return {
+        current,
+        routerSwitch,
+        menus,
+      };
+    },
+  });
 </script>

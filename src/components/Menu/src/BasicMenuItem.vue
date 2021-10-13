@@ -5,21 +5,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue';
 
-import { itemProps } from "../prors";
+  import { itemProps } from '../prors';
 
-import MenuItemContent from "./MenuItemContent.vue";
+  import MenuItemContent from './MenuItemContent.vue';
 
-export default defineComponent({
-  name: "MenuItem",
-  components: { MenuItemContent },
-  props: itemProps,
-  setup(props) {
-    return { menuItem: props.item };
-  },
-});
+  export default defineComponent({
+    name: 'MenuItem',
+    components: { MenuItemContent },
+    props: itemProps,
+    setup(props) {
+      return { menuItem: props.item };
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

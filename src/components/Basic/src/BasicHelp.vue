@@ -1,143 +1,139 @@
 <script lang="tsx">
-import type { CSSProperties, PropType } from "vue";
-import { defineComponent, computed, unref } from "vue";
+  import type { CSSProperties, PropType } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
 
-import { Tooltip } from "ant-design-vue";
-import { InfoCircleOutlined } from "@ant-design/icons-vue";
+  import { Tooltip } from 'ant-design-vue';
+  import { InfoCircleOutlined } from '@ant-design/icons-vue';
 
-import { getPopupContainer } from "src/utils";
-import { isString, isArray } from "src/utils/is";
-import { getSlot } from "src/utils/helper/tsxHelper";
+  import { getPopupContainer } from 'src/utils';
+  import { isString, isArray } from 'src/utils/is';
+  import { getSlot } from 'src/utils/helper/tsxHelper';
 
-import { useDesign } from "src/hooks/web/useDesign";
+  import { useDesign } from 'src/hooks/web/useDesign';
 
-export default defineComponent({
-  name: "BasicHelp",
-  components: { Tooltip },
-  props: {
-    // max-width
-    maxWidth: {
-      type: String,
-      default: "600px",
+  export default defineComponent({
+    name: 'BasicHelp',
+    components: { Tooltip },
+    props: {
+      // max-width
+      maxWidth: {
+        type: String,
+        default: '600px',
+      },
+      // Whether to display the serial number
+      showIndex: {
+        type: Boolean,
+      },
+      // color
+      color: {
+        type: String,
+        default: '#ffffff',
+      },
+      fontSize: {
+        type: String,
+        default: '14px',
+      },
+      placement: {
+        type: String,
+        default: 'right',
+      },
+      absolute: {
+        type: Boolean,
+      },
+      // Text list
+      text: {
+        type: [Array, String] as PropType<string[] | string>,
+      },
+      // 定位
+      position: {
+        type: [Object] as PropType<any>,
+        default: () => ({
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+        }),
+      },
     },
-    // Whether to display the serial number
-    showIndex: {
-      type: Boolean,
-    },
-    // color
-    color: {
-      type: String,
-      default: "#ffffff",
-    },
-    fontSize: {
-      type: String,
-      default: "14px",
-    },
-    placement: {
-      type: String,
-      default: "right",
-    },
-    absolute: {
-      type: Boolean,
-    },
-    // Text list
-    text: {
-      type: [Array, String] as PropType<string[] | string>,
-    },
-    // 定位
-    position: {
-      type: [Object] as PropType<any>,
-      default: () => ({
-        position: "absolute",
-        left: 0,
-        bottom: 0,
-      }),
-    },
-  },
-  setup(props, { slots }) {
-    const { prefixCls } = useDesign("basic-help");
+    setup(props, { slots }) {
+      const { prefixCls } = useDesign('basic-help');
 
-    const getOverlayStyle = computed(
-      (): CSSProperties => {
+      const getOverlayStyle = computed((): CSSProperties => {
         return {
           maxWidth: props.maxWidth,
         };
-      }
-    );
+      });
 
-    const getWrapStyle = computed(
-      (): CSSProperties => {
+      const getWrapStyle = computed((): CSSProperties => {
         return {
           color: props.color,
           fontSize: props.fontSize,
         };
-      }
-    );
+      });
 
-    const getMainStyleRef = computed(() => {
-      return props.absolute ? props.position : {};
-    });
+      const getMainStyleRef = computed(() => {
+        return props.absolute ? props.position : {};
+      });
 
-    const renderTitle = () => {
-      const list = props.text;
+      const renderTitle = () => {
+        const list = props.text;
 
-      if (isString(list)) {
-        return <p>{list}</p>;
-      }
+        if (isString(list)) {
+          return <p>{list}</p>;
+        }
 
-      if (isArray(list)) {
-        return list.map((item, index) => {
-          return (
-            <p key={item}>
-              <>
-                {props.showIndex ? `${index + 1}. ` : ""}
-                {item}
-              </>
-            </p>
-          );
-        });
-      }
+        if (isArray(list)) {
+          return list.map((item, index) => {
+            return (
+              <p key={item}>
+                <>
+                  {props.showIndex ? `${index + 1}. ` : ''}
+                  {item}
+                </>
+              </p>
+            );
+          });
+        }
 
-      return null;
-    };
+        return null;
+      };
 
-    return () => {
-      return (
-        <Tooltip
-          title={<div style={unref(getWrapStyle)}>{renderTitle()}</div>}
-          overlayClassName={`${prefixCls}__wrap`}
-          autoAdjustOverflow={true}
-          overlayStyle={unref(getOverlayStyle)}
-          placement={props.placement as "left"}
-          getPopupContainer={() => getPopupContainer()}
-        >
-          <span class={prefixCls} style={unref(getMainStyleRef)}>
-            {getSlot(slots) || <InfoCircleOutlined />}
-          </span>
-        </Tooltip>
-      );
-    };
-  },
-});
+      return () => {
+        return (
+          <Tooltip
+            title={<div style={unref(getWrapStyle)}>{renderTitle()}</div>}
+            overlayClassName={`${prefixCls}__wrap`}
+            autoAdjustOverflow={true}
+            overlayStyle={unref(getOverlayStyle)}
+            placement={props.placement as 'left'}
+            getPopupContainer={() => getPopupContainer()}
+          >
+            <span class={prefixCls} style={unref(getMainStyleRef)}>
+              {getSlot(slots) || <InfoCircleOutlined />}
+            </span>
+          </Tooltip>
+        );
+      };
+    },
+  });
 </script>
 <style lang="less">
-@prefix-cls: ~"@{namespace}basic-help";
+  @prefix-cls: ~'@{namespace}basic-help';
 
-.@{prefix-cls} {
-  display: inline-block;
-  margin-left: 6px;
-  font-size: 14px;
-  color: @text-color-help-dark;
-  cursor: pointer;
+  .@{prefix-cls} {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 14px;
+    color: @text-color-help-dark;
+    cursor: pointer;
 
-  &:hover {
-    color: @primary-color;
-  }
+    &:hover {
+      color: @primary-color;
+    }
 
-  &__wrap {
-    p {
-      margin-bottom: 0;
+    &__wrap {
+      p {
+        margin-bottom: 0;
+      }
     }
   }
-}
 </style>

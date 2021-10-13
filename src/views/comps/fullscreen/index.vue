@@ -6,37 +6,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+  import { defineComponent, ref } from 'vue';
 
-import { useFullscreen } from "@vueuse/core";
+  import { useFullscreen } from '@vueuse/core';
 
-export default defineComponent({
-  setup() {
-    const backgroundRef = ref();
+  export default defineComponent({
+    setup() {
+      const backgroundRef = ref();
 
-    const { toggle, isFullscreen } = useFullscreen(backgroundRef);
-    return { backgroundRef, toggle, isFullscreen };
-  },
-});
+      const { toggle, isFullscreen } = useFullscreen(backgroundRef);
+      return { backgroundRef, toggle, isFullscreen };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.container {
-  padding: 1rem;
-}
-.background {
-  position: relative;
-  background-color: @primary-color;
-  border-radius: 100px;
-  margin: 1rem;
-  height: 300px;
-  width: calc(100% - 2rem);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  span {
-    font-size: 50px;
-    color: #fff;
+  .container {
+    padding: 1rem;
   }
-}
+  .background {
+    position: relative;
+    background-color: @primary-color;
+    border-radius: 100px;
+    margin: 1rem;
+    height: 300px;
+    width: calc(100% - 2rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      font-size: 50px;
+      color: #fff;
+    }
+  }
 </style>

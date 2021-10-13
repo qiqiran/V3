@@ -9,7 +9,6 @@ import { MenuEventEnum } from './types';
 import { tabStore } from '#/store/modules/tab';
 import { useTabs } from './useTabs';
 
-
 export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: ComputedRef<boolean>) {
   const state = reactive({
     current: null as Nullable<RouteLocationNormalized>,
@@ -19,14 +18,11 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
   const { currentRoute } = useRouter();
   const { refreshPage, closeAll, close, closeLeft, closeOther, closeRight } = useTabs();
 
-  const getTargetTab = computed(
-    (): RouteLocationNormalized => {
-      return unref(getIsTabs) ? tabContentProps.tabItem : unref(currentRoute);
-    }
-  );
+  const getTargetTab = computed((): RouteLocationNormalized => {
+    return unref(getIsTabs) ? tabContentProps.tabItem : unref(currentRoute);
+  });
 
   const getDropMenuList = computed(() => {
-
     const { meta } = unref(getTargetTab);
     const { path } = unref(currentRoute);
 
@@ -41,8 +37,7 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
     const disabled = tabStore.getTabList.length === 1;
 
     // Close right
-    const closeRightDisabled =
-      index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0;
+    const closeRightDisabled = index === tabStore.getTabList.length - 1 && tabStore.getLastDragEndIndex >= 0;
 
     const dropMenuList: DropMenu[] = [
       {
@@ -131,5 +126,5 @@ export function useTabDropdown(tabContentProps: TabContentProps, getIsTabs: Comp
     }
   }
 
-  return { getDropMenuList, handleMenuEvent, handleContextMenu }
+  return { getDropMenuList, handleMenuEvent, handleContextMenu };
 }

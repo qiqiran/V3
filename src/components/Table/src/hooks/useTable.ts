@@ -1,8 +1,8 @@
-import type { ComputedRef, Ref } from 'vue';
 import type {
-  BasicTableProps, TableActionType,
-  // FetchParams, 
-  BasicColumn
+  BasicTableProps,
+  TableActionType,
+  // FetchParams,
+  BasicColumn,
 } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
 import type { DynamicProps } from '@/types/utils';
@@ -10,8 +10,6 @@ import type { WatchStopHandle } from 'vue';
 import { getDynamicProps } from '@/utils';
 import { ref, onUnmounted, unref, watch, toRaw } from 'vue';
 import { isProdMode } from '@/utils/env';
-
-
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
 
@@ -57,15 +55,12 @@ export function useTable(tableProps?: Props): [(instance: TableActionType) => vo
   function getTableInstance(): TableActionType {
     const table = unref(tableRef);
     if (!table) {
-      console.error(
-        'The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!',
-      );
+      console.error('The table instance has not been obtained yet, please make sure the table is presented when performing the table operation!');
     }
     return table as TableActionType;
   }
 
-  const methods: TableActionType
-    = {
+  const methods: TableActionType = {
     reload: async () => {
       getTableInstance().reload();
     },

@@ -18,6 +18,6 @@ export function useMultiTabSetting() {
     setMultiTabSetting,
 
     getMultipleTabSetting,
-    getShowMultipleTab
-  }
-};
+    getShowMultipleTab,
+  };
+}

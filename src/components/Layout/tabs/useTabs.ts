@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { unref } from 'vue';
 
 import { tabStore } from '#/store/modules/tab';
-import { useMultiTabSetting } from "src/hooks/setting";
+import { useMultiTabSetting } from 'src/hooks/setting';
 
 enum TableActionEnum {
   REFRESH,
@@ -17,7 +17,7 @@ enum TableActionEnum {
 }
 
 export function useTabs(_router?: Router) {
-  const { getShowMultipleTab } = useMultiTabSetting()
+  const { getShowMultipleTab } = useMultiTabSetting();
 
   function canUseTabs(): boolean {
     const show = getShowMultipleTab;

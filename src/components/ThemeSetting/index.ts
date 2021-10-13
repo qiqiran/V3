@@ -1,3 +1,3 @@
-import BasicThemeSetting from "./src/BasicThemeSetting.vue";
+import BasicThemeSetting from './src/BasicThemeSetting.vue';
 
-export { BasicThemeSetting }
+export { BasicThemeSetting };

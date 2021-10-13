@@ -1,27 +1,27 @@
 <template>
   <Icon v-if="getIcon" :icon="getIcon" :size="18" />
-  <span>{{getName}}</span>
+  <span>{{ getName }}</span>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+  import { computed, defineComponent } from 'vue';
 
-import { contentProps } from "../prors";
+  import { contentProps } from '../prors';
 
-import Icon from "src/components/Icon/index";
+  import Icon from 'src/components/Icon/index';
 
-export default defineComponent({
-  name: "MenuItemContent",
-  components: { Icon },
-  props: contentProps,
-  setup(props) {
-    const getName = props.item?.name;
-    const getIcon = props.item?.icon;
+  export default defineComponent({
+    name: 'MenuItemContent',
+    components: { Icon },
+    props: contentProps,
+    setup(props) {
+      const getName = computed(() => props.item?.name);
+      const getIcon = computed(() => props.item?.icon);
 
-    return {
-      getName,
-      getIcon,
-    };
-  },
-});
+      return {
+        getName,
+        getIcon,
+      };
+    },
+  });
 </script>

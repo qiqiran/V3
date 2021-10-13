@@ -8,26 +8,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, unref, computed } from "vue";
-import { useFullscreen } from "@vueuse/core"
+  import { defineComponent, unref, computed } from 'vue';
+  import { useFullscreen } from '@vueuse/core';
 
-export default defineComponent({
-  name: "Fullscreen",
-  setup() {
-    const { toggle, isFullscreen } = useFullscreen();
+  export default defineComponent({
+    name: 'Fullscreen',
+    setup() {
+      const { toggle, isFullscreen } = useFullscreen();
 
-    const getTitle = computed(() =>
-      unref(isFullscreen) ? "退出全屏" : "全屏"
-    );
+      const getTitle = computed(() => (unref(isFullscreen) ? '退出全屏' : '全屏'));
 
-    return {
-      toggle,
-      isFullscreen,
-      getTitle,
-    };
-  },
-});
+      return {
+        toggle,
+        isFullscreen,
+        getTitle,
+      };
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

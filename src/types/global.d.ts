@@ -15,7 +15,7 @@ declare type Nullable<T> = T | null;
 
 declare type TimeoutHandle = ReturnType<typeof setTimeout>;
 
-declare type Recordable<T extends any = any> = Record<string, T>;
+declare type Recordable<T = any> = Record<string, T>;
 
 declare interface ChangeEvent extends Event {
   target: HTMLInputElement;

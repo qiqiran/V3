@@ -1,18 +1,18 @@
-import { ThemeEnum } from "src/enums/appEnum";
+import { ThemeEnum } from 'src/enums/appEnum';
 
-import { setCssVar } from "./util";
-import { isHexColor, colorIsDark, lighten, darken } from "src/utils/color";
+import { setCssVar } from './util';
+import { isHexColor, colorIsDark, lighten, darken } from 'src/utils/color';
 
-import { useRootSetting } from "src/hooks/setting";
+import { useRootSetting } from 'src/hooks/setting';
 
-const HEADER_BG = "--header-bg-color";
-const HEADER_BG_HOVER = "--header-bg-hover-color";
-const HEADER_MENU_ACTIVE_BG = "--header-active-menu-bg-color";
+const HEADER_BG = '--header-bg-color';
+const HEADER_BG_HOVER = '--header-bg-hover-color';
+const HEADER_MENU_ACTIVE_BG = '--header-active-menu-bg-color';
 
-const SIDER_DARK_BG = "--sider-dark-bg-color";
-const SIDER_DARK_DARKEN_BG = "--sider-dark-darken-bg-color";
-const SIDER_LIGHTEN_1_BG = "--sider-dark-lighten-1-bg-color";
-const SIDER_LIGHTEN_2_BG = "--sider-dark-lighten-2-bg-color";
+const SIDER_DARK_BG = '--sider-dark-bg-color';
+const SIDER_DARK_DARKEN_BG = '--sider-dark-darken-bg-color';
+const SIDER_LIGHTEN_1_BG = '--sider-dark-lighten-1-bg-color';
+const SIDER_LIGHTEN_2_BG = '--sider-dark-lighten-2-bg-color';
 
 /**
  * 更改顶部标题的背景颜色
@@ -34,7 +34,7 @@ export function updateHeaderBgColor(color: string): void {
   setRootSetting({
     headerSetting: {
       theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT,
-      bgColor: color
+      bgColor: color,
     },
   });
 }
@@ -58,7 +58,7 @@ export function updateSidebarBgColor(color: string): void {
   setRootSetting({
     siderSetting: {
       theme: isDark ? ThemeEnum.DARK : ThemeEnum.LIGHT,
-      bgColor: color
+      bgColor: color,
     },
   });
 }

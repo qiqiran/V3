@@ -22,6 +22,6 @@ export function useRootSetting() {
 
     getOpenKeepAlive,
     getShowFooter,
-    getLang
-  }
+    getLang,
+  };
 }

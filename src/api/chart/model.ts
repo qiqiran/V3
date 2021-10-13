@@ -1,9 +1,9 @@
 export interface GetMEParams {
-  ID: string
-  ME: "3B" | "WT"
-  ST: string
-  ET: string
-  INTV: 1 | 3 | 6 | 12
+  ID: string;
+  ME: '3B' | 'WT';
+  ST: string;
+  ET: string;
+  INTV: 1 | 3 | 6 | 12;
 }
 
 export interface GetMEResultModel {

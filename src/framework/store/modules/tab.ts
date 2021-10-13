@@ -1,6 +1,6 @@
 import { toRaw, unref } from 'vue';
 import { VuexModule, getModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import { RouteLocationNormalized, RouteLocationRaw, RouteRecordNormalized, Router } from 'vue-router'
+import { RouteLocationNormalized, RouteLocationRaw, RouteRecordNormalized, Router } from 'vue-router';
 
 import store from '#/store';
 import router from '#/router';
@@ -25,10 +25,10 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
     ...opt,
     matched: (matched
       ? matched.map((item) => ({
-        meta: item.meta,
-        name: item.name,
-        path: item.path,
-      }))
+          meta: item.meta,
+          name: item.name,
+          path: item.path,
+        }))
       : undefined) as RouteRecordNormalized[],
   };
 }
@@ -36,9 +36,9 @@ export function getRawRoute(route: RouteLocationNormalized): RouteLocationNormal
 @Module({ dynamic: true, namespaced: true, store, name: NAME })
 class Tab extends VuexModule {
   // tab list
-  tabList: RouteLocationNormalized[] = [(<any>IndexRoute)];
+  tabList: RouteLocationNormalized[] = [<any>IndexRoute];
   cacheTabList: Set<string> = new Set();
-  lastDragEndIndex: number = 0;
+  lastDragEndIndex = 0;
 
   get getTabList() {
     return this.tabList;
@@ -86,8 +86,8 @@ class Tab extends VuexModule {
   }
 
   /**
-     * 根据当前打开的选项卡更新缓存
-     */
+   * 根据当前打开的选项卡更新缓存
+   */
   @Mutation
   commitUpdateCacheTab() {
     const cacheMap: Set<string> = new Set();
@@ -95,7 +95,8 @@ class Tab extends VuexModule {
     for (const tab of this.tabList) {
       const item = getRawRoute(tab);
       const needCache = !item.meta?.ignoreKeepAlive;
-      if (!needCache) {// 该标签不缓存
+      if (!needCache) {
+        // 该标签不缓存
         continue;
       }
       const name = item.name as string;

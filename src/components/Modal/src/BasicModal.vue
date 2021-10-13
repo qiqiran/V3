@@ -1,20 +1,11 @@
 <template>
   <Modal @cancel="handleCancel" v-bind="getBindValue">
     <template #closeIcon v-if="!$slots.closeIcon">
-      <ModalClose
-        :canFullscreen="getProps.canFullscreen"
-        :fullScreen="fullScreenRef"
-        @cancel="handleCancel"
-        @fullscreen="handleFullScreen"
-      />
+      <ModalClose :canFullscreen="getProps.canFullscreen" :fullScreen="fullScreenRef" @cancel="handleCancel" @fullscreen="handleFullScreen" />
     </template>
 
     <template #title v-if="!$slots.title">
-      <ModalHeader
-        :helpMessage="getProps.helpMessage"
-        :title="title"
-        @dblclick="handleTitleDbClick"
-      />
+      <ModalHeader :helpMessage="getProps.helpMessage" :title="title" @dblclick="handleTitleDbClick" />
     </template>
 
     <template #footer v-if="!$slots.footer">
@@ -50,171 +41,170 @@
 </template>
 
 <script lang="ts">
-import type { ModalProps, ModalMethods } from "./types";
-import { defineComponent, ref, unref, toRef, computed, watchEffect, watch, nextTick, getCurrentInstance } from "vue";
+  import type { ModalProps, ModalMethods } from './types';
+  import { defineComponent, ref, unref, toRef, computed, watchEffect, watch, nextTick, getCurrentInstance } from 'vue';
 
-import { basicProps } from "./props";
-import { useFullScreen } from "./hooks/useModalFullScreen";
+  import { basicProps } from './props';
+  import { useFullScreen } from './hooks/useModalFullScreen';
 
-import Modal from "./components/Modal";
-import ModalHeader from "./components/ModalHeader.vue";
-import ModalClose from "./components/ModalClose.vue";
-import ModalWrapper from "./components/ModalWrapper.vue";
-import ModalFooter from "./components/ModalFooter.vue";
+  import Modal from './components/Modal';
+  import ModalHeader from './components/ModalHeader.vue';
+  import ModalClose from './components/ModalClose.vue';
+  import ModalWrapper from './components/ModalWrapper.vue';
+  import ModalFooter from './components/ModalFooter.vue';
 
-import { omit } from "lodash-es";
-import { deepMerge } from "src/utils";
-import { isFunction } from "src/utils/is";
+  import { omit } from 'lodash-es';
+  import { deepMerge } from 'src/utils';
+  import { isFunction } from 'src/utils/is';
 
-export default defineComponent({
-  name: "BasicModal",
-  components: { Modal, ModalHeader, ModalClose, ModalWrapper, ModalFooter },
-  props: basicProps,
-  emits: ["visible-change", "height-change", "cancel", "ok", "register"],
-  setup(props, { emit, attrs }) {
-    const visibleRef = ref(false);
-    const propsRef = ref<Partial<ModalProps>>();
-    const modalWrapperRef = ref<ComponentRef>(null);
+  export default defineComponent({
+    name: 'BasicModal',
+    components: { Modal, ModalHeader, ModalClose, ModalWrapper, ModalFooter },
+    props: basicProps,
+    emits: ['visible-change', 'height-change', 'cancel', 'ok', 'register'],
+    setup(props, { emit, attrs }) {
+      const visibleRef = ref(false);
+      const propsRef = ref<Partial<ModalProps>>();
+      const modalWrapperRef = ref<ComponentRef>(null);
 
-    const extHeightRef = ref(0);
-    const modalMethods: ModalMethods = {
-      setModalProps,
-      emitVisible: undefined,
-      redoModalHeight: () => {
-        nextTick(() => {
-          if (unref(modalWrapperRef)) {
-            (unref(modalWrapperRef) as any).setModalHeight();
-          }
-        });
-      },
-    };
-
-    const instance = getCurrentInstance();
-    if (instance) {
-      emit("register", modalMethods, instance.uid);
-    }
-
-    /**
-     * @description: 设置modal参数
-     */
-    function setModalProps(props: Partial<ModalProps>): void {
-      // Keep the last setModalProps
-      propsRef.value = deepMerge(unref(propsRef) || {}, props);
-      if (!Reflect.has(props, "visible")) return;
-      visibleRef.value = !!props.visible;
-    }
-
-    // 自定义标题组件:获取标题
-    const getMergeProps = computed((): ModalProps => {
-      return { ...props, ...(unref(propsRef) as any) };
-    });
-
-    const { handleFullScreen, getWrapClassName, fullScreenRef } = useFullScreen({
-      modalWrapperRef,
-      extHeightRef,
-      wrapClassName: toRef(getMergeProps.value, "wrapClassName"),
-    });
-
-    // modal component does not need title and origin buttons
-    const getProps = computed((): ModalProps => {
-      const opt = {
-        ...unref(getMergeProps),
-        visible: unref(visibleRef),
-        okButtonProps: undefined,
-        cancelButtonProps: undefined,
-        title: undefined,
+      const extHeightRef = ref(0);
+      const modalMethods: ModalMethods = {
+        setModalProps,
+        emitVisible: undefined,
+        redoModalHeight: () => {
+          nextTick(() => {
+            if (unref(modalWrapperRef)) {
+              (unref(modalWrapperRef) as any).setModalHeight();
+            }
+          });
+        },
       };
+
+      const instance = getCurrentInstance();
+      if (instance) {
+        emit('register', modalMethods, instance.uid);
+      }
+
+      /**
+       * @description: 设置modal参数
+       */
+      function setModalProps(props: Partial<ModalProps>): void {
+        // Keep the last setModalProps
+        propsRef.value = deepMerge(unref(propsRef) || {}, props);
+        if (!Reflect.has(props, 'visible')) return;
+        visibleRef.value = !!props.visible;
+      }
+
+      // 自定义标题组件:获取标题
+      const getMergeProps = computed((): ModalProps => {
+        return { ...props, ...(unref(propsRef) as any) };
+      });
+
+      const { handleFullScreen, getWrapClassName, fullScreenRef } = useFullScreen({
+        modalWrapperRef,
+        extHeightRef,
+        wrapClassName: toRef(getMergeProps.value, 'wrapClassName'),
+      });
+
+      // modal component does not need title and origin buttons
+      const getProps = computed((): ModalProps => {
+        const opt = {
+          ...unref(getMergeProps),
+          visible: unref(visibleRef),
+          okButtonProps: undefined,
+          cancelButtonProps: undefined,
+          title: undefined,
+        };
+        return {
+          ...opt,
+          wrapClassName: unref(getWrapClassName),
+        };
+      });
+
+      const getBindValue = computed((): Recordable => {
+        const attr = { ...attrs, ...unref(getProps) };
+        if (unref(fullScreenRef)) {
+          return omit(attr, 'height');
+        }
+        return attr;
+      });
+
+      const getWrapperHeight = computed(() => {
+        if (unref(fullScreenRef)) return undefined;
+        return unref(getProps).height;
+      });
+
+      watchEffect(() => {
+        visibleRef.value = !!props.visible;
+        fullScreenRef.value = !!props.defaultFullscreen;
+      });
+
+      watch(
+        () => unref(visibleRef),
+        (v) => {
+          emit('visible-change', v);
+          instance && modalMethods.emitVisible?.(v, instance.uid);
+          nextTick(() => {
+            if (props.scrollTop && v && unref(modalWrapperRef)) {
+              (unref(modalWrapperRef) as any).scrollTop();
+            }
+          });
+        },
+        {
+          immediate: false,
+        },
+      );
+
+      function handleOk() {
+        emit('ok');
+      }
+
+      async function handleCancel(e: Event) {
+        e?.stopPropagation();
+
+        if (props.closeFunc && isFunction(props.closeFunc)) {
+          const isClose: boolean = await props.closeFunc();
+          visibleRef.value = !isClose;
+          return;
+        }
+
+        visibleRef.value = false;
+        emit('cancel');
+      }
+
+      function handleHeightChange(height: number) {
+        emit('height-change', height);
+      }
+
+      function handleExtHeight(height: number) {
+        extHeightRef.value = height;
+      }
+
+      function handleTitleDbClick(e: ChangeEvent) {
+        if (props.canFullscreen === false || propsRef.value?.canFullscreen === false) return;
+        e.stopPropagation();
+        handleFullScreen(e);
+      }
+
       return {
-        ...opt,
-        wrapClassName: unref(getWrapClassName),
+        visibleRef,
+        getBindValue,
+        getMergeProps,
+        getProps,
+
+        handleOk,
+        handleCancel,
+        handleHeightChange,
+        handleExtHeight,
+        handleFullScreen,
+        handleTitleDbClick,
+
+        omit,
+        fullScreenRef,
+        getWrapperHeight,
       };
-    });
-
-    const getBindValue = computed((): Recordable => {
-      const attr = { ...attrs, ...unref(getProps) };
-      if (unref(fullScreenRef)) {
-        return omit(attr, "height");
-      }
-      return attr;
-    });
-
-    const getWrapperHeight = computed(() => {
-      if (unref(fullScreenRef)) return undefined;
-      return unref(getProps).height;
-    });
-
-    watchEffect(() => {
-      visibleRef.value = !!props.visible;
-      fullScreenRef.value = !!props.defaultFullscreen;
-    });
-
-    watch(
-      () => unref(visibleRef),
-      (v) => {
-        emit("visible-change", v);
-        instance && modalMethods.emitVisible?.(v, instance.uid);
-        nextTick(() => {
-          if (props.scrollTop && v && unref(modalWrapperRef)) {
-            (unref(modalWrapperRef) as any).scrollTop();
-          }
-        });
-      },
-      {
-        immediate: false,
-      }
-    );
-
-    function handleOk() {
-      emit("ok");
-    }
-
-    async function handleCancel(e: Event) {
-      e?.stopPropagation();
-
-      if (props.closeFunc && isFunction(props.closeFunc)) {
-        const isClose: boolean = await props.closeFunc();
-        visibleRef.value = !isClose;
-        return;
-      }
-
-      visibleRef.value = false;
-      emit("cancel");
-    }
-
-    function handleHeightChange(height: number) {
-      emit("height-change", height);
-    }
-
-    function handleExtHeight(height: number) {
-      extHeightRef.value = height;
-    }
-
-    function handleTitleDbClick(e: ChangeEvent) {
-      if (props.canFullscreen === false || propsRef.value?.canFullscreen === false) return;
-      e.stopPropagation();
-      handleFullScreen(e);
-    }
-
-    return {
-      visibleRef,
-      getBindValue,
-      getMergeProps,
-      getProps,
-
-      handleOk,
-      handleCancel,
-      handleHeightChange,
-      handleExtHeight,
-      handleFullScreen,
-      handleTitleDbClick,
-
-      omit,
-      fullScreenRef,
-      getWrapperHeight,
-    };
-  },
-});
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

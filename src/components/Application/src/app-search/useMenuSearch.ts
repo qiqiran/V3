@@ -5,7 +5,7 @@ import { ref, onBeforeMount, unref, Ref, nextTick } from 'vue';
 import { menus as getMenus } from 'src/settings/menuSetting';
 
 import { cloneDeep } from 'lodash-es';
-import { filter, forEach } from 'src/utils/helper/treeHelper';
+import { filter } from 'src/utils/helper/treeHelper';
 
 import { useGo } from 'src/hooks/web/usePage';
 import { useScrollTo } from 'src/hooks/event/useScrollTo';

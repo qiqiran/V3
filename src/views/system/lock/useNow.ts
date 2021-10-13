@@ -2,11 +2,11 @@ import { dateUtil } from 'src/utils/dateUtil';
 import { reactive, unref, toRefs } from 'vue';
 import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 
-import { useRootSetting } from "src/hooks/setting/useRootSetting";
+import { useRootSetting } from 'src/hooks/setting/useRootSetting';
 
 export function useNow(immediate = true) {
   const { getLang } = useRootSetting();
-  const localData = dateUtil.localeData(unref(getLang))
+  const localData = dateUtil.localeData(unref(getLang));
   let timer: IntervalHandle;
 
   const state = reactive({

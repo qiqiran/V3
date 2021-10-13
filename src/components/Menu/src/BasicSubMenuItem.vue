@@ -11,30 +11,29 @@
 </template>
 
 <script lang="ts">
-import type { Menu as MenuType } from "#/router/types";
+  import type { Menu as MenuType } from '#/router/types';
 
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue';
 
-import { itemProps } from "../prors";
+  import { itemProps } from '../prors';
 
-import { isArray } from "src/utils/is";
+  import { isArray } from 'src/utils/is';
 
-import BasicMenuItem from "./BasicMenuItem.vue";
-import MenuItemContent from "./MenuItemContent.vue";
+  import BasicMenuItem from './BasicMenuItem.vue';
+  import MenuItemContent from './MenuItemContent.vue';
 
-export default defineComponent({
-  name: "BasicSubMenuItem",
-  components: { BasicMenuItem, MenuItemContent },
-  props: itemProps,
-  setup(props) {
-    function menuHasChildren(menuItem: MenuType): boolean {
-      return isArray(menuItem.children) && menuItem.children.length > 0;
-    }
+  export default defineComponent({
+    name: 'BasicSubMenuItem',
+    components: { BasicMenuItem, MenuItemContent },
+    props: itemProps,
+    setup(props) {
+      function menuHasChildren(menuItem: MenuType): boolean {
+        return isArray(menuItem.children) && menuItem.children.length > 0;
+      }
 
-    return { menuItem: props.item, menuHasChildren };
-  },
-});
+      return { menuItem: props.item, menuHasChildren };
+    },
+  });
 </script>
 
-<style>
-</style>
+<style></style>

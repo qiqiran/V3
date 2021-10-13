@@ -7,8 +7,8 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   name: REDIRECT_NAME,
   component: () => import('src/views/system/redirect/index.vue'),
   meta: {
-    title: REDIRECT_NAME
-  }
+    title: REDIRECT_NAME,
+  },
 };
 
 export const IFRAME_NAME = 'IFrame';
@@ -18,6 +18,6 @@ export const IFRAME_ROUTE: AppRouteRecordRaw = {
   name: IFRAME_NAME,
   component: () => import('src/views/system/iframe/index.vue'),
   meta: {
-    title: '未命名'
-  }
+    title: '未命名',
+  },
 };

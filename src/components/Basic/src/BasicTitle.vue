@@ -5,67 +5,67 @@
   </span>
 </template>
 <script lang="ts">
-import type { PropType } from "vue";
+  import type { PropType } from 'vue';
 
-import { defineComponent, computed } from "vue";
-import BasicHelp from "./BasicHelp.vue";
+  import { defineComponent, computed } from 'vue';
+  import BasicHelp from './BasicHelp.vue';
 
-import { useDesign } from "src/hooks/web/useDesign";
+  import { useDesign } from 'src/hooks/web/useDesign';
 
-export default defineComponent({
-  name: "BasicTitle",
-  components: { BasicHelp },
-  props: {
-    helpMessage: {
-      type: [String, Array] as PropType<string | string[]>,
-      default: "",
+  export default defineComponent({
+    name: 'BasicTitle',
+    components: { BasicHelp },
+    props: {
+      helpMessage: {
+        type: [String, Array] as PropType<string | string[]>,
+        default: '',
+      },
+      span: Boolean,
+      normal: {
+        type: Boolean,
+        default: false,
+      },
     },
-    span: Boolean,
-    normal: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { slots }) {
-    const { prefixCls } = useDesign("basic-title");
+    setup(props, { slots }) {
+      const { prefixCls } = useDesign('basic-title');
 
-    const getClass = computed(() => [prefixCls, { [`${prefixCls}-show-span`]: props.span && slots.default }, { [`${prefixCls}-normal`]: props.normal }]);
-    return { prefixCls, getClass };
-  },
-});
+      const getClass = computed(() => [prefixCls, { [`${prefixCls}-show-span`]: props.span && slots.default }, { [`${prefixCls}-normal`]: props.normal }]);
+      return { prefixCls, getClass };
+    },
+  });
 </script>
 <style lang="less" scoped>
-@prefix-cls: ~"@{namespace}basic-title";
+  @prefix-cls: ~'@{namespace}basic-title';
 
-.@{prefix-cls} {
-  position: relative;
-  display: flex;
-  padding-left: 7px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  color: @text-color;
-  // cursor: pointer;
-  user-select: none;
-
-  &-normal {
-    font-size: 14px;
+  .@{prefix-cls} {
+    position: relative;
+    display: flex;
+    padding-left: 7px;
+    font-size: 16px;
     font-weight: 500;
-  }
+    line-height: 24px;
+    color: @text-color;
+    // cursor: pointer;
+    user-select: none;
 
-  &-show-span::before {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    width: 3px;
-    height: 16px;
-    margin-right: 4px;
-    background-color: @primary-color;
-    content: "";
-  }
+    &-normal {
+      font-size: 14px;
+      font-weight: 500;
+    }
 
-  &__help {
-    margin-left: 10px;
+    &-show-span::before {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 3px;
+      height: 16px;
+      margin-right: 4px;
+      background-color: @primary-color;
+      content: '';
+    }
+
+    &__help {
+      margin-left: 10px;
+    }
   }
-}
 </style>

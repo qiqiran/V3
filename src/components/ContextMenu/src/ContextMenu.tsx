@@ -15,11 +15,7 @@ const prefixCls = 'context-menu';
 const ItemContent: FunctionalComponent<ItemContentProps> = (props) => {
   const { item } = props;
   return (
-    <span
-      style="display: inline-block; width: 100%; "
-      class="px-4"
-      onClick={props.handler.bind(null, item)}
-    >
+    <span style="display: inline-block; width: 100%; " class="px-4" onClick={props.handler.bind(null, item)}>
       {props.showIcon && item.icon && <Icon class="mr-2" icon={item.icon} />}
       <span>{item.label}</span>
     </span>
@@ -89,9 +85,7 @@ export default defineComponent({
         return (
           <Menu.SubMenu key={label} disabled={disabled} popupClassName={`${prefixCls}__popup`}>
             {{
-              title: () => (
-                <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />
-              ),
+              title: () => <ItemContent showIcon={props.showIcon} item={item} handler={handleAction} />,
               default: () => renderMenuItem(children),
             }}
           </Menu.SubMenu>
@@ -102,13 +96,7 @@ export default defineComponent({
       const { items } = props;
       if (!unref(showRef)) return null;
       return (
-        <Menu
-          inlineIndent={12}
-          mode="vertical"
-          class={prefixCls}
-          ref={wrapRef}
-          style={unref(getStyle)}
-        >
+        <Menu inlineIndent={12} mode="vertical" class={prefixCls} ref={wrapRef} style={unref(getStyle)}>
           {renderMenuItem(items)}
         </Menu>
       );

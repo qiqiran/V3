@@ -1,5 +1,5 @@
-import { error } from "src/hooks/web/useMessage";
-import { NetworkErrorEnum } from "./enum"
+import { error } from 'src/hooks/web/useMessage';
+import { NetworkErrorEnum } from './enum';
 
 export function checkErrorCode(status: number, msg: string): void {
   switch (status) {

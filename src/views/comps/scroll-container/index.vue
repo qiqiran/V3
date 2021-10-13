@@ -10,45 +10,45 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, unref } from "vue";
+  import { defineComponent, ref, unref } from 'vue';
 
-import { ScrollContainer, ScrollActionType } from "@/components/Container";
+  import { ScrollContainer, ScrollActionType } from '@/components/Container';
 
-export default defineComponent({
-  components: { ScrollContainer },
-  setup() {
-    const scrollRef = ref<Nullable<ScrollActionType>>(null);
-    const getScroll = () => {
-      const scroll = unref(scrollRef);
-      if (!scroll) {
-        throw new Error("scroll is Null");
+  export default defineComponent({
+    components: { ScrollContainer },
+    setup() {
+      const scrollRef = ref<Nullable<ScrollActionType>>(null);
+      const getScroll = () => {
+        const scroll = unref(scrollRef);
+        if (!scroll) {
+          throw new Error('scroll is Null');
+        }
+        return scroll;
+      };
+
+      function scrollTo(top: number) {
+        getScroll().scrollTo(top);
       }
-      return scroll;
-    };
+      function scrollToCenter() {
+        scrollTo((getScroll()?.getScrollWrap()?.scrollHeight || 0) / 2);
+      }
+      function scrollBottom() {
+        getScroll().scrollBottom();
+      }
 
-    function scrollTo(top: number) {
-      getScroll().scrollTo(top);
-    }
-    function scrollToCenter() {
-      scrollTo((getScroll()?.getScrollWrap()?.scrollHeight || 0) / 2);
-    }
-    function scrollBottom() {
-      getScroll().scrollBottom();
-    }
-
-    return {
-      getScroll,
-      scrollTo,
-      scrollRef,
-      scrollToCenter,
-      scrollBottom,
-    };
-  },
-});
+      return {
+        getScroll,
+        scrollTo,
+        scrollRef,
+        scrollToCenter,
+        scrollBottom,
+      };
+    },
+  });
 </script>
 
 <style lang="less" scoped>
-.container {
-  padding: 1rem;
-}
+  .container {
+    padding: 1rem;
+  }
 </style>

@@ -1,3 +1,3 @@
-import Mitt from 'src/hooks/core/useMitt'
+import Mitt from 'src/hooks/core/useMitt';
 
-export default new Mitt()
+export default new Mitt();

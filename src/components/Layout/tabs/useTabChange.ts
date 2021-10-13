@@ -17,10 +17,7 @@ export function setLastChangeTab(lastChangeRoute: RouteLocationNormalized) {
   lastChangeTab = lastChangeRoute;
 }
 
-export function listenerLastChangeTab(
-  callback: (route: RouteLocationNormalized) => void,
-  immediate = true
-) {
+export function listenerLastChangeTab(callback: (route: RouteLocationNormalized) => void, immediate = true) {
   mitt.on(key, callback);
   immediate && callback(lastChangeTab);
 }

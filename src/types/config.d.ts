@@ -1,6 +1,5 @@
-
 import { ThemeEnum, LangEnum } from 'src/enums/appEnum';
-import { MenuModeEnum, MenuTypeEnum, TriggerEnum } from 'src/enums/menuEnum';
+import { TriggerEnum } from 'src/enums/menuEnum';
 
 export interface MenuSetting {
   theme: ThemeEnum;
@@ -90,7 +89,6 @@ export interface ProjectConfig {
   // 是否显示logo
   // showLogo: boolean;
   showFooter: boolean;
-
 
   // transitionSetting: TransitionSetting;
 
