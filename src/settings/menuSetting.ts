@@ -5,16 +5,33 @@ export const menus: MenuType[] = [
     path: '/index',
     icon: 'home',
   }, {
-    name: "水文本地",
-    path: '/x7',
-    icon: 'setting',
+    name: "用户管理",
+    path: '/user-manage',
+    icon: 'user',
   }, {
-    name: "水文线上",
-    path: '/x77',
-    icon: 'setting',
+    name: "账户管理",
+    path: '/account-manage',
+    icon: 'switch-user',
   }, {
-    name: "测试",
-    path: "/test1"
+    name: "role",
+    path: '/role-manage',
+    icon: 'team',
+  }, {
+    name: "department",
+    path: '/department-manage',
+    icon: 'department',
+  }, {
+    name: "privilege",
+    path: '/privilege-manage',
+    icon: 'detail',
+  }, {
+    name: "dict",
+    path: '/dict-manage',
+    icon: 'read',
+  }, {
+    name: "内嵌文档",
+    path: 'https://vue3js.cn/docs/zh/',
+    icon: 'setting',
   }, {
     name: '组件',
     path: '/components',
@@ -55,45 +72,5 @@ export const menus: MenuType[] = [
         path: "/cropper"
       }
     ]
-  }, {
-    name: "多级节点",
-    path: '/d1',
-    icon: 'setting',
-    children: [
-      {
-        name: 'd11',
-        path: '/todoList2',
-        children: [
-          {
-            name: 'd111',
-            path: '/d111',
-            children: [
-              {
-                name: 'd1111',
-                path: '/d1111',
-              }, {
-                name: 'd1112',
-                path: '/d1112',
-              }
-            ],
-          }, {
-            name: 'd112',
-            path: '/d112',
-          }
-        ],
-      }, {
-        name: 'd12',
-        path: '/d12',
-        children: [
-          {
-            name: 'd121',
-            path: '/d121',
-          }, {
-            name: 'd122',
-            path: '/d122',
-          }
-        ],
-      }
-    ]
-  },
+  }
 ]

@@ -79,9 +79,9 @@
     <div class="footer">
       <p class="footer-content">
         <img src="static/images/login/left.png" />
-        &nbsp;&nbsp;{{ loginForm.account }}
-        <span class="footer-text">中国电建集团中南勘测设计研究院有限公司版权所有</span>
-        &nbsp;&nbsp;{{ loginForm.password }}
+        &emsp;
+        <span class="footer-text">v3-admin</span>
+        &emsp;
         <img src="static/images/login/right.png" />
       </p>
     </div>

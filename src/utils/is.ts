@@ -21,6 +21,10 @@ export function isNull(val: unknown): val is null {
   return val === null;
 }
 
+export function isNullAndUnDef(val: unknown): val is null | undefined {
+  return isUnDef(val) && isNull(val);
+}
+
 export function isNullOrUnDef(val: unknown): val is null | undefined {
   return isUnDef(val) || isNull(val);
 }
@@ -59,6 +63,10 @@ export function isWindow(val: any): val is Window {
 
 export function isElement(val: unknown): val is Element {
   return isObject(val) && !!val.tagName;
+}
+
+export function isMap(val: unknown): val is Map<any, any> {
+  return is(val, 'Map');
 }
 
 export const isServer = typeof window === 'undefined';
