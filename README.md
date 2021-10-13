@@ -25,13 +25,10 @@
 - 推荐使用 VSCode
 - 格式化插件：
 
-  > md: shd101wyy.markdown-preview-enhanced
-
+  > md: davidanson.vscode-markdownlint
   > vue: octref.vetur
-
   > prettier: esbenp.prettier-vscode
-
-  > vue3: hollowtree.vue-snippets
+  > eslint: dbaeumer.vscode-eslint
 
 ---
 
