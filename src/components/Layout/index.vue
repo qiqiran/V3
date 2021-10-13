@@ -39,7 +39,7 @@
       LayoutSider,
       LayoutContent,
       LayoutFooter,
-      LayoutLockPage: createAsyncComponent(() => import('src/views/system/lock/index.vue')),
+      LayoutLockPage: createAsyncComponent(() => import('src/views/basics/lock/index.vue')),
     },
     setup() {
       const { prefixCls } = useDesign('layout');

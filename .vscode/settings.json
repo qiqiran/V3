@@ -5,7 +5,7 @@
   //============= Editor ======================
   //===========================================
   // openEditors栏目高度
-  "explorer.openEditors.visible": 20,
+  "explorer.openEditors.visible": 5,
   //===========================================
   //============= files =======================
   //===========================================
@@ -85,7 +85,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": false
   },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",

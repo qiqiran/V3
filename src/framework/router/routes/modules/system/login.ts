@@ -4,5 +4,5 @@ export default <AppRouteRecordRaw>{
   path: '/login',
   name: 'Login',
   meta: { hideTab: true },
-  component: () => import('src/views/system/login/Login.vue'),
+  component: () => import('src/views/basics/login/Login.vue'),
 };
