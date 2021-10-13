@@ -33,7 +33,17 @@
       </a-col>
       <a-col :xs="24" :xl="12" :xxl="6">
         <a-card>
-          <CountTo ref="countTo31" class="count-to-01" prefix="距离" suffix="m" :color="'#409EFF'" :startVal="400" :endVal="600" :separator="''" :autoplay="false" />
+          <CountTo
+            ref="countTo31"
+            class="count-to-01"
+            prefix="距离"
+            suffix="m"
+            :color="'#409EFF'"
+            :startVal="400"
+            :endVal="600"
+            :separator="''"
+            :autoplay="false"
+          />
         </a-card>
       </a-col>
       <a-col :xs="24" :xl="12" :xxl="6">

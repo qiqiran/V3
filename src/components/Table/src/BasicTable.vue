@@ -74,11 +74,8 @@
 
       const { getScrollRef, redoHeight } = useTableScroll(getProps, tableElRef, getColumnsRef, getDataSourceRef);
 
-      const { getRowSelection, getRowSelectionRef, getSelectRows, clearSelectedRowKeys, getSelectRowKeys, deleteSelectRowByKey, setSelectedRowKeys } = useRowSelection(
-        getProps,
-        getDataSourceRef,
-        emit,
-      );
+      const { getRowSelection, getRowSelectionRef, getSelectRows, clearSelectedRowKeys, getSelectRowKeys, deleteSelectRowByKey, setSelectedRowKeys } =
+        useRowSelection(getProps, getDataSourceRef, emit);
 
       const getAutoCreateKey = computed(() => true);
 

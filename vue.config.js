@@ -1,12 +1,7 @@
-const path = require('path')
+const path = require('path');
 const resolve = (dir) => path.join(__dirname, dir);
-const createThemeColorReplacerPlugin = require('./config/theme.plugin.js')
-const {
-  publicPath,
-  assetsDir,
-  outputDir,
-  devPort
-} = require('./config')
+const createThemeColorReplacerPlugin = require('./config/theme.plugin.js');
+const { publicPath, assetsDir, outputDir, devPort } = require('./config');
 
 module.exports = {
   // 开发以及部署时的URL
@@ -23,14 +18,14 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true,
-    }
+    },
   },
   css: {
     loaderOptions: {
       less: {
         lessOptions: {
           modifyVars: {
-            hack: `true; @import (reference) "${resolve('src/assets/css/global/index.less')}";`
+            hack: `true; @import (reference) "${resolve('src/assets/css/global/index.less')}";`,
           },
           javascriptEnabled: true,
         },
@@ -43,14 +38,12 @@ module.exports = {
         alias: {
           '@': resolve('src'),
           '#': resolve('src/framework'),
-          'src': resolve('src'),
-          'static': resolve('public/static'),
-          'config': resolve('config')
+          src: resolve('src'),
+          static: resolve('public/static'),
+          config: resolve('config'),
         },
       },
-      plugins: [
-        createThemeColorReplacerPlugin()
-      ]
-    }
+      plugins: [createThemeColorReplacerPlugin()],
+    };
   },
-}
+};

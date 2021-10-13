@@ -20,5 +20,5 @@ const setting = {
   storage: 'localStorage',
   //token失效回退到登录页时是否记录本次的路由
   recordRoute: true,
-}
+};
 module.exports = setting;

@@ -3,7 +3,13 @@
     <template #title>
       <span>列设置</span>
     </template>
-    <Popover placement="bottomRight" trigger="click" @visibleChange="handleVisibleChange" :overlayClassName="`${prefixCls}__cloumn-list`" :getPopupContainer="getPopupContainer">
+    <Popover
+      placement="bottomRight"
+      trigger="click"
+      @visibleChange="handleVisibleChange"
+      :overlayClassName="`${prefixCls}__cloumn-list`"
+      :getPopupContainer="getPopupContainer"
+    >
       <template #title>
         <div :class="`${prefixCls}__popover-title`">
           <Checkbox :indeterminate="indeterminate" v-model:checked="checkAll" @change="onCheckAllChange">列展示</Checkbox>

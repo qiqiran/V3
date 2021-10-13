@@ -7,7 +7,12 @@ import { useModalContext } from '@/components/Modal';
 import { onMountedOrActivated } from '@/hooks/core/onMountedOrActivated';
 import { useDebounceFn } from '@vueuse/core';
 
-export function useTableScroll(propsRef: ComputedRef<BasicTableProps>, tableElRef: Ref<ComponentRef>, columnsRef: ComputedRef<BasicColumn[]>, getDataSourceRef: ComputedRef<Recordable[]>) {
+export function useTableScroll(
+  propsRef: ComputedRef<BasicTableProps>,
+  tableElRef: Ref<ComponentRef>,
+  columnsRef: ComputedRef<BasicColumn[]>,
+  getDataSourceRef: ComputedRef<Recordable[]>,
+) {
   const tableHeightRef: Ref<Nullable<number>> = ref(null);
 
   const modalFn = useModalContext();

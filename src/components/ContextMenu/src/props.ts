@@ -1,4 +1,4 @@
-import type { PropType } from 'vue';
+import type { PropType, CSSProperties } from 'vue';
 import type { Axis, ContextMenuItem } from './types';
 
 export const contextMenuProps = {
@@ -10,7 +10,7 @@ export const contextMenuProps = {
   styles: {
     name: 'style',
     getter: true,
-    type: [String, Object],
+    type: Object as PropType<CSSProperties>,
     default: {},
   },
   showIcon: { type: Boolean, default: true },

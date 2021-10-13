@@ -6,7 +6,16 @@
   <BasicModal :title="`BaiscModal`" @register="register" centered>
     <h1>This is WIoT BaiscModal</h1>
   </BasicModal>
-  <BasicModal :title="`BaiscModal2`" @register="register2" width="70vw" @height-change="modalHeightChange" @visible-change="visibleChange" @ok="ok" @cancel="cancel">
+
+  <BasicModal
+    :title="`BaiscModal2`"
+    @register="register2"
+    width="70vw"
+    @height-change="modalHeightChange"
+    @visible-change="visibleChange"
+    @ok="ok"
+    @cancel="cancel"
+  >
     <h1>This is WIoT BaiscModal2</h1>
     <div class="background"></div>
     <h2 class="h-20" v-for="index in 100" :key="index">根据屏幕高度自适应</h2>

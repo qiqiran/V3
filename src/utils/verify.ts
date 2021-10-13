@@ -6,7 +6,8 @@ function initVerifyPage(show_num: any[], divId: string) {
   const context = canvas.getContext('2d'); //获取到canvas画图的环境，演员表演的舞台
   canvas.width = canvas_width;
   canvas.height = canvas_height;
-  const sCode = 'A,B,CD,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0';
+  const sCode =
+    'A,B,CD,E,F,G,H,J,K,L,M,N,P,Q,R,S,T,W,X,Y,Z,q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,z,x,c,v,b,n,m,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0';
   const aCode = sCode.split(',');
   const aLength = aCode.length; //获取到数组的长度
 

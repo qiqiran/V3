@@ -25,7 +25,13 @@
       <a-input v-model:value="formState.address" placeholder="请输入" />
     </a-form-item>
     <a-form-item label="角色" name="roles">
-      <a-select mode="multiple" v-model:value="formState.roles" :options="roleOptions" :filterOption="(inputValue, { label }) => label.includes(inputValue)" placeholder="请选择" />
+      <a-select
+        mode="multiple"
+        v-model:value="formState.roles"
+        :options="roleOptions"
+        :filterOption="(inputValue, { label }) => label.includes(inputValue)"
+        placeholder="请选择"
+      />
     </a-form-item>
     <a-form-item label="部门" name="department">
       <a-tree-select v-model:value="formState.department" :tree-data="deptOptions" placeholder="请选择" tree-default-expand-all />

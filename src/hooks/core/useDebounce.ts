@@ -20,7 +20,11 @@ import {
 /**
  * @description: Applicable in components
  */
-export function useDebounce<T extends unknown[]>(handle: DebounceAndThrottleProcedure<T>, wait: number, options: DebounceAndThrottleOptions = {}): DebounceAndThrottleProcedureResult<T> {
+export function useDebounce<T extends unknown[]>(
+  handle: DebounceAndThrottleProcedure<T>,
+  wait: number,
+  options: DebounceAndThrottleOptions = {},
+): DebounceAndThrottleProcedureResult<T> {
   return useThrottle(
     handle,
     wait,

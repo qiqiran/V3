@@ -6,11 +6,15 @@
     <a-button type="primary" @click="changeLayout(4)">模式4</a-button>&emsp;&emsp;&nbsp;-->
     <br />
     <h2>系统主题</h2>
-    <a-button v-for="color in APP_PRESET_COLOR_LIST" :key="`THEME-${color}`" :style="`background: ${color}`" @click="updateTheme(color)">-</a-button>
+    <a-button v-for="color in APP_PRESET_COLOR_LIST" :key="`THEME-${color}`" :style="`background: ${color}`" @click="updateTheme(color)"> - </a-button>
     <h2>顶栏主题</h2>
-    <a-button v-for="color in HEADER_PRESET_BG_COLOR_LIST" :key="`HEADER-${color}`" :style="`background: ${color}`" @click="updateHeaderBgColor(color)">-</a-button>
+    <a-button v-for="color in HEADER_PRESET_BG_COLOR_LIST" :key="`HEADER-${color}`" :style="`background: ${color}`" @click="updateHeaderBgColor(color)">
+      -
+    </a-button>
     <h2>菜单</h2>
-    <a-button v-for="color in SIDER_BAR_BG_COLOR_LIST" :key="`SIDER-${color}`" :style="`background: ${color}`" @click="updateSidebarBgColor(color)">-</a-button>
+    <a-button v-for="color in SIDER_BAR_BG_COLOR_LIST" :key="`SIDER-${color}`" :style="`background: ${color}`" @click="updateSidebarBgColor(color)">
+      -
+    </a-button>
     <br />
     <br />
     <label>侧边栏：</label>

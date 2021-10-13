@@ -12,9 +12,9 @@
 
 ## 亮点
 
-- **最新技术栈**：使用 Vue3 TypeScript ant-design-vue 开发
+- **最新技术栈**：使用 Vue3 TypeScript ant-design-vue 等最新技术栈开发
 - **主题**：可配置的主题
-- **组件**：二次封装了多个常用的组件,开箱即用
+- **组件封装**：对日常使用频率较高的组件二次封装,满足基础工作需求,开箱即用
 - 封装了对 iframe 界面的缓存处理结合标签页，可以使 iframe 嵌入界面拥有良好的交互体验
 - **安全**：封装了全局的 localStorage、sessionStorage 并在非开发模式下对信息做了加密处理
 
@@ -28,6 +28,8 @@
   > md: shd101wyy.markdown-preview-enhanced
 
   > vue: octref.vetur
+
+  > prettier: esbenp.prettier-vscode
 
   > vue3: hollowtree.vue-snippets
 

@@ -11,7 +11,13 @@ export interface CreateCookieStoreParams extends EncryptionParams {
   hasEncrypt: boolean;
   timeout?: Nullable<number>;
 }
-export const createCookieStore = ({ prefixKey = '', key = cacheCipher.key, iv = cacheCipher.iv, timeout = null, hasEncrypt = true }: Partial<CreateCookieStoreParams> = {}) => {
+export const createCookieStore = ({
+  prefixKey = '',
+  key = cacheCipher.key,
+  iv = cacheCipher.iv,
+  timeout = null,
+  hasEncrypt = true,
+}: Partial<CreateCookieStoreParams> = {}) => {
   if (hasEncrypt && [key.length, iv.length].some((item) => item !== 16)) {
     throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!');
   }

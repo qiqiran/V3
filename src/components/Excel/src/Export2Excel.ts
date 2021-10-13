@@ -5,7 +5,13 @@ import type { JsonToSheet, AoAToSheet } from './types';
 const { utils, writeFile } = xlsx;
 
 const DEF_FILE_NAME = 'excel-list.xlsx';
-export function jsonToSheetXlsx<T = any>({ data, header, filename = DEF_FILE_NAME, json2sheetOpts = {}, write2excelOpts = { bookType: 'xlsx' } }: JsonToSheet<T>) {
+export function jsonToSheetXlsx<T = any>({
+  data,
+  header,
+  filename = DEF_FILE_NAME,
+  json2sheetOpts = {},
+  write2excelOpts = { bookType: 'xlsx' },
+}: JsonToSheet<T>) {
   const arrData = [...data];
   if (header) {
     arrData.unshift(header);
