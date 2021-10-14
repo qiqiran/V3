@@ -69,4 +69,5 @@ module.exports = defineConfig({
       },
     ],
   },
+  ignorePatterns: ['*.sh', 'node_modules', '*.md', '*.woff', '*.ttf', '.vscode', '.idea', 'dist', '/public', '/docs', '.husky', '.local', '/bin', 'Dockerfile'],
 });
