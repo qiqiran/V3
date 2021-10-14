@@ -1,9 +1,45 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-
   //===========================================
   //============= Editor ======================
   //===========================================
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.sideBar.location": "left",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // 保存时自动格式化
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
   // openEditors栏目高度
   "explorer.openEditors.visible": 5,
   //===========================================
@@ -56,42 +92,5 @@
     "**/bower_components/**": true,
     "**/dist/**": true,
     "**/yarn.lock": false
-  },
-  "prettier.requireConfig": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.sideBar.location": "left",
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": false
-  },
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    // 保存时自动格式化
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    }
   }
 }
