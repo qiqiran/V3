@@ -89,6 +89,10 @@ export const menus: MenuType[] = [
         name: '图片剪切',
         path: '/cropper',
       },
+      {
+        name: '数据表格',
+        path: '/table',
+      },
     ],
   },
 ];

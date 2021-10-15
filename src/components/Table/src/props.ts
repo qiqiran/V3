@@ -12,8 +12,54 @@ import { DEFAULT_FILTER_FN } from './const';
 import { propTypes } from '@/utils/propTypes';
 
 export const basicProps = {
-  clickToRowSelect: propTypes.bool.def(true),
+  // 列
+  columns: {
+    type: [Array] as PropType<BasicColumn[]>,
+    default: () => [],
+  },
+  // 是否展示序号列
+  showIndexColumn: propTypes.bool.def(true),
+  // 序号列配置
+  indexColumnProps: {
+    type: Object as PropType<BasicColumn>,
+    default: null,
+  },
+  // 数据源
+  dataSource: {
+    type: Array as PropType<Recordable[]>,
+    default: null,
+  },
+
+  // 表格标题title
+  title: {
+    type: [String, Function] as PropType<string | ((data: Recordable) => string)>,
+    default: null,
+  },
+  // 表格标题title提示信息
+  titleHelpMessage: {
+    type: [String, Array] as PropType<string | string[]>,
+  },
+
+  // 分页配置，若不需要分页入参false
+  pagination: {
+    type: [Object, Boolean] as PropType<PaginationProps | boolean>,
+    default: true,
+  },
+
+  // 是否展示外边框和列边框
+  bordered: propTypes.bool,
+  // 页面是否加载中
+  loading: propTypes.bool.def(false),
+  // 是否树形表格
   isTreeTable: propTypes.bool.def(false),
+
+  // 列表项选择配置
+  rowSelection: {
+    type: Object as PropType<TableRowSelection | null>,
+    default: null,
+  },
+  // 点击行选中 需指定type
+  clickToRowSelect: propTypes.bool.def(true),
   // tableSetting: propTypes.shape<TableSetting>({}),
   inset: propTypes.bool,
   // sortFn: {
@@ -75,15 +121,6 @@ export const basicProps = {
   //   type: Object as PropType<Partial<FormProps>>,
   //   default: null,
   // },
-  columns: {
-    type: [Array] as PropType<BasicColumn[]>,
-    default: () => [],
-  },
-  showIndexColumn: propTypes.bool.def(true),
-  indexColumnProps: {
-    type: Object as PropType<BasicColumn>,
-    default: null,
-  },
   actionColumn: {
     type: Object as PropType<BasicColumn>,
     default: null,
@@ -92,32 +129,11 @@ export const basicProps = {
   canResize: propTypes.bool.def(true),
   clearSelectOnPageChange: propTypes.bool,
   resizeHeightOffset: propTypes.number.def(0),
-  rowSelection: {
-    type: Object as PropType<TableRowSelection | null>,
-    default: null,
-  },
-  title: {
-    type: [String, Function] as PropType<string | ((data: Recordable) => string)>,
-    default: null,
-  },
-  titleHelpMessage: {
-    type: [String, Array] as PropType<string | string[]>,
-  },
   maxHeight: propTypes.number,
-  dataSource: {
-    type: Array as PropType<Recordable[]>,
-    default: null,
-  },
   // rowKey: {
   //   type: [String, Function] as PropType<string | ((record: Recordable) => string)>,
   //   default: '',
   // },
-  bordered: propTypes.bool,
-  pagination: {
-    type: [Object, Boolean] as PropType<PaginationProps | boolean>,
-    default: true,
-  },
-  loading: propTypes.bool.def(false),
   // rowClassName: {
   //   type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
   // },

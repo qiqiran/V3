@@ -6,14 +6,20 @@
   "prettier.requireConfig": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.sideBar.location": "left",
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "[jsvascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": { // 保存时自动格式化
+      "source.fixAll.eslint": true
+    }
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": { // 保存时自动格式化
+      "source.fixAll.eslint": true
+    }
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -30,17 +36,12 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": false
-  },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    // 保存时自动格式化
-    "editor.codeActionsOnSave": {
+    "editor.codeActionsOnSave": { // 保存时自动格式化
       "source.fixAll.eslint": true
     }
-  },
-  // openEditors栏目高度
+  }, // openEditors栏目高度
   "explorer.openEditors.visible": 5,
   //===========================================
   //============= files =======================

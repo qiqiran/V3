@@ -8,29 +8,30 @@ import { VueNode } from '@/utils/propTypes';
 export interface TableRowSelection<T = any> extends ITableRowSelection {
   /**
    * 多选/单选
+   * @default 'checkbox'
    * @type string checkbox | radio
    */
   type: 'checkbox' | 'radio';
   /**
-   * Callback executed when selected rows change
+   * 选中项发生变化时的回调
    * @type Function
    */
   onChange?: (selectedRowKeys: string[], selectedRows: T[]) => void;
 
   /**
-   * Callback executed when select/deselect one row
+   * 用户手动选择/取消选择某列的回调
    * @type FunctionT
    */
   onSelect?: (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
 
   /**
-   * Callback executed when select/deselect all rows
+   * 用户手动选择/取消选择所有列的回调
    * @type Function
    */
   onSelectAll?: (selected: boolean, selectedRows: T[], changeRows: T[]) => any;
 
   /**
-   * Callback executed when row selection is inverted
+   * 用户手动选择反选的回调
    * @type Function
    */
   onSelectInvert?: (selectedRows: string[] | number[]) => any;

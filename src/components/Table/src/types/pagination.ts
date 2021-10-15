@@ -12,87 +12,88 @@ export declare class PaginationConfig extends Pagination {
 }
 export interface PaginationProps {
   /**
-   * total number of data items
+   * 数据总条目数
    * @default 0
    * @type number
    */
   total?: number;
 
   /**
-   * default initial page number
+   * 默认页码
    * @default 1
    * @type number
    */
   defaultCurrent?: number;
 
   /**
-   * current page number
+   * 页码
    * @type number
    */
   current?: number;
 
   /**
-   * default number of data items per page
+   * 默认的每页条数
    * @default 10
    * @type number
    */
   defaultPageSize?: number;
 
   /**
-   * number of data items per page
+   * 每页条数
    * @type number
    */
   pageSize?: number;
 
   /**
-   * Whether to hide pager on single page
+   * 只有一页时是否隐藏分页器
    * @default false
    * @type boolean
    */
   hideOnSinglePage?: boolean;
 
   /**
-   * determine whether pageSize can be changed
-   * @default false
+   * 是否可以改变 pageSize
+   * @default true
    * @type boolean
    */
   showSizeChanger?: boolean;
 
   /**
-   * specify the sizeChanger options
+   * 指定每页可以显示多少条
    * @default ['10', '20', '30', '40']
    * @type string[]
    */
   pageSizeOptions?: string[];
 
   /**
-   * determine whether you can jump to pages directly
-   * @default false
+   * 是否可以快速跳转至某页
+   * @default true
    * @type boolean
    */
   showQuickJumper?: boolean | object;
 
   /**
-   * to display the total number and range
+   * 用于显示数据总量和当前数据顺序
    * @type Function
    */
   showTotal?: (total: number, range: [number, number]) => any;
 
   /**
-   * specify the size of Pagination, can be set to small
-   * @default ''
+   * 分页器尺寸 'large' | 'small'
+   * @default 'small'
    * @type string
    */
   size?: string;
 
   /**
-   * whether to setting simple mode
+   * 是否显示为简单分页
+   * @default false
    * @type boolean
    */
   simple?: boolean;
 
   /**
-   * to customize item innerHTML
+   * 用于自定义页码的结构，可用于优化 SEO
    * @type Function
    */
   itemRender?: (props: PaginationRenderProps) => VNodeChild | JSX.Element;

@@ -2,9 +2,9 @@
   <a-tooltip placement="bottom" :title="'搜索'" @click="changeModal(true)">
     <span>
       <SearchOutlined />
+      <AppSearchModal :visible="showModal" @close="changeModal(false)" />
     </span>
   </a-tooltip>
-  <AppSearchModal :visible="showModal" @close="changeModal(false)" />
 </template>
 
 <script lang="ts">

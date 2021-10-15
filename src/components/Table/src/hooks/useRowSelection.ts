@@ -19,8 +19,6 @@ export function useRowSelection(propsRef: ComputedRef<BasicTableProps>, tableDat
       selectedRowKeys: unref(selectedRowKeysRef),
       hideDefaultSelections: false,
       onChange: (selectedRowKeys: string[]) => {
-        console.log(selectedRowKeys);
-
         setSelectedRowKeys(selectedRowKeys);
       },
       ...omit(rowSelection, ['onChange']),

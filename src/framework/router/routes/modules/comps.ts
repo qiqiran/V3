@@ -95,4 +95,12 @@ export default [
     },
     component: () => import('src/views/comps/cropper/index.vue'),
   },
+  {
+    path: '/table',
+    name: 'Table',
+    meta: {
+      title: 'Table',
+    },
+    component: () => import('src/views/comps/table/index.vue'),
+  },
 ];
