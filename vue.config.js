@@ -24,7 +24,7 @@ module.exports = {
     loaderOptions: {
       less: {
         lessOptions: {
-          modifyVars: {
+          globalVars: {
             hack: `true; @import (reference) "${resolve('src/assets/css/global/index.less')}";`,
           },
           javascriptEnabled: true,

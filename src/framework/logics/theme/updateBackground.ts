@@ -11,8 +11,7 @@ const HEADER_MENU_ACTIVE_BG = '--header-active-menu-bg-color';
 
 const SIDER_DARK_BG = '--sider-dark-bg-color';
 const SIDER_DARK_DARKEN_BG = '--sider-dark-darken-bg-color';
-const SIDER_LIGHTEN_1_BG = '--sider-dark-lighten-1-bg-color';
-const SIDER_LIGHTEN_2_BG = '--sider-dark-lighten-2-bg-color';
+const SIDER_LIGHTEN_BG = '--sider-dark-lighten-bg-color';
 
 /**
  * 更改顶部标题的背景颜色
@@ -50,8 +49,7 @@ export function updateSidebarBgColor(color: string): void {
 
   setCssVar(SIDER_DARK_BG, color);
   setCssVar(SIDER_DARK_DARKEN_BG, darken(color, 6));
-  setCssVar(SIDER_LIGHTEN_1_BG, lighten(color, 4));
-  setCssVar(SIDER_LIGHTEN_2_BG, lighten(color, 8));
+  setCssVar(SIDER_LIGHTEN_BG, lighten(color, 4));
 
   const isDark = colorIsDark(color);
 
