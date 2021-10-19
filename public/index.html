@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" id="htmlRoot">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="static/images/app/favicon.ico">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="static/images/app/favicon.ico" />
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>很抱歉，如果没有 JavaScript 支持，网站将不能正常工作。请启用浏览器的 JavaScript 然后继续。</strong>
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+
+    <div id="app">
+      <style lang="less">
+        @import './static/css/loading.css';
+      </style>
+      <div class="app-loading">
+        <div class="app-loading-wrap">
+          <img src="static/images/app/logo.png" class="app-loading-logo" alt="Logo" />
+          <div class="app-loading-dots">
+            <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="app-loading-title"><%= htmlWebpackPlugin.options.title %></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
