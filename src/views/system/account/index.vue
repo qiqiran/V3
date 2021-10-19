@@ -5,11 +5,11 @@
         <a-alert type="info" show-icon>
           <template #message>
             <template v-if="selectRowKeys.length > 0">
-              <span>已选中{{ selectRowKeys.length }}条记录(可跨页)</span>
+              <span style="line-height: 24px">已选中{{ selectRowKeys.length }}条记录(可跨页)</span>
               <a-button type="link" @click="setSelectedRowKeys([])" size="small">清空</a-button>
             </template>
             <template v-else>
-              <span>未选中任何项目</span>
+              <span style="line-height: 24px">未选中任何项目</span>
             </template>
           </template>
         </a-alert>

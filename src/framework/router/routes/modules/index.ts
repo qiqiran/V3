@@ -1,6 +1,6 @@
 import { parseRoutes } from 'src/utils/directoryParse';
 
 const business = parseRoutes(require.context('./business', false, /\.ts$/));
-const system = parseRoutes(require.context('./system', false, /\.ts$/));
+const basics = parseRoutes(require.context('./basics', false, /\.ts$/));
 
-export default [...business, ...system];
+export default [...business, ...basics];

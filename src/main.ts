@@ -6,21 +6,24 @@ import { setupStore } from '#/store';
 import { initAppConfigStore } from '#/logics/initAppConfig';
 import { setupGlobDirectives } from '#/directives/index';
 
-const app = createApp(App);
+async function bootstrap() {
+  const app = createApp(App);
 
-// ui挂载
-setupAntdvCompontents(app);
-setupAntdvIcons(app);
-// 路由挂载
-setupRouter(app);
-// vuex挂载
-setupStore(app);
-// 初始化系统配置
-initAppConfigStore();
+  // ui挂载
+  setupAntdvCompontents(app);
+  setupAntdvIcons(app);
+  // 路由挂载
+  setupRouter(app);
+  // vuex挂载
+  setupStore(app);
+  // 初始化系统配置
+  initAppConfigStore();
 
-// 注册全局指令
-setupGlobDirectives(app);
+  // 注册全局指令
+  setupGlobDirectives(app);
 
-router.isReady().then(() => {
-  app.mount('#app', true);
-});
+  // app.mount('#app');
+  router.isReady().then(() => app.mount('#app', true));
+}
+
+bootstrap();

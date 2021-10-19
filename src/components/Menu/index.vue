@@ -54,7 +54,11 @@
         current.value = [currentValue];
       });
 
-      const routerSwitch = (menuItem: MenuItem) => {
+      const routerSwitch = (menuItem: MenuItem, i2, i3) => {
+        console.log(menuItem);
+        console.log(i2);
+        console.log(i3);
+
         let { key, item } = menuItem;
 
         if (isUrl(key)) {

@@ -4,7 +4,7 @@ import { RouteLocationNormalized, RouteLocationRaw, RouteRecordNormalized, Route
 
 import store from '#/store';
 import router from '#/router';
-import { IndexRoute } from '#/router/routes/modules/system/index';
+import { IndexRoute } from 'src/framework/router/routes/modules/basics/index';
 import { REDIRECT_ROUTE } from '#/router/constant';
 
 import { useGo, useRedo } from 'src/hooks/web/usePage';

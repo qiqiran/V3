@@ -92,6 +92,9 @@ export const menus: MenuType[] = [
       {
         name: '数据表格',
         path: '/table',
+        meta: {
+          frameSrc: 'https://www.baidu.com',
+        },
       },
     ],
   },
