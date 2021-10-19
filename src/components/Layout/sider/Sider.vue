@@ -107,7 +107,7 @@
     }
   }
 
-  .@{prefix-cls}.ant-layout-sider.ant-layout-sider-trigger {
+  .@{prefix-cls}.ant-layout-sider .ant-layout-sider-trigger {
     background-color: transparent;
   }
 
