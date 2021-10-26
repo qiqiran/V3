@@ -1,6 +1,8 @@
 const path = require('path');
+const CompressionPlugin = require('compression-webpack-plugin'); //引入compression-webpack-plugin
 const resolve = (dir) => path.join(__dirname, dir);
 const createThemeColorReplacerPlugin = require('./config/theme.plugin.js');
+const { NODE_ENV, gzip } = process.env;
 const { publicPath, assetsDir, outputDir, devPort } = require('./config');
 
 module.exports = {
@@ -33,6 +35,23 @@ module.exports = {
     },
   },
   configureWebpack() {
+    const plugins = [createThemeColorReplacerPlugin()];
+    //生产环境
+    if (NODE_ENV === 'production' && gzip) {
+      plugins.push(
+        new CompressionPlugin({
+          filename: '[path].gz[query]',
+          //压缩算法
+          algorithm: 'gzip',
+          //匹配文件
+          test: /\.js$|\.css$|\.html$/,
+          //压缩超过此大小的文件,以字节为单位
+          threshold: 1024,
+          //删除原始文件只保留压缩后的文件
+          //deleteOriginalAssets: false
+        }),
+      );
+    }
     return {
       resolve: {
         alias: {
@@ -43,7 +62,7 @@ module.exports = {
           config: resolve('config'),
         },
       },
-      plugins: [createThemeColorReplacerPlugin()],
+      plugins: plugins,
     };
   },
 };
