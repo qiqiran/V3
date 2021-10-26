@@ -2,15 +2,6 @@ const IFrame = () => import('src/components/Layout/iframe/FrameBlank.vue');
 
 export default [
   {
-    path: '/x7',
-    name: 'X7',
-    component: IFrame,
-    meta: {
-      frameSrc: 'http://127.0.0.1:8888',
-      title: '水文本地',
-    },
-  },
-  {
     path: '/x77',
     name: 'X77',
     component: IFrame,

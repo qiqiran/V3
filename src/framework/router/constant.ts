@@ -2,6 +2,8 @@ import type { AppRouteRecordRaw } from '#/router/types';
 
 export const REDIRECT_NAME = 'Redirect';
 
+export const PAGE_NOT_FOUND_NAME = 'PageNotFound';
+
 export const REDIRECT_ROUTE: AppRouteRecordRaw = {
   path: '/redirect/:path(.*)',
   name: REDIRECT_NAME,
