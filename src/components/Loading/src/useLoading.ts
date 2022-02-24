@@ -30,7 +30,7 @@ export function useLoading(opt: Partial<LoadingProps> | Partial<UseLoadingOption
   const instance = createLoading(props, undefined, true);
 
   const open = (): void => {
-    const t = unref(target);
+    const t = unref(target as Ref<ElRef>);
     if (!t) return;
     instance.open(t);
   };
