@@ -1,6 +1,7 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import type { ColumnProps, TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface';
+import type { TableRowSelection as ITableRowSelection } from 'ant-design-vue/lib/table/interface';
+import type { ColumnProps } from 'ant-design-vue/lib/table';
 
 import { ComponentType } from './componentType';
 import { VueNode } from '@/utils/propTypes';
@@ -16,7 +17,7 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
    * 选中项发生变化时的回调
    * @type Function
    */
-  onChange?: (selectedRowKeys: string[], selectedRows: T[]) => void;
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => any;
 
   /**
    * 用户手动选择/取消选择某列的回调

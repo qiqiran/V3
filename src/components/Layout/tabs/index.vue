@@ -2,7 +2,7 @@
   <div :class="[prefixCls]">
     <a-tabs v-model:activeKey="activeKeyRef" hideAdd type="editable-card" size="small" @edit="onEdit" @tabClick="tabClick">
       <a-tab-pane v-for="item in getTabList" :key="item.path" :tab="item.meta.title" :closable="!(item && item.meta && item.meta.affix)" />
-      <template #tabBarExtraContent>
+      <template #rightExtra>
         <TabRedo />
         <TabContent isExtra :tabItem="$route" />
         <FullContent />

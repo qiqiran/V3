@@ -1,12 +1,8 @@
-import { dateUtil } from 'src/utils/dateUtil';
-import { reactive, unref, toRefs } from 'vue';
+import { dateUtil } from '@/utils/dateUtil';
+import { reactive, toRefs } from 'vue';
 import { tryOnMounted, tryOnUnmounted } from '@vueuse/core';
 
-import { useRootSetting } from 'src/hooks/setting/useRootSetting';
-
 export function useNow(immediate = true) {
-  const { getLang } = useRootSetting();
-  const localData = dateUtil.localeData(unref(getLang));
   let timer: IntervalHandle;
 
   const state = reactive({
@@ -29,13 +25,13 @@ export function useNow(immediate = true) {
 
     state.year = now.get('y');
     state.month = now.get('M') + 1;
-    state.week = localData.weekdays()[now.day()];
-    state.day = now.get('D');
+    state.week = '星期' + ['日', '一', '二', '三', '四', '五', '六'][now.day()];
+    state.day = now.get('date');
     state.hour = h;
     state.minute = m;
     state.second = s;
 
-    state.meridiem = localData.meridiem(Number(h), Number(m), true);
+    state.meridiem = now.format('A');
   };
 
   function start() {

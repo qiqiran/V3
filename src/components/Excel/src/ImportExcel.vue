@@ -8,7 +8,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, unref } from 'vue';
-  import XLSX from 'xlsx';
+  import * as XLSX from 'xlsx';
 
   import type { ExcelData } from './types';
   export default defineComponent({

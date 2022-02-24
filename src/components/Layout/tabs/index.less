@@ -17,12 +17,16 @@
   }
 
   .ant-tabs.ant-tabs-card {
-    .ant-tabs-card-bar {
+    .ant-tabs-nav {
+      padding-top: 2px;
       height: @multiple-height;
       margin: 0;
       background: @white;
-      border: 0;
       box-shadow: none;
+
+      &::before {
+        border: none;
+      }
 
       .ant-tabs-nav-container {
         height: @multiple-height;
@@ -35,22 +39,19 @@
         line-height: calc(@multiple-height - 2px);
         color: @black;
         background: @white;
-        border: 0;
-        transition: .3s;
+        transition: 0.3s;
+        border: none;
 
         &:hover {
-          .ant-tabs-close-x {
+          .ant-tabs-tab-remove {
             opacity: 1;
           }
         }
 
-        .ant-tabs-close-x {
-          width: 8px;
-          height: 12px;
+        .ant-tabs-tab-remove {
           font-size: 12px;
           color: inherit;
           opacity: 0;
-          transition: none;
 
           &:hover {
             svg {
@@ -59,7 +60,7 @@
           }
         }
 
-        >div {
+        > div {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -73,12 +74,14 @@
       .ant-tabs-tab-active {
         position: relative;
         padding-left: 10px;
-        color: @white;
         background: fade(@primary-color, 100%);
-        border: 0;
-        transition: none;
+        border: none;
 
-        .ant-tabs-close-x {
+        .ant-tabs-tab-btn {
+          color: @white;
+        }
+
+        .ant-tabs-tab-remove {
           opacity: 1;
         }
 
@@ -87,28 +90,29 @@
           fill: @white;
         }
       }
+
+      .ant-tabs-tab:not(.ant-tabs-tab-active) {
+        &:hover {
+          // padding: 0 20px;
+          color: @primary-color;
+          background-color: #f2f2f2 !important;
+        }
+
+        .anticon-close {
+          font-size: 12px;
+
+          svg {
+            width: 0.6em;
+          }
+        }
+      }
     }
 
-    .ant-tabs-nav>div:nth-child(1) {
+    .ant-tabs-nav > div:nth-child(1) {
       padding: 0 6px;
 
       .ant-tabs-tab {
         margin-right: 3px;
-      }
-    }
-  }
-
-  .ant-tabs-tab:not(.ant-tabs-tab-active) {
-    &:hover {
-      padding: 0 20px;
-      background-color: #f2f2f2 !important;
-    }
-
-    .anticon-close {
-      font-size: 12px;
-
-      svg {
-        width: 0.6em;
       }
     }
   }
@@ -118,7 +122,6 @@
   // extra-content start
   .ant-tabs-extra-content {
     height: 100%;
-    margin-top: 2px;
     line-height: @multiple-height;
 
     height: 100%;

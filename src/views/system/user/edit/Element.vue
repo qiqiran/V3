@@ -44,7 +44,6 @@
 
 <script lang="ts">
   import type { Ref } from 'vue';
-  import type { SelectTypes } from 'ant-design-vue/es/select';
 
   import { defineComponent, ref, reactive, toRaw, unref } from 'vue';
 
@@ -106,7 +105,7 @@
     children?: TreeDataItem[];
   }
 
-  const roleOptions: Ref<SelectTypes[]> = ref([
+  const roleOptions = ref([
     { label: '超级管理员', value: 'supadmin' },
     { label: '系统管理员', value: 'sysadmin' },
     { label: '日志管理员', value: 'logadmin' },
@@ -165,7 +164,7 @@
     },
   ]);
 
-  const sexOptions: Ref<SelectTypes[]> = ref([
+  const sexOptions = ref([
     { label: '保密', value: '' },
     { label: '男', value: 'man' },
     { label: '女', value: 'woman' },
@@ -196,7 +195,7 @@
             .then(() => {
               const userData = toRaw(formState);
 
-              Object.assign(userData, { id: new Date().getTime(), roles: userData.roles.join(), createTime: formatToDateTime(dateUtil.now()) });
+              Object.assign(userData, { id: new Date().getTime(), roles: userData.roles.join(), createTime: formatToDateTime(dateUtil()) });
               addUserApi(userData).then(() => {
                 success('保存成功');
                 resolve(true);

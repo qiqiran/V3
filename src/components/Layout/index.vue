@@ -64,6 +64,7 @@
 
   .@{prefix-cls} {
     .ant-layout-content {
+      flex: 1;
       overflow: auto;
     }
   }
